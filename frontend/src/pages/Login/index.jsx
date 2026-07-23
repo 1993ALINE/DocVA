@@ -134,8 +134,8 @@ function IconAlert() {
   )
 }
 
-const HERO_PRODUCT = 'Clinical documentation platform'
-const HERO_HEADLINE = 'Documentation that keeps pace with care.'
+const HERO_PRODUCT = 'AI-powered clinical documentation'
+const HERO_HEADLINE = 'Clinical notes in minutes, not hours.'
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() =>
@@ -357,26 +357,26 @@ export default function Login() {
 
               <AnimatedHeadline text={HERO_HEADLINE} reduced={reducedMotion} />
               <p className="login-page__lede">
-                A secure workspace for physicians, scribes, quality teams, and staff — intelligent notes, visit audio, and
-                role-aware dashboards in one place.
+                Record the visit, and let AI draft the note. Physicians, scribes, and quality teams work from one
+                secure workspace — with real-time transcription and role-aware dashboards built in.
               </p>
 
               <div className="login-page__chips">
                 <span className="login-page__chip">
                   <IconShield />
-                  HIPAA-minded access
+                  HIPAA-grade security
                 </span>
                 <span className="login-page__chip">
                   <IconPulse />
-                  Real-time workflows
+                  Real-time transcription
                 </span>
                 <span className="login-page__chip">
                   <IconUsers />
-                  Built for care teams
+                  AI-powered notes
                 </span>
               </div>
 
-              <p className="login-page__hero-foot">© {new Date().getFullYear()} {branding.system_name || 'docva'} · Clinical documentation</p>
+              <p className="login-page__hero-foot">© {new Date().getFullYear()} {branding.system_name || 'docva'} · Secure clinical documentation</p>
             </div>
           </header>
 
@@ -392,9 +392,9 @@ export default function Login() {
                     height={134}
                     decoding="async"
                   />
-                  <h2 className="login-page__card-title">Welcome to {branding.system_name || 'docva'}</h2>
+                  <h2 className="login-page__card-title">Welcome back to {branding.system_name || 'docva'}</h2>
                   <p className="login-page__card-sub">
-                    Sign in with your work email. We&apos;ll route you to the right dashboard automatically — no role to pick here.
+                    Enter your work email and password — we&apos;ll take you straight to your dashboard, no role to pick.
                   </p>
                 </div>
 
