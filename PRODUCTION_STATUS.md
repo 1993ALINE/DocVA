@@ -1,4 +1,4 @@
-# PRODUCTION LOAD TEST - QUICK STATUS
+﻿# PRODUCTION LOAD TEST - QUICK STATUS
 
 **Date:** July 11, 2026, 4:16 AM UTC+6  
 **Status:** ✅ **UPLOADS COMPLETE - TRANSCRIPTION QUEUED**
@@ -8,9 +8,9 @@
 ## ✅ COMPLETED
 
 ### Phase 1: Test Configuration
-- ✅ Updated to use celina@anot.health
+- ✅ Updated to use celina@docva.health
 - ✅ Password: Password@2026
-- ✅ Target: https://app.anot.health (PRODUCTION)
+- ✅ Target: https://app.docva.health (PRODUCTION)
 
 ### Phase 2: Production Data Creation
 - ✅ 20 patients created (IDs: 330-349)
@@ -58,7 +58,7 @@
 
 ### 1. Monitor Transcription (15-40 minutes)
 ```bash
-cd C:\Users\Administrator\Desktop\anot-health\anot-backend-main
+cd C:\Users\Administrator\Desktop\docva\docva-backend-main
 node scripts/check-transcription-status.js
 ```
 
@@ -66,12 +66,12 @@ node scripts/check-transcription-status.js
 - `recording-uploaded` → `transcribing` → `transcribed` → `notes_generated`
 
 ### 2. Verify in Admin Portal
-URL: https://app.anot.health/admin  
+URL: https://app.docva.health/admin  
 Login: atiqurrahmanaline@gmail.com / #1Knowtex2026
 
 **Check:**
 - Patients section: Look for "Load Test Patient 1-20"
-- Visits section: Look for visits by celina@anot.health
+- Visits section: Look for visits by celina@docva.health
 - Verify transcription progress
 
 ### 3. Calculate Final Costs
@@ -134,3 +134,4 @@ The load test successfully validated:
 
 See comprehensive report:  
 `PRODUCTION_LOAD_TEST_COMPLETE_20260711.md`
+

@@ -1,4 +1,4 @@
-# ?? Anot Health - Production Release v1.0.0-prod-ready
+﻿# ?? docva Health - Production Release v1.0.0-prod-ready
 
 **Release Date:** June 24, 2026  
 **Status:** ? PRODUCTION READY  
@@ -50,9 +50,9 @@
 
 ## Deployment Info
 
-- **Frontend:** https://app.anot.health
+- **Frontend:** https://app.docva.health
 - **Backend:** Elastic Beanstalk (eba-m2bjp2gp.ap-southeast-1)
-- **Database:** RDS PostgreSQL 18.3 (anot-postgres)
+- **Database:** RDS PostgreSQL 18.3 (docva-postgres)
 - **Version:** 1.42.0
 
 ## Reports
@@ -68,3 +68,4 @@ All audit reports available in dist/:
 ---
 
 For deployment, security, privacy, and architecture details, see docs/ directory.
+

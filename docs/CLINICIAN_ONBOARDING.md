@@ -1,11 +1,11 @@
-# Clinician Onboarding Guide
+﻿# Clinician Onboarding Guide
 
-**Anot Health** · Version 1.1 · June 16, 2026
+**docva Health** · Version 1.1 · June 16, 2026
 
-Welcome to Anot Health. This guide gets you from your first login to recording visits, reviewing the
+Welcome to docva Health. This guide gets you from your first login to recording visits, reviewing the
 AI-assisted note, and signing it off — with a few important privacy reminders along the way.
 
-**How it works:** you **record** the encounter; Anot transcribes the audio and an AI drafts a
+**How it works:** you **record** the encounter; docva transcribes the audio and an AI drafts a
 structured note; your **scribe team** refines that draft; and **you review, edit, and lock** the
 final note. **You remain in control** — nothing is final until you lock it.
 
@@ -16,8 +16,8 @@ final note. **You remain in control** — nothing is final until you lock it.
 
 ## 1. First Login (Important!)
 
-1. Go to **https://app.anot.health**.
-2. Enter your **email** (e.g. `name@anot.health`).
+1. Go to **https://app.docva.health**.
+2. Enter your **email** (e.g. `name@docva.health`).
 3. Enter the **temporary password** your administrator gave you.
 4. **Change Password modal** appears.
    - Enter a new password: **12+ characters**, with an **uppercase** letter, a **lowercase** letter,
@@ -27,7 +27,7 @@ final note. **You remain in control** — nothing is final until you lock it.
 5. **PHI Training modal** appears.
    - Read the HIPAA/PHI awareness training carefully. It covers:
      - What **PHI** (Protected Health Information) is
-     - How Anot handles PHI securely
+     - How docva handles PHI securely
      - **Your responsibilities** as a clinician
      - The **90-day audio retention** policy
    - **Acknowledge** it and proceed. (This is a HIPAA requirement and is recorded.)
@@ -35,7 +35,7 @@ final note. **You remain in control** — nothing is final until you lock it.
 
 > Keep your password private and never share your account. Your session lasts **8 hours** before you
 > need to sign in again. If you ever suspect someone else accessed your account, tell your
-> administrator and email **support@anot.health** right away.
+> administrator and email **support@docva.health** right away.
 
 ---
 
@@ -71,7 +71,7 @@ final note. **You remain in control** — nothing is final until you lock it.
 
 ## 4. Claude AI Note Generation
 
-- Once a transcript exists, Anot sends it to **Anthropic's Claude** (also under a signed BAA, with
+- Once a transcript exists, docva sends it to **Anthropic's Claude** (also under a signed BAA, with
   zero data retention) to generate a **draft clinical note**.
 - The draft uses a consistent structure:
   - **Chief Complaint**
@@ -117,11 +117,11 @@ This is your sign-off. Treat locking as final approval of the clinical content.
 
 ## 7. Uploading to EHR (Manual Process)
 
-> **Important:** Anot does **not** automatically transmit notes into your external EHR. The
-> **"Upload to EHR"** action in Anot only **marks a finalized note as uploaded** (recording when and
+> **Important:** docva does **not** automatically transmit notes into your external EHR. The
+> **"Upload to EHR"** action in docva only **marks a finalized note as uploaded** (recording when and
 > by whom) for your team's tracking.
 
-In the standard workflow, your **scribe team** marks the note **Uploaded to EHR** in Anot after it's
+In the standard workflow, your **scribe team** marks the note **Uploaded to EHR** in docva after it's
 finalized. The actual transfer into your EHR is a **manual** step done by whoever owns that in your
 clinic:
 
@@ -129,7 +129,7 @@ clinic:
 2. **Manually copy** the note text into your EHR (or follow your clinic's established process /
    export it per your clinic's policy).
 3. Log into your EHR, find the patient record, create the note entry, paste the content, and submit.
-4. Back in Anot, the note is marked **Uploaded to EHR** so the team knows it's been transferred.
+4. Back in docva, the note is marked **Uploaded to EHR** so the team knows it's been transferred.
 
 > If your organization later enables a direct EHR integration, this guide will be updated.
 
@@ -143,7 +143,7 @@ clinic:
   retained securely (encrypted) as part of the clinical record.
 - Don't copy PHI to personal devices, personal email, or messaging apps. Lock your screen when you
   step away, and log out on shared devices.
-- You can request deletion of your data — contact **privacy@anot.health**.
+- You can request deletion of your data — contact **privacy@docva.health**.
 - If you suspect a privacy or security problem (lost device, shared password, suspicious login, data
   sent to the wrong place), **report it immediately** — don't try to fix it quietly. See the PHI
   training (`PHI_TRAINING_ACKNOWLEDGMENT.md`) for details.
@@ -153,10 +153,10 @@ clinic:
 ## 9. Getting Help
 
 - **System issues / general support:** use the in-app support/contact option, or email
-  **support@anot.health**.
-- **HIPAA / privacy questions:** **privacy@anot.health**
-- **Urgent / security:** **admin@anot.health**
-- **Feedback / feature requests:** **feedback@anot.health**
+  **support@docva.health**.
+- **HIPAA / privacy questions:** **privacy@docva.health**
+- **Urgent / security:** **admin@docva.health**
+- **Feedback / feature requests:** **feedback@docva.health**
 
 ---
 
@@ -179,3 +179,4 @@ The current build keeps shortcuts minimal:
 > Dedicated record/approve/edit shortcuts (e.g. R/A/E) and a global help shortcut are **not available
 > yet**. Use the on-screen buttons described above. This section will be updated if shortcuts are
 > added.
+

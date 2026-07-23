@@ -1,5 +1,5 @@
-═══════════════════════════════════════════════════════════
-ANOT HEALTH - COMPREHENSIVE PLATFORM AUDIT REPORT
+﻿═══════════════════════════════════════════════════════════
+docva HEALTH - COMPREHENSIVE PLATFORM AUDIT REPORT
 ═══════════════════════════════════════════════════════════
 
 **Audit Date:** Friday, July 10, 2026
@@ -25,7 +25,7 @@ EXECUTIVE SUMMARY
 SECTION 1: CODE QUALITY
 ═══════════════════════════════════════════════════════════
 
-## Backend (anot-backend-main)
+## Backend (docva-backend-main)
 
 ### Linting: ⚠️ WARNINGS (19 warnings, 0 errors)
 - **Status:** PASS (No blocking errors)
@@ -60,7 +60,7 @@ uuid <11.1.1
 
 ---
 
-## Frontend (anot-frontend-main)
+## Frontend (docva-frontend-main)
 
 ### Linting: ✅ PASS (0 errors, 0 warnings)
 - **Status:** CLEAN
@@ -92,14 +92,14 @@ esbuild 0.27.3 - 0.28.0
 SECTION 2: DATABASE HEALTH
 ═══════════════════════════════════════════════════════════
 
-**RDS Instance:** anot-postgres
+**RDS Instance:** docva-postgres
 **Status:** ✅ AVAILABLE
 
 ### Configuration:
 - **Instance Class:** db.t3.micro
 - **Engine:** PostgreSQL 18.3
-- **Endpoint:** anot-postgres.c5casia24do8.ap-southeast-1.rds.amazonaws.com:5432
-- **Database Name:** anot
+- **Endpoint:** docva-postgres.c5casia24do8.ap-southeast-1.rds.amazonaws.com:5432
+- **Database Name:** docva
 
 ### High Availability:
 - **Multi-AZ:** ✅ Enabled (Primary: ap-southeast-1b, Secondary: ap-southeast-1c)
@@ -144,16 +144,16 @@ SECTION 3: INFRASTRUCTURE HEALTH
 ═══════════════════════════════════════════════════════════
 
 ## AWS Elastic Beanstalk
-**Environment:** anot-backend-prod
+**Environment:** docva-backend-prod
 **Status:** 🔴 CRITICAL - DEGRADED/RED
 
 ### Environment Details:
-- **Application:** anot-backend
+- **Application:** docva-backend
 - **Platform:** Node.js 22 on Amazon Linux 2023 (6.11.1)
 - **Status:** Ready (but health is Red)
 - **Health:** 🔴 Red
 - **Health Status:** Degraded
-- **CNAME:** anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com
+- **CNAME:** docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com
 
 ### Critical Issues:
 ```
@@ -214,14 +214,14 @@ Instance 2: i-0085d5d19bace35ae
 ---
 
 ## AWS S3
-**Bucket:** anot-frontend-625242092266
+**Bucket:** docva-frontend-625242092266
 **Region:** ap-southeast-1
 **Status:** ✅ HEALTHY
 
 ### Bucket Configuration:
 - **Accessibility:** ✅ Accessible
 - **Region:** ap-southeast-1
-- **ARN:** arn:aws:s3:::anot-frontend-625242092266
+- **ARN:** arn:aws:s3:::docva-frontend-625242092266
 
 ### Contents:
 ```
@@ -257,7 +257,7 @@ Frontend files present and recently updated (July 5, 2026).
 ### Distribution Details:
 - **Status:** Deployed
 - **Domain:** d3t0m4s0ayca85.cloudfront.net
-- **Custom Domain:** app.anot.health ✅
+- **Custom Domain:** app.docva.health ✅
 - **Last Modified:** 2026-06-26T04:02:59Z
 - **Invalidation Batches:** 0 in progress
 
@@ -271,12 +271,12 @@ Frontend files present and recently updated (July 5, 2026).
 ### Origins:
 ```
 1. S3 Frontend (s3-frontend)
-   - Domain: anot-frontend-625242092266.s3.ap-southeast-1.amazonaws.com
+   - Domain: docva-frontend-625242092266.s3.ap-southeast-1.amazonaws.com
    - Purpose: Serve static frontend files
    - Default behavior: Cache enabled (3600s TTL)
 
 2. Elastic Beanstalk Backend (eb-backend)
-   - Domain: anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com
+   - Domain: docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com
    - Purpose: Serve API requests
    - Path Pattern: /api/*
    - Protocol: HTTP only (internal to AWS)
@@ -297,7 +297,7 @@ Frontend files present and recently updated (July 5, 2026).
 - Content-Type
 
 ### Security:
-- **WAF:** ✅ Enabled (arn:aws:wafv2:us-east-1:625242092266:global/webacl/anot-cloudfront-waf/...)
+- **WAF:** ✅ Enabled (arn:aws:wafv2:us-east-1:625242092266:global/webacl/docva-cloudfront-waf/...)
 - **IPv6:** ✅ Enabled
 - **Compression:** ✅ Enabled for static assets
 - **Geo Restriction:** None
@@ -315,7 +315,7 @@ SECTION 4: API ENDPOINTS
 
 ## Health Check Endpoint
 ```
-GET https://app.anot.health/api/health
+GET https://app.docva.health/api/health
 Status: ✅ PASS (200 OK)
 Response:
 {
@@ -330,11 +330,11 @@ Response:
 
 ## Authentication Endpoints
 ```
-POST https://app.anot.health/api/auth/login
+POST https://app.docva.health/api/auth/login
 Test Users:
   1. atiqurrahmanaline@gmail.com / #1Knowtex2026
-  2. shahib@anot.health / #1Knowtex2026
-  3. farhan@anot.health / #1Knowtex2026
+  2. shahib@docva.health / #1Knowtex2026
+  3. farhan@docva.health / #1Knowtex2026
 
 Result: ⚠️ CSRF PROTECTION ACTIVE (Expected)
 Response: {"error": "Invalid or missing CSRF token."}
@@ -368,11 +368,11 @@ SECTION 6: LOGS & MONITORING
 ## CloudWatch Logs
 
 ### Available Log Groups:
-1. `/aws/elasticbeanstalk/anot-backend-prod/var/log/eb-engine.log` (2.4 MB)
-2. `/aws/elasticbeanstalk/anot-backend-prod/var/log/eb-hooks.log` (153 KB)
-3. `/aws/elasticbeanstalk/anot-backend-prod/var/log/nginx/access.log` (32 MB)
-4. `/aws/elasticbeanstalk/anot-backend-prod/var/log/nginx/error.log` (689 KB)
-5. `/aws/elasticbeanstalk/anot-backend-prod/var/log/web.stdout.log` (42 MB)
+1. `/aws/elasticbeanstalk/docva-backend-prod/var/log/eb-engine.log` (2.4 MB)
+2. `/aws/elasticbeanstalk/docva-backend-prod/var/log/eb-hooks.log` (153 KB)
+3. `/aws/elasticbeanstalk/docva-backend-prod/var/log/nginx/access.log` (32 MB)
+4. `/aws/elasticbeanstalk/docva-backend-prod/var/log/nginx/error.log` (689 KB)
+5. `/aws/elasticbeanstalk/docva-backend-prod/var/log/web.stdout.log` (42 MB)
 
 ### Log Retention: ✅ 90 days (all log groups)
 
@@ -530,7 +530,7 @@ SECTION 8: SECURITY
 ## Web Application Firewall
 
 ### AWS WAF: ✅ ENABLED
-- **ARN:** arn:aws:wafv2:us-east-1:625242092266:global/webacl/anot-cloudfront-waf/...
+- **ARN:** arn:aws:wafv2:us-east-1:625242092266:global/webacl/docva-cloudfront-waf/...
 - **Scope:** CloudFront distribution ✅
 - **Protection:** DDoS, SQL injection, XSS, etc. ✅
 
@@ -626,7 +626,7 @@ Uncommitted changes: None
 
 ### Backend: ✅ CLEAN
 ```
-anot-backend-main/
+docva-backend-main/
 ├── .ebextensions/        (EB configuration)
 ├── .platform/            (Platform hooks)
 ├── src/                  (Source code)
@@ -640,8 +640,8 @@ anot-backend-main/
 
 ### Frontend: ✅ CLEAN
 ```
-anot-frontend-main/
-└── anot-frontend-main/   (Nested structure - could be flattened)
+docva-frontend-main/
+└── docva-frontend-main/   (Nested structure - could be flattened)
     ├── src/              (Source code)
     ├── public/           (Static assets)
     ├── node_modules/     (Dependencies - not in git)
@@ -649,7 +649,7 @@ anot-frontend-main/
     └── .gitignore
 ```
 
-**Note:** Frontend has nested `anot-frontend-main/anot-frontend-main/` structure. Consider flattening.
+**Note:** Frontend has nested `docva-frontend-main/docva-frontend-main/` structure. Consider flattening.
 
 ---
 
@@ -780,10 +780,10 @@ esbuild 0.27.3 - 0.28.0
 **Status:** ⚠️ RECOMMENDED REFACTOR
 
 **Description:**
-Frontend has nested `anot-frontend-main/anot-frontend-main/` structure which adds unnecessary nesting.
+Frontend has nested `docva-frontend-main/docva-frontend-main/` structure which adds unnecessary nesting.
 
 **Recommended Action:**
-1. Flatten structure to single `anot-frontend-main/` folder
+1. Flatten structure to single `docva-frontend-main/` folder
 2. Update deployment scripts and references
 3. Test build and deployment after flattening
 
@@ -933,3 +933,4 @@ END OF REPORT
 **Tools Used:** npm audit, eslint, jest, vitest, AWS CLI, git
 
 **Next Audit Recommended:** After deployment fix, before Saturday launch
+

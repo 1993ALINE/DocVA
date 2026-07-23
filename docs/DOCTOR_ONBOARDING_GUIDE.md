@@ -1,14 +1,14 @@
-﻿# ANOT HEALTH - QUICK START GUIDE FOR DOCTORS
+﻿# docva HEALTH - QUICK START GUIDE FOR DOCTORS
 
 ## Welcome! 👋
 
-ANOT Health is your AI-powered medical scribe. Record patient visits, and AI generates notes automatically.
+docva Health is your AI-powered medical scribe. Record patient visits, and AI generates notes automatically.
 
 ---
 
 ## LOGIN
 
-1. Go to: https://app.anot.health
+1. Go to: https://app.docva.health
 2. Enter your email and password
 3. Click "Sign In"
 4. You'll see the dashboard
@@ -63,7 +63,7 @@ No internet? No problem!
 
 ### "I can't login"
 → Check your email/password
-→ Reset password: https://app.anot.health/forgot-password
+→ Reset password: https://app.docva.health/forgot-password
 
 ### "Recording not working"
 → Check microphone permissions (allow access)
@@ -86,9 +86,9 @@ No internet? No problem!
 
 **Having issues?**
 
-📧 Email: support@anot.health
+📧 Email: support@docva.health
 📞 Phone: Contact your administrator
-💬 Slack: #anot-health-support
+💬 Slack: #docva-support
 
 **Response time:** Within 1 hour (during business hours)
 
@@ -122,4 +122,5 @@ We're here to help you succeed. 💪
 
 ---
 
-*Version 1.0 | ANOT Health v1.0*
+*Version 1.0 | docva Health v1.0*
+

@@ -1,10 +1,10 @@
-# Terms of Service
+﻿# Terms of Service
 
-**Anot Health**
+**docva Health**
 **Effective Date:** June 16, 2026
 **Version:** 1.0
 
-These Terms of Service ("Terms") govern access to and use of the Anot Health platform (the
+These Terms of Service ("Terms") govern access to and use of the docva Health platform (the
 "Service"). By accessing or using the Service, you ("you," "User," or, where applicable, "Customer")
 agree to these Terms. If you are using the Service on behalf of an organization, you represent that
 you are authorized to accept these Terms for that organization.
@@ -17,7 +17,7 @@ the BAA with respect to PHI, the BAA controls.
 
 ## 1. The Service
 
-Anot Health provides clinical documentation tooling that records patient encounter audio,
+docva Health provides clinical documentation tooling that records patient encounter audio,
 transcribes it, generates draft clinical notes using AI, and supports review, finalization, and
 (where enabled) marking notes for upload to an external system. The Service is a documentation aid.
 It does **not** provide medical advice and is **not** a substitute for the professional judgment of a
@@ -34,7 +34,7 @@ licensed clinician.
 - You must use a password that meets the platform's policy (minimum 12 characters, including upper-
   and lower-case letters, a number, and a special character) and complete required PHI awareness
   training before accessing PHI.
-- Notify your administrator and **support@anot.health** immediately if you suspect any unauthorized
+- Notify your administrator and **support@docva.health** immediately if you suspect any unauthorized
   access or security incident.
 
 ---
@@ -101,10 +101,10 @@ person before clinical use.**
 
 TO THE MAXIMUM EXTENT PERMITTED BY LAW:
 
-- IN NO EVENT WILL ANOT HEALTH BE LIABLE FOR ANY **INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+- IN NO EVENT WILL docva HEALTH BE LIABLE FOR ANY **INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
   PUNITIVE DAMAGES**, OR FOR LOST PROFITS, REVENUE, DATA, OR GOODWILL, ARISING OUT OF OR RELATED TO
   THE SERVICE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-- ANOT HEALTH'S **TOTAL AGGREGATE LIABILITY** ARISING OUT OF OR RELATED TO THE SERVICE WILL NOT
+- docva HEALTH'S **TOTAL AGGREGATE LIABILITY** ARISING OUT OF OR RELATED TO THE SERVICE WILL NOT
   EXCEED THE AMOUNTS PAID BY THE CUSTOMER FOR THE SERVICE IN THE **TWELVE (12) MONTHS** PRECEDING THE
   EVENT GIVING RISE TO THE CLAIM.
 
@@ -116,9 +116,9 @@ either party's obligations under the BAA.
 
 ## 9. Indemnification
 
-You agree to indemnify and hold harmless Anot Health from claims, damages, and reasonable expenses
+You agree to indemnify and hold harmless docva Health from claims, damages, and reasonable expenses
 arising from your misuse of the Service, your violation of these Terms, or your violation of
-applicable law or third-party rights, except to the extent caused by Anot Health.
+applicable law or third-party rights, except to the extent caused by docva Health.
 
 ---
 
@@ -149,13 +149,14 @@ jurisdiction.
 ## 12. Entire Agreement
 
 These Terms, together with the Privacy Policy and any applicable BAA or order form, constitute the
-entire agreement between you and Anot Health regarding the Service and supersede prior agreements on
+entire agreement between you and docva Health regarding the Service and supersede prior agreements on
 that subject. If any provision is held unenforceable, the remaining provisions remain in effect.
 
 ---
 
 ## 13. Contact
 
-- **Support:** support@anot.health
-- **Administrator / Security Officer:** admin@anot.health
-- **Privacy / Compliance:** privacy@anot.health
+- **Support:** support@docva.health
+- **Administrator / Security Officer:** admin@docva.health
+- **Privacy / Compliance:** privacy@docva.health
+

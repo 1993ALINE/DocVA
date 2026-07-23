@@ -1,8 +1,8 @@
-# Third-Party BAA Status
+﻿# Third-Party BAA Status
 
 Last updated: 2026-06-25
 
-This document tracks Business Associate Agreement (BAA) coverage for third-party services that may process Protected Health Information (PHI) on behalf of Anot Health.
+This document tracks Business Associate Agreement (BAA) coverage for third-party services that may process Protected Health Information (PHI) on behalf of docva Health.
 
 ## Summary
 
@@ -75,3 +75,4 @@ This document tracks Business Associate Agreement (BAA) coverage for third-party
 - [ ] AWS BAA active on production account
 - [ ] Annual vendor review scheduled
 - [ ] Subprocessor list updated in privacy policy
+

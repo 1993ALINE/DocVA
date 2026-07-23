@@ -1,7 +1,7 @@
-## HIPAA Compliance Certification — Anot Health
+﻿## HIPAA Compliance Certification — docva Health
 
 **Certification Date:** June 16, 2026
-**Platform:** Anot Health v36
+**Platform:** docva Health v36
 **Status:** ✅ HIPAA-COMPLIANT AND PRODUCTION-READY
 
 ### Infrastructure Verification
@@ -106,7 +106,7 @@
 
 ### Sign-Off
 
-I certify that Anot Health v36 implements HIPAA-required technical, administrative, and physical
+I certify that docva Health v36 implements HIPAA-required technical, administrative, and physical
 safeguards for Protected Health Information (PHI).
 
 The platform is ready for use with real doctors and patient data.
@@ -128,3 +128,4 @@ The platform is ready for use with real doctors and patient data.
 - [x] Implement per-patient data deletion endpoint
 - [ ] Set environment-specific SENTRY_DSN
 - [x] Add outbound rate limiting/concurrency caps for Deepgram and Anthropic
+

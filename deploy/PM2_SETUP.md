@@ -1,11 +1,11 @@
-# PM2 Setup — Anot Health Backend
+﻿# PM2 Setup — docva Health Backend
 
 [PM2](https://pm2.keymetrics.io/) is a production process manager for Node.js. It
 keeps the backend running, restarts it on crashes, manages logs, and can relaunch
 the app automatically after a server reboot.
 
 The PM2 configuration lives in
-[`anot-backend-main/anot-backend-main/ecosystem.config.js`](../anot-backend-main/anot-backend-main/ecosystem.config.js).
+[`docva-backend-main/docva-backend-main/ecosystem.config.js`](../docva-backend-main/docva-backend-main/ecosystem.config.js).
 
 ---
 
@@ -28,7 +28,7 @@ pm2 --version
 Run all commands from the backend folder:
 
 ```bash
-cd anot-backend-main/anot-backend-main
+cd docva-backend-main/docva-backend-main
 ```
 
 Make sure dependencies are installed and your environment variables are set
@@ -71,7 +71,7 @@ pm2 monit
 Detailed info for the app:
 
 ```bash
-pm2 show anot-backend
+pm2 show docva-backend
 ```
 
 ---
@@ -79,12 +79,12 @@ pm2 show anot-backend
 ## 4. View logs
 
 PM2 streams stdout/stderr and also writes to log files configured in
-`ecosystem.config.js` (`logs/anot-backend-out.log` and
-`logs/anot-backend-error.log`).
+`ecosystem.config.js` (`logs/docva-backend-out.log` and
+`logs/docva-backend-error.log`).
 
 ```bash
 pm2 logs                 # all apps, live tail
-pm2 logs anot-backend    # just the backend
+pm2 logs docva-backend    # just the backend
 pm2 logs --lines 200     # last 200 lines
 pm2 flush                # clear all log files
 ```
@@ -94,10 +94,10 @@ pm2 flush                # clear all log files
 ## 5. Common lifecycle commands
 
 ```bash
-pm2 restart anot-backend   # restart (e.g. after a deploy)
-pm2 reload anot-backend    # zero-downtime reload
-pm2 stop anot-backend      # stop the process
-pm2 delete anot-backend    # remove it from PM2's process list
+pm2 restart docva-backend   # restart (e.g. after a deploy)
+pm2 reload docva-backend    # zero-downtime reload
+pm2 stop docva-backend      # stop the process
+pm2 delete docva-backend    # remove it from PM2's process list
 ```
 
 After pulling new code:
@@ -105,7 +105,7 @@ After pulling new code:
 ```bash
 git pull
 npm install
-pm2 restart anot-backend
+pm2 restart docva-backend
 ```
 
 ---
@@ -154,10 +154,11 @@ pm2 save --force
 ## Typical first-time deployment (all together)
 
 ```bash
-cd anot-backend-main/anot-backend-main
+cd docva-backend-main/docva-backend-main
 npm install
 pm2 start ecosystem.config.js --env production
 pm2 save
 pm2 startup        # then run the command it prints
 pm2 monit          # confirm it's healthy
 ```
+

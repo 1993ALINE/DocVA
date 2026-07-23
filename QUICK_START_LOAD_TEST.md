@@ -1,11 +1,11 @@
-# QUICK START: Load Test Execution
+﻿# QUICK START: Load Test Execution
 
 ## Three Ways to Run the Load Test
 
 ### Option 1: Automated Browser Test (Recommended)
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 ```
 
@@ -22,7 +22,7 @@ This will:
 ### Option 2: API-Based Test (Faster)
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load:api
 ```
 
@@ -56,7 +56,7 @@ Before running any test:
 
 1. **Backend server running:**
    ```bash
-   cd anot-backend-main
+   cd docva-backend-main
    npm start
    ```
 
@@ -178,3 +178,4 @@ cat LOAD_TEST_REPORT_*.md
 - API testing: Use Postman collection
 
 **Ready to test!**
+

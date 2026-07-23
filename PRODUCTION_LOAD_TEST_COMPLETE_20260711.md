@@ -1,7 +1,7 @@
-# PRODUCTION LOAD TEST REPORT
+﻿# PRODUCTION LOAD TEST REPORT
 **Date:** July 11, 2026, 4:16 AM UTC+6  
-**Environment:** PRODUCTION (https://app.anot.health)  
-**Clinician:** celina@anot.health  
+**Environment:** PRODUCTION (https://app.docva.health)  
+**Clinician:** celina@docva.health  
 **Test Duration:** ~3 minutes (with retry logic)  
 **Status:** ✅ **SUCCESSFUL**
 
@@ -33,8 +33,8 @@ The production load test successfully created **20 real patients**, **20 real vi
 **Status:** SUCCESS
 
 - Updated test configuration to use existing clinician
-- Credentials: `celina@anot.health` / `Password@2026`
-- Base URL: `https://app.anot.health` (PRODUCTION)
+- Credentials: `celina@docva.health` / `Password@2026`
+- Base URL: `https://app.docva.health` (PRODUCTION)
 - Configuration validated
 
 ### Phase 2: Authentication ✅
@@ -114,7 +114,7 @@ The production load test successfully created **20 real patients**, **20 real vi
 ### Patients in Production
 - **Total:** 20 patients
 - **IDs:** 330-349
-- **Clinician:** celina@anot.health
+- **Clinician:** celina@docva.health
 - **Status:** Active in production database
 
 ### Visits in Production
@@ -251,7 +251,7 @@ Based on 20 visits with 20-minute audio files:
 - [x] 20 visits scheduled in production
 - [x] 20 consent records in production
 - [x] 20 audio files uploaded (732 MB)
-- [x] All data attributed to celina@anot.health
+- [x] All data attributed to celina@docva.health
 - [x] Zero data corruption or loss
 
 ### System Stability ✅
@@ -349,7 +349,7 @@ The production system has been thoroughly tested and validated. All critical wor
 
 ### Production Admin Access
 
-- URL: `https://app.anot.health/admin`
+- URL: `https://app.docva.health/admin`
 - Admin: `atiqurrahmanaline@gmail.com`
 - Password: `#1Knowtex2026`
 
@@ -357,7 +357,7 @@ The production system has been thoroughly tested and validated. All critical wor
 
 ```bash
 # Check transcription status
-cd anot-backend-main
+cd docva-backend-main
 node scripts/check-transcription-status.js
 
 # Re-run full load test (creates new patients/visits)
@@ -372,3 +372,4 @@ node scripts/complete-remaining-uploads.js
 **Report Generated:** July 11, 2026, 4:16 AM UTC+6  
 **Author:** Production Load Test Agent  
 **Status:** ✅ PRODUCTION SYSTEM VALIDATED - READY FOR LAUNCH
+

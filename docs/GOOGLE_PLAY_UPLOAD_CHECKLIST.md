@@ -1,7 +1,7 @@
-# Google Play Internal Testing Upload Checklist
+﻿# Google Play Internal Testing Upload Checklist
 
 ## Before You Start
-- [ ] AAB file ready: `C:\Users\Administrator\Desktop\anot-scribe\build\app\outputs\bundle\release\app-release.aab`
+- [ ] AAB file ready: `C:\Users\Administrator\Desktop\docva-scribe\build\app\outputs\bundle\release\app-release.aab`
 - [ ] File size: 68.6 MB ✅
 - [ ] Version: v1.2.2+5 ✅
 - [ ] Google Play Developer account login ready
@@ -14,7 +14,7 @@
 - [ ] Verify you're logged in
 
 ### 2. Select App
-- [ ] Find app: 'Anot Scribe'
+- [ ] Find app: 'docva Scribe'
 - [ ] Package name: com.mashikurrahman.anot_scribe
 - [ ] Click to open app
 
@@ -29,7 +29,7 @@
 
 ### 5. Upload AAB File
 - [ ] Click: 'Upload' or 'Choose files'
-- [ ] Navigate to: `C:\Users\Administrator\Desktop\anot-scribe\build\app\outputs\bundle\release\`
+- [ ] Navigate to: `C:\Users\Administrator\Desktop\docva-scribe\build\app\outputs\bundle\release\`
 - [ ] Select: `app-release.aab`
 - [ ] Click 'Open' or 'Choose'
 - [ ] File uploads (takes 30 seconds - 1 minute)
@@ -134,3 +134,4 @@
 **Notes**: ___________________________________________________________
 
 ____________________________________________________________________
+

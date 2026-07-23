@@ -1,4 +1,4 @@
-# EB DEPLOYMENT FIX - VISUAL QUICK REFERENCE
+﻿# EB DEPLOYMENT FIX - VISUAL QUICK REFERENCE
 **Status:** CRITICAL - Act Now  
 **Time to Fix:** 10 minutes (rollback)  
 **Ready for Saturday:** YES (after rollback)
@@ -11,7 +11,7 @@
 ┌─────────────────────────────────────────┐
 │  ELASTIC BEANSTALK STATUS               │
 │                                         │
-│  Environment: anot-backend-prod         │
+│  Environment: docva-backend-prod         │
 │  Status:      🔴 RED / DEGRADED         │
 │  Version:     v50 (FAILED)              │
 │  Instances:   ❌ Unhealthy              │
@@ -53,8 +53,8 @@ TIMELINE:
 ```
 BEFORE (v48 - WORKING):          AFTER (v50 - FAILED):
                                  
-anot-backend-main/               anot-backend-main/
-  └── anot-backend-main/           ├── src/
+docva-backend-main/               docva-backend-main/
+  └── docva-backend-main/           ├── src/
       ├── src/                     ├── package.json
       ├── package.json             └── .ebextensions/
       └── .ebextensions/           
@@ -75,7 +75,7 @@ anot-backend-main/               anot-backend-main/
 │ 1. Open AWS Console                          │
 │    → elasticbeanstalk                        │
 │    → ap-southeast-1 region                   │
-│    → anot-backend-prod                       │
+│    → docva-backend-prod                       │
 │                                              │
 │ 2. Application Versions                      │
 │    → Find: v48-transcription-fix             │
@@ -151,7 +151,7 @@ anot-backend-main/               anot-backend-main/
 │   └── COMMIT_MESSAGE_TEMPLATE.txt ← Pre-written commit message
 │
 └── ⚙️  CONFIGURATION
-    └── anot-backend-main/
+    └── docva-backend-main/
         └── Procfile                ← EB entry point (CRITICAL)
 ```
 
@@ -168,12 +168,12 @@ Environment Status:
 □ Instances show: 2/2 healthy
 
 Health Endpoint:
-□ URL: https://anot-backend-prod.eba...com/api/health
+□ URL: https://docva-backend-prod.eba...com/api/health
 □ Response: 200 OK
 □ Body: {"status":"healthy",...}
 
 Application:
-□ Login page loads: https://app.anot.health/
+□ Login page loads: https://app.docva.health/
 □ Can log in with credentials
 □ No errors in CloudWatch logs
 
@@ -378,3 +378,4 @@ Recommended Action:
 *Generated: July 10, 2026 11:15 PM*  
 *Print this page for quick reference during rollback*  
 *All detailed info in ACTION_SUMMARY.md & QUICK_START_FIX_EB.md*
+

@@ -1,4 +1,4 @@
-# ✅ COMPREHENSIVE LOAD TEST - IMPLEMENTATION COMPLETE
+﻿# ✅ COMPREHENSIVE LOAD TEST - IMPLEMENTATION COMPLETE
 
 **Status:** READY TO EXECUTE  
 **Date:** 2026-07-11  
@@ -9,7 +9,7 @@
 
 ## 🎯 WHAT WAS DELIVERED
 
-A complete, production-ready load testing infrastructure that validates your entire ANOT Health platform under realistic production conditions.
+A complete, production-ready load testing infrastructure that validates your entire docva Health platform under realistic production conditions.
 
 ---
 
@@ -17,7 +17,7 @@ A complete, production-ready load testing infrastructure that validates your ent
 
 ### 🔧 Automation Scripts (4 scripts)
 
-**Location:** `anot-backend-main/scripts/`
+**Location:** `docva-backend-main/scripts/`
 
 1. **comprehensive-load-test.js** (26 KB)
    - Full Playwright browser automation
@@ -107,7 +107,7 @@ A complete, production-ready load testing infrastructure that validates your ent
 ### Option 1: Full Automation (Recommended for First Run)
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 ```
 
@@ -128,7 +128,7 @@ npm run test:load
 ### Option 2: API Test (Faster, No Browser)
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load:api
 ```
 
@@ -169,7 +169,7 @@ code MANUAL_LOAD_TEST_GUIDE.md
 **Start monitoring in a separate terminal:**
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run monitor:load
 ```
 
@@ -202,7 +202,7 @@ Updates automatically every 5 seconds!
 ### What Gets Created
 
 1. **1 Test Clinician**
-   - Email: load-test-doctor@anot.health
+   - Email: load-test-doctor@docva.health
    - Password: LoadTest@2026
    - Role: Clinician
    - Specialty: General Medicine
@@ -319,7 +319,7 @@ Before running the test, verify:
 
 - [ ] **Backend server is running**
   ```bash
-  cd anot-backend-main
+  cd docva-backend-main
   npm start
   ```
 
@@ -395,7 +395,7 @@ WHERE created_at::date = CURRENT_DATE
 **Problem:** Playwright not found  
 **Solution:**
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npx playwright install chromium
 ```
 
@@ -403,7 +403,7 @@ npx playwright install chromium
 **Problem:** Backend not running  
 **Solution:**
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm start
 ```
 
@@ -430,7 +430,7 @@ npm start
 After test execution, you'll have:
 
 1. **test-audio-20min.wav** (~38 MB)
-   - Location: `anot-backend-main/scripts/`
+   - Location: `docva-backend-main/scripts/`
    - 20-minute test audio file
    - Can be reused for future tests
 
@@ -460,14 +460,14 @@ code LOAD_TEST_CHECKLIST.md
 
 **Step 3:** Start the monitoring dashboard
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run monitor:load
 # Leave this running in a separate terminal
 ```
 
 **Step 4:** Execute the automated test
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 # Let it run for 2-3 hours
 ```
@@ -560,14 +560,14 @@ After 2-3 hours, you will have:
 **Recommended command to start:**
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 ```
 
 **In separate terminal (monitoring):**
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run monitor:load
 ```
 
@@ -605,3 +605,4 @@ When test completes successfully:
 *Ready for immediate execution*  
 *Expected test duration: 2-3 hours*  
 *Expected result: PLATFORM READY FOR LAUNCH ✅*
+

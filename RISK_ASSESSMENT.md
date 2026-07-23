@@ -1,6 +1,6 @@
-# Anot Health — Security Risk Assessment
+﻿# docva Health — Security Risk Assessment
 
-**Document Owner:** Anot Health
+**Document Owner:** docva Health
 **Classification:** Internal — Confidential
 **Version:** 1.0
 **Effective Date:** June 14, 2026
@@ -11,7 +11,7 @@
 
 ## 1. Purpose & Methodology
 
-This document records Anot Health's analysis of risks to the confidentiality, integrity, and
+This document records docva Health's analysis of risks to the confidentiality, integrity, and
 availability of electronic Protected Health Information (ePHI). For each risk we assess the
 **likelihood** of occurrence and the **impact** if it occurs, document **current mitigations**
 (as implemented and verified in production), and state the **residual risk** remaining after those
@@ -42,11 +42,11 @@ controls.
 
 | # | Risk | Likelihood | Impact | Residual Risk | Owner |
 | --- | --- | --- | --- | --- | --- |
-| R1 | Unauthorized database access | Low | Critical | **Low** | Anot Health |
-| R2 | Compromised credentials | Medium | High | **Low–Medium** | Anot Health |
-| R3 | Third-party (sub-processor) breach | Low | High | **Low–Medium** | Anot Health |
-| R4 | S3 misconfiguration | Low | Critical | **Low** | Anot Health |
-| R5 | Insider threat | Low | Critical | **Low–Medium** | Anot Health |
+| R1 | Unauthorized database access | Low | Critical | **Low** | docva Health |
+| R2 | Compromised credentials | Medium | High | **Low–Medium** | docva Health |
+| R3 | Third-party (sub-processor) breach | Low | High | **Low–Medium** | docva Health |
+| R4 | S3 misconfiguration | Low | Critical | **Low** | docva Health |
+| R5 | Insider threat | Low | Critical | **Low–Medium** | docva Health |
 
 ---
 
@@ -62,7 +62,7 @@ controls.
 | **Current Mitigations** | • RDS / managed PostgreSQL **encrypted at rest**. • Network-restricted database access. • TLS in transit. • **Append-only audit logs** enforced by DB triggers — even with DB access, audit records cannot be silently altered (UPDATE) or deleted (DELETE/TRUNCATE) outside the sanctioned, role-restricted retention purge. • Audit trail captures access for forensic reconstruction. • Credential rotation procedures in the breach plan. |
 | **Residual Risk** | **Low** — Encryption and network restrictions make access difficult; tamper-resistant audit logs limit undetected damage. |
 | **Planned Improvements** | Run the application under a least-privilege DB role (INSERT/SELECT) separate from the migration/owner role (addresses owner ability to drop triggers). |
-| **Owner** | Anot Health |
+| **Owner** | docva Health |
 
 ---
 
@@ -76,7 +76,7 @@ controls.
 | **Current Mitigations** | • **Rate limiting: 20 attempts per 15 minutes on all authentication endpoints** to slow brute-force. • All authentication events audited (`LOGIN_SUCCESS`, `LOGIN_FAILED`, `LOGOUT`, `PASSWORD_RESET`, `SELF_PASSWORD_CHANGED`). • Failed-login monitoring (7-day / 24-hour counts) via audit summary. • **Role-based access control** limits blast radius to the compromised role's scope. • Session/token revocation and forced password reset in the breach plan. • Non-spoofable IP capture (`req.ip`) aids detection of anomalous source IPs. |
 | **Residual Risk** | **Low–Medium** — Strong detection and containment; residual exposure remains until/if multi-factor authentication is universally enforced. |
 | **Planned Improvements** | Enforce MFA for admin/super_admin roles; add automated alerting on failed-login spikes and impossible-travel logins. |
-| **Owner** | Anot Health |
+| **Owner** | docva Health |
 
 ---
 
@@ -88,9 +88,9 @@ controls.
 | **Likelihood** | **Low** |
 | **Impact** | **High** |
 | **Current Mitigations** | • **Signed Business Associate Agreements (BAAs)** with Deepgram and Anthropic; AWS BAA covers RDS/S3. • Data shared on a **minimum-necessary** basis. • Encrypted transport to all sub-processors. • Third-party-notice path in the breach plan for vendor-reported incidents. • Annual review of sub-processor relationships and data flows. |
-| **Residual Risk** | **Low–Medium** — Contractual and technical safeguards in place, but data residing with vendors is partly outside Anot's direct control. |
+| **Residual Risk** | **Low–Medium** — Contractual and technical safeguards in place, but data residing with vendors is partly outside docva's direct control. |
 | **Planned Improvements** | Periodic review of vendor security posture (SOC 2 / HIPAA attestations); maintain an up-to-date data-flow inventory. |
-| **Owner** | Anot Health |
+| **Owner** | docva Health |
 
 ---
 
@@ -104,7 +104,7 @@ controls.
 | **Current Mitigations** | • Audio stored with **AES-256 server-side encryption**. • Bucket is **private**; audio is **never** served from a public URL. • Access only via authenticated endpoint `GET /api/audio/:visitId`, which issues **short-lived presigned URLs**. • **90-day** audio retention reduces the exposure window of stored data. • Credentials sourced from the AWS provider chain (instance profile) rather than hard-coded. • Key rotation / URL invalidation procedures in the breach plan. |
 | **Residual Risk** | **Low** — Encryption plus private-bucket + presigned-URL access pattern means a single misconfiguration is unlikely to expose readable PHI. |
 | **Planned Improvements** | Enable S3 Block Public Access at the account level, automated config drift detection, and S3 Object Lock (WORM) for archived audit data. |
-| **Owner** | Anot Health |
+| **Owner** | docva Health |
 
 ---
 
@@ -118,7 +118,7 @@ controls.
 | **Current Mitigations** | • **Comprehensive, append-only audit trail** — every PHI read (`VISITS_VIEWED`, `VISIT_HISTORY_VIEWED`), create, update, and delete is attributed to a user and **cannot be erased** to hide misuse. • **Role-based least-privilege** access; sensitive operations (retention purge) restricted to `super_admin`. • Module-level permissions on the admin portal. • **PHI awareness training** with signed acknowledgment. • Account deprovisioning on termination (audited via `USER_DELETED`). • Minimum-necessary access policy. |
 | **Residual Risk** | **Low–Medium** — Detection and accountability are strong; deterrence and after-the-fact attribution are high, though a determined authorized insider can still access data within their legitimate scope. |
 | **Planned Improvements** | Periodic access reviews/recertification; anomaly detection on unusual PHI-access volume per user; separation of duties for DB owner vs. application role. |
-| **Owner** | Anot Health |
+| **Owner** | docva Health |
 
 ---
 
@@ -136,13 +136,14 @@ residual risk and are reviewed at each assessment cycle.
 
 | Field | Value |
 | --- | --- |
-| Assessment owner | Anot Health |
-| Approver | Security Officer / Administrator (admin@anot.health) |
-| Contacts | support@anot.health · admin@anot.health |
+| Assessment owner | docva Health |
+| Approver | Security Officer / Administrator (admin@docva.health) |
+| Contacts | support@docva.health · admin@docva.health |
 | Next scheduled review | June 14, 2027 (or upon material change) |
 
 **Revision History**
 
 | Version | Date | Author | Summary |
 | --- | --- | --- | --- |
-| 1.0 | 2026-06-14 | Anot Health | Initial risk assessment reflecting verified production controls |
+| 1.0 | 2026-06-14 | docva Health | Initial risk assessment reflecting verified production controls |
+

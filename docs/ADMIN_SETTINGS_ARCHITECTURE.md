@@ -1,13 +1,13 @@
-# Admin Settings Architecture
+﻿# Admin Settings Architecture
 
-How Anot stores configuration, secrets, and ops-tunable parameters.
+How docva stores configuration, secrets, and ops-tunable parameters.
 
 ## Two-tier secret model
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Elastic Beanstalk boot (USE_SSM=true)                      │
-│  loadSecrets.js → /anot/prod/* → process.env              │
+│  loadSecrets.js → /docva/prod/* → process.env              │
 └──────────────────────────┬──────────────────────────────────┘
                            │
          SETTINGS_ENCRYPTION_KEY ──────────────┐
@@ -39,11 +39,11 @@ How Anot stores configuration, secrets, and ops-tunable parameters.
 - **Ops-owned tuning:** Platform team adjusts throttling without DB migrations.
 - **Multi-instance consistency:** All EB instances read the same values at boot.
 - **Sync tool:** `node scripts/sync-rate-limit-config.js` upserts
-  `/anot/prod/RATE_LIMIT_*` parameters.
+  `/docva/prod/RATE_LIMIT_*` parameters.
 
 ## Backend startup flow
 
-1. `loadSecrets()` — hydrate `process.env` from `/anot/prod/*`
+1. `loadSecrets()` — hydrate `process.env` from `/docva/prod/*`
 2. `ensureUserProfileSchema()` — DB columns
 3. `cleanCorruptedSettings()` — drop undecryptable key blobs
 4. `loadAiSettings()` — read `system_settings`, decrypt API keys in memory
@@ -63,7 +63,7 @@ To **remove** a key: check “Remove stored API key on save” and save.
 
 This is an ops task (not self-service):
 
-1. Generate a new key → `/anot/prod/SETTINGS_ENCRYPTION_KEY`
+1. Generate a new key → `/docva/prod/SETTINGS_ENCRYPTION_KEY`
 2. Run `npm run reencrypt:settings-key` (re-encrypts all DB blobs)
 3. Restart EB environment
 
@@ -74,3 +74,4 @@ See `DEPLOYMENT_V40_SSM.md` for the full rotation runbook.
 - API keys never appear in GET responses (`*_api_key_set: true` flag only)
 - Plaintext keys exist only in the HTTPS request body during save
 - `SETTINGS_ENCRYPTION_KEY` must be set in production; dev uses a ephemeral fallback
+

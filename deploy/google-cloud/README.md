@@ -1,6 +1,6 @@
-# Anot — Google Cloud Deployment Guide
+﻿# docva — Google Cloud Deployment Guide
 
-Deploy the Anot **backend** to **Cloud Run** (containerized Node/Express API on
+Deploy the docva **backend** to **Cloud Run** (containerized Node/Express API on
 Cloud SQL for PostgreSQL, with audio stored in Cloud Storage) and the **frontend**
 to **Firebase Hosting**.
 
@@ -45,7 +45,7 @@ Why these choices:
 | `README.md` | This guide. |
 
 Backend container files live with the backend:
-`anot-backend-main/anot-backend-main/Dockerfile` and `.dockerignore`.
+`docva-backend-main/docva-backend-main/Dockerfile` and `.dockerignore`.
 
 ---
 
@@ -95,20 +95,20 @@ Cloud Run, Cloud Build, Cloud SQL Admin, Cloud Storage, Artifact Registry,
 Secret Manager, Firebase Hosting.
 
 ### 2. Artifact Registry
-Creates a Docker repo (`anot`) in your region to hold the backend image.
+Creates a Docker repo (`docva`) in your region to hold the backend image.
 
 ### 3. Cloud SQL (PostgreSQL)
-Creates instance `anot-postgres` (`POSTGRES_16`, tier `db-custom-1-3840`),
-the `anot` database, and the `anot_app` user. The generated DB password is stored
-**only** in Secret Manager (`anot-db-password`).
+Creates instance `docva-postgres` (`POSTGRES_16`, tier `db-custom-1-3840`),
+the `docva` database, and the `anot_app` user. The generated DB password is stored
+**only** in Secret Manager (`docva-db-password`).
 
 ### 4. Cloud Storage bucket
-Creates `gs://<project-id>-anot-audio` (uniform access, public access prevented)
+Creates `gs://<project-id>-docva-audio` (uniform access, public access prevented)
 for audio uploads. It's mounted into Cloud Run at `/app/src/uploads`.
 
 ### 5. Secrets (Secret Manager)
-Creates/uses: `anot-jwt-secret`, `anot-db-password`,
-`anot-settings-encryption-key`, `anot-anthropic-key`, `anot-deepgram-webhook-secret`.
+Creates/uses: `docva-jwt-secret`, `docva-db-password`,
+`docva-settings-encryption-key`, `docva-anthropic-key`, `docva-deepgram-webhook-secret`.
 JWT secret and encryption key are auto-generated with `openssl` if absent.
 
 ### 6. IAM
@@ -116,14 +116,14 @@ Grants the Cloud Run runtime service account `roles/secretmanager.secretAccessor
 `roles/cloudsql.client`, and `roles/storage.objectAdmin` (on the bucket).
 
 ### 7. Database migrations  ⚠️ run once
-SQL migrations live in `anot-backend-main/anot-backend-main/migrations/*.sql`.
+SQL migrations live in `docva-backend-main/docva-backend-main/migrations/*.sql`.
 Apply them in filename order. Easiest via the Cloud SQL connect helper:
 
 ```bash
-cd anot-backend-main/anot-backend-main
+cd docva-backend-main/docva-backend-main
 for f in $(ls migrations/*.sql | sort); do
   echo "Applying $f"
-  gcloud sql connect anot-postgres --user=anot_app --database=anot < "$f"
+  gcloud sql connect docva-postgres --user=anot_app --database=docva < "$f"
 done
 ```
 
@@ -149,16 +149,16 @@ the backend is then locked to the Firebase origins.
 
 ```bash
 gcloud builds submit --config deploy/google-cloud/cloudbuild.yaml \
-  --substitutions=_REGION=us-central1,_SERVICE=anot-backend,_AR_REPO=anot,\
-_SQL_INSTANCE=anot-postgres,_DB_NAME=anot,_DB_USER=anot_app,\
-_BUCKET=$PROJECT_ID-anot-audio,\
+  --substitutions=_REGION=us-central1,_SERVICE=docva-backend,_AR_REPO=docva,\
+_SQL_INSTANCE=docva-postgres,_DB_NAME=docva,_DB_USER=anot_app,\
+_BUCKET=$PROJECT_ID-docva-audio,\
 _CORS_ORIGINS=https://YOUR_SITE.web.app,https://YOUR_SITE.firebaseapp.com .
 ```
 
 **Frontend only:**
 
 ```bash
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 VITE_API_URL="https://<cloud-run-url>/api" npm run build
 firebase deploy --only hosting --project YOUR_PROJECT_ID
 ```
@@ -172,15 +172,15 @@ All variables and which are secrets are documented in
 by exporting them first, e.g.:
 
 ```bash
-REGION=europe-west1 SQL_TIER=db-custom-2-7680 FIREBASE_SITE=anot-prod \
+REGION=europe-west1 SQL_TIER=db-custom-2-7680 FIREBASE_SITE=docva-prod \
   ./deploy/google-cloud/setup.sh
 ```
 
 Update a secret later (Cloud Run picks up `:latest` on the next deploy):
 
 ```bash
-printf 'sk-ant-NEWKEY' | gcloud secrets versions add anot-anthropic-key --data-file=-
-gcloud run services update anot-backend --region=us-central1   # redeploy to pick it up
+printf 'sk-ant-NEWKEY' | gcloud secrets versions add docva-anthropic-key --data-file=-
+gcloud run services update docva-backend --region=us-central1   # redeploy to pick it up
 ```
 
 ---
@@ -188,12 +188,12 @@ gcloud run services update anot-backend --region=us-central1   # redeploy to pic
 ## Verify
 
 ```bash
-# Backend health check (should return the "Anot API is running" JSON)
-curl -s "$(gcloud run services describe anot-backend --region=us-central1 \
+# Backend health check (should return the "docva API is running" JSON)
+curl -s "$(gcloud run services describe docva-backend --region=us-central1 \
   --format='value(status.url)')/"
 
 # Tail backend logs
-gcloud run services logs read anot-backend --region=us-central1 --limit=50
+gcloud run services logs read docva-backend --region=us-central1 --limit=50
 ```
 
 Open `https://<your-site>.web.app` and log in.
@@ -204,7 +204,7 @@ Open `https://<your-site>.web.app` and log in.
 
 - **Cloud Run** scales to zero (`--min-instances=0`) — you pay per request.
 - **Cloud SQL** runs continuously and is the main fixed cost. For demos, stop the
-  instance when idle: `gcloud sql instances patch anot-postgres --activation-policy=NEVER`
+  instance when idle: `gcloud sql instances patch docva-postgres --activation-policy=NEVER`
   (start again with `--activation-policy=ALWAYS`).
 - **Cloud Storage** is billed by stored audio volume + egress.
 
@@ -214,8 +214,9 @@ Open `https://<your-site>.web.app` and log in.
 
 | Symptom | Fix |
 |---------|-----|
-| `JWT_SECRET is required` / container crash-loops | Ensure `anot-jwt-secret` exists and IAM `secretAccessor` is granted; redeploy. |
+| `JWT_SECRET is required` / container crash-loops | Ensure `docva-jwt-secret` exists and IAM `secretAccessor` is granted; redeploy. |
 | `Database connection failed at startup` | Check `DB_HOST=/cloudsql/<conn>` matches the instance connection name and `--add-cloudsql-instances` is set. |
 | Audio uploads disappear | Confirm the GCS volume is mounted at `/app/src/uploads` (gen2 execution env). |
 | CORS errors in browser | `CORS_ORIGINS` must include your exact Firebase Hosting origin(s). |
 | 403 on image push | Run `gcloud auth configure-docker <region>-docker.pkg.dev` (Cloud Build handles this automatically). |
+

@@ -1,4 +1,4 @@
-# Anot — Amazon Web Services (AWS) deployment (complete guide)
+﻿# docva — Amazon Web Services (AWS) deployment (complete guide)
 
 Deploy the **Node API** on **EC2** (Ubuntu-style) behind **Nginx**, with **PostgreSQL** on **RDS** or on the same instance. Optionally serve the **built React app** as static files from the same or another Nginx `server` block.
 
@@ -89,7 +89,7 @@ Point the UI at your **public** API (include **`/api`**):
 **Windows:**
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 Set-Content -Path .env.production -Value "VITE_API_URL=https://api.yourdomain.com/api"
 npm ci
 npm run build
@@ -98,7 +98,7 @@ npm run build
 **Linux / macOS:**
 
 ```bash
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 printf '%s\n' 'VITE_API_URL=https://api.yourdomain.com/api' > .env.production
 npm ci && npm run build
 ```
@@ -132,7 +132,7 @@ npm -v
 Create instance + DB + user in AWS Console. Build **`DATABASE_URL`**:
 
 ```text
-postgresql://anot_app:CHANGE_ME_DB_PASSWORD@your-rds-endpoint.region.rds.amazonaws.com:5432/anot
+postgresql://anot_app:CHANGE_ME_DB_PASSWORD@your-rds-endpoint.region.rds.amazonaws.com:5432/docva
 ```
 
 Ensure the **RDS security group** allows inbound **5432** from the **EC2 security group** (not from `0.0.0.0/0` unless you have no other choice).
@@ -142,8 +142,8 @@ Ensure the **RDS security group** allows inbound **5432** from the **EC2 securit
 ```bash
 sudo apt install -y postgresql postgresql-contrib
 sudo -u postgres psql -c "CREATE USER anot_app WITH PASSWORD 'CHANGE_ME_DB_PASSWORD';"
-sudo -u postgres psql -c "CREATE DATABASE anot OWNER anot_app;"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE anot TO anot_app;"
+sudo -u postgres psql -c "CREATE DATABASE docva OWNER anot_app;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE docva TO anot_app;"
 ```
 
 ---
@@ -151,11 +151,11 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE anot TO anot_app;"
 ## 7) Deploy backend code
 
 ```bash
-sudo mkdir -p /opt/anot
-sudo chown -R ubuntu:ubuntu /opt/anot
-cd /opt/anot
-git clone https://github.com/YOUR_ORG/anot.git repo
-cd repo/anot-backend-main/anot-backend-main
+sudo mkdir -p /opt/docva
+sudo chown -R ubuntu:ubuntu /opt/docva
+cd /opt/docva
+git clone https://github.com/YOUR_ORG/docva.git repo
+cd repo/docva-backend-main/docva-backend-main
 npm ci --omit=dev
 ```
 
@@ -165,10 +165,10 @@ If you deploy without `git`, use `scp`/`rsync` to copy the same folder structure
 
 ## 8) Backend `.env` (production)
 
-**Path:** `/opt/anot/repo/anot-backend-main/anot-backend-main/.env`
+**Path:** `/opt/docva/repo/docva-backend-main/docva-backend-main/.env`
 
 ```bash
-cd /opt/anot/repo/anot-backend-main/anot-backend-main
+cd /opt/docva/repo/docva-backend-main/docva-backend-main
 chmod 600 .env
 nano .env
 ```
@@ -180,7 +180,7 @@ NODE_ENV=production
 PORT=5000
 TRUST_PROXY=1
 
-DATABASE_URL=postgresql://anot_app:CHANGE_ME_DB_PASSWORD@your-rds-endpoint.region.rds.amazonaws.com:5432/anot
+DATABASE_URL=postgresql://anot_app:CHANGE_ME_DB_PASSWORD@your-rds-endpoint.region.rds.amazonaws.com:5432/docva
 
 JWT_SECRET=PASTE_OPENSSL_RAND_HEX_OUTPUT_HERE
 
@@ -195,7 +195,7 @@ PORT=5000
 TRUST_PROXY=1
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_NAME=anot
+DB_NAME=docva
 DB_USER=anot_app
 DB_PASSWORD=CHANGE_ME_DB_PASSWORD
 JWT_SECRET=PASTE_OPENSSL_RAND_HEX_OUTPUT_HERE
@@ -213,19 +213,19 @@ Optional: `ANTHROPIC_API_KEY`, `SETTINGS_ENCRYPTION_KEY` (see `src/config/db.js`
 SQL files:
 
 ```text
-anot-backend-main/anot-backend-main/migrations/
+docva-backend-main/docva-backend-main/migrations/
 ```
 
 From a machine that can reach the DB:
 
 ```bash
-psql "postgresql://anot_app:PASSWORD@HOST:5432/anot" -f migrations/20260210_visits_visit_type_add_other.sql
+psql "postgresql://anot_app:PASSWORD@HOST:5432/docva" -f migrations/20260210_visits_visit_type_add_other.sql
 ```
 
 Apply **all** migration files in order. If the repo ships a npm script for a specific migration:
 
 ```bash
-cd /opt/anot/repo/anot-backend-main/anot-backend-main
+cd /opt/docva/repo/docva-backend-main/docva-backend-main
 npm run migrate:visit-type-other
 ```
 
@@ -234,11 +234,11 @@ npm run migrate:visit-type-other
 ## 10) Smoke test the API
 
 ```bash
-cd /opt/anot/repo/anot-backend-main/anot-backend-main
+cd /opt/docva/repo/docva-backend-main/docva-backend-main
 node src/server.js
 ```
 
-Confirm logs show DB connected and `Anot server running on http://127.0.0.1:5000`. Press **Ctrl+C** to stop before PM2.
+Confirm logs show DB connected and `docva server running on http://127.0.0.1:5000`. Press **Ctrl+C** to stop before PM2.
 
 ---
 
@@ -246,8 +246,8 @@ Confirm logs show DB connected and `Anot server running on http://127.0.0.1:5000
 
 ```bash
 sudo npm install -g pm2
-cd /opt/anot/repo/anot-backend-main/anot-backend-main
-pm2 start src/server.js --name anot-api
+cd /opt/docva/repo/docva-backend-main/docva-backend-main
+pm2 start src/server.js --name docva-api
 pm2 save
 pm2 startup systemd -u ubuntu --hp /home/ubuntu
 ```
@@ -256,8 +256,8 @@ Run the **`sudo env PATH=...`** line PM2 prints so the API restarts on reboot.
 
 | Action | Command |
 |--------|---------|
-| Logs | `pm2 logs anot-api` |
-| Restart | `pm2 restart anot-api` |
+| Logs | `pm2 logs docva-api` |
+| Restart | `pm2 restart docva-api` |
 | List | `pm2 status` |
 
 ---
@@ -265,7 +265,7 @@ Run the **`sudo env PATH=...`** line PM2 prints so the API restarts on reboot.
 ## 12) Nginx: static UI + API reverse proxy
 
 ```bash
-sudo nano /etc/nginx/sites-available/anot
+sudo nano /etc/nginx/sites-available/docva
 ```
 
 **Example** — UI on `yourdomain.com`, API on `api.yourdomain.com`:
@@ -275,7 +275,7 @@ server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;
 
-    root /var/www/anot-frontend;
+    root /var/www/docva-frontend;
     index index.html;
 
     location / {
@@ -302,7 +302,7 @@ server {
 Enable site and reload:
 
 ```bash
-sudo ln -sf /etc/nginx/sites-available/anot /etc/nginx/sites-enabled/
+sudo ln -sf /etc/nginx/sites-available/docva /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
@@ -314,14 +314,14 @@ sudo systemctl reload nginx
 **On your laptop** (after `npm run build`):
 
 ```bash
-scp -i YOUR_KEY.pem -r anot-frontend-main/anot-frontend-main/dist/* ubuntu@YOUR_EC2_PUBLIC_IP:/tmp/anotfe/
+scp -i YOUR_KEY.pem -r docva-frontend-main/docva-frontend-main/dist/* ubuntu@YOUR_EC2_PUBLIC_IP:/tmp/anotfe/
 ```
 
 **On the server:**
 
 ```bash
-sudo mkdir -p /var/www/anot-frontend
-sudo rsync -a /tmp/anotfe/ /var/www/anot-frontend/
+sudo mkdir -p /var/www/docva-frontend
+sudo rsync -a /tmp/anotfe/ /var/www/docva-frontend/
 ```
 
 ---
@@ -337,15 +337,15 @@ Then:
 
 1. Set **`CORS_ORIGINS`** and **`VITE_API_URL`** to **https** URLs.  
 2. Rebuild frontend if the public API URL changed.  
-3. `pm2 restart anot-api`
+3. `pm2 restart docva-api`
 
 ---
 
 ## 15) Uploads directory
 
 ```bash
-sudo mkdir -p /opt/anot/repo/anot-backend-main/anot-backend-main/src/uploads
-sudo chown -R ubuntu:ubuntu /opt/anot/repo/anot-backend-main/anot-backend-main/src/uploads
+sudo mkdir -p /opt/docva/repo/docva-backend-main/docva-backend-main/src/uploads
+sudo chown -R ubuntu:ubuntu /opt/docva/repo/docva-backend-main/docva-backend-main/src/uploads
 ```
 
 ---
@@ -369,7 +369,7 @@ sudo chown -R ubuntu:ubuntu /opt/anot/repo/anot-backend-main/anot-backend-main/s
 | Nginx test | `sudo nginx -t` |
 | Nginx reload | `sudo systemctl reload nginx` |
 | Nginx logs | `sudo journalctl -u nginx -n 100 --no-pager` |
-| API logs | `pm2 logs anot-api` |
+| API logs | `pm2 logs docva-api` |
 
 ---
 
@@ -377,7 +377,7 @@ sudo chown -R ubuntu:ubuntu /opt/anot/repo/anot-backend-main/anot-backend-main/s
 
 | Symptom | Check |
 |---------|--------|
-| **502 from Nginx** | `pm2 status`, `pm2 logs anot-api`; is Node listening on **5000**? |
+| **502 from Nginx** | `pm2 status`, `pm2 logs docva-api`; is Node listening on **5000**? |
 | **DB connection failed** | RDS SG allows EC2 SG on **5432**; `DATABASE_URL` correct |
 | **CORS / blocked** | `CORS_ORIGINS` exact match to UI **https** origin |
 | **SPA 404 on refresh** | `try_files` / `index.html` fallback |
@@ -389,3 +389,4 @@ sudo chown -R ubuntu:ubuntu /opt/anot/repo/anot-backend-main/anot-backend-main/s
 
 - **Local development:** [LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md)  
 - **cPanel / static-only hosting:** [CPANEL_DEPLOYMENT.md](./CPANEL_DEPLOYMENT.md)
+

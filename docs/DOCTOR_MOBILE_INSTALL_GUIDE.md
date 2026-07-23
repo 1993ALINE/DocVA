@@ -1,18 +1,18 @@
-# Anot Health — Mobile Install Guide for Doctors
+﻿# docva Health — Mobile Install Guide for Doctors
 
-**Saturday launch · https://app.anot.health**
+**Saturday launch · https://app.docva.health**
 
-Anot Health runs in your phone’s browser (Safari on iPhone, Chrome on Android). No App Store or Play Store download is required.
+docva Health runs in your phone’s browser (Safari on iPhone, Chrome on Android). No App Store or Play Store download is required.
 
 ---
 
 ## iPhone (Safari)
 
-1. Open **Safari** and go to **https://app.anot.health**
+1. Open **Safari** and go to **https://app.docva.health**
 2. Tap **Share** (square with arrow at the bottom)
 3. Tap **Add to Home Screen**
-4. Tap **Add** — the Anot icon appears on your home screen
-5. Open **Anot** from your home screen
+4. Tap **Add** — the docva icon appears on your home screen
+5. Open **docva** from your home screen
 6. Sign in with the **email and temporary password** your administrator sent
 7. Change your password and complete PHI training on first login
 8. Start recording visits
@@ -23,11 +23,11 @@ Anot Health runs in your phone’s browser (Safari on iPhone, Chrome on Android)
 
 ## Android (Chrome)
 
-1. Open **Chrome** and go to **https://app.anot.health**
+1. Open **Chrome** and go to **https://app.docva.health**
 2. Tap the **menu** (⋮) in the top-right
 3. Tap **Add to Home screen** or **Install app** (wording varies by device)
 4. Tap **Add** or **Install**
-5. Open **Anot** from your home screen or app drawer
+5. Open **docva** from your home screen or app drawer
 6. Sign in with the **email and temporary password** your administrator sent
 7. Change your password and complete PHI training on first login
 8. Start recording visits
@@ -50,13 +50,14 @@ Anot Health runs in your phone’s browser (Safari on iPhone, Chrome on Android)
 | Can't sign in | Check email/password; use **Forgot password** on the login page |
 | Recording won't start | Allow microphone access in phone Settings → Safari/Chrome → Microphone |
 | Upload stuck | Keep the app open; uploads retry when connection returns |
-| Need help | **support@anot.health** |
+| Need help | **support@docva.health** |
 
 ---
 
 ## Support
 
-- **Email:** support@anot.health  
+- **Email:** support@docva.health  
 - **Full guide:** see `docs/CLINICIAN_ONBOARDING.md` in the admin portal docs
 
-*Anot Health v1.0 · Web app · HIPAA compliant*
+*docva Health v1.0 · Web app · HIPAA compliant*
+

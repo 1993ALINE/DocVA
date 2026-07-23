@@ -1,4 +1,4 @@
-# LOAD TEST QUICK REFERENCE CHECKLIST
+﻿# LOAD TEST QUICK REFERENCE CHECKLIST
 **Date**: July 11, 2026 | **Duration**: 2-3 hours | **Status**: [ ] Complete
 
 ---
@@ -8,9 +8,9 @@
 | Role | Email | Password |
 |------|-------|----------|
 | **Admin** | atiqurrahmanaline@gmail.com | #1Knowtex2026 |
-| **Scribe** | shahib@anot.health | #1Knowtex2026 |
-| **QPS** | farhan@anot.health | #1Knowtex2026 |
-| **Test Clinician** | load-test-doctor-july11@anot.health | LoadTest@2026 |
+| **Scribe** | shahib@docva.health | #1Knowtex2026 |
+| **QPS** | farhan@docva.health | #1Knowtex2026 |
+| **Test Clinician** | load-test-doctor-july11@docva.health | LoadTest@2026 |
 
 ---
 
@@ -18,7 +18,7 @@
 
 ### ✅ PHASE 1: Admin Creates Clinician (5 min)
 - [ ] Admin login successful
-- [ ] Clinician created: load-test-doctor-july11@anot.health
+- [ ] Clinician created: load-test-doctor-july11@docva.health
 - [ ] Clinician login verified
 - **Duration**: _____ min | **Start**: _____ | **End**: _____
 
@@ -212,7 +212,7 @@ Patient 20: Load Test Patient 20 | LT-2026-020 | M | 18:30
 ## EMERGENCY CONTACTS
 
 - **Technical Issues**: Check EB health dashboard first
-- **Backend Down**: https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+- **Backend Down**: https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 - **Admin Support**: atiqurrahmanaline@gmail.com
 
 ---
@@ -220,3 +220,4 @@ Patient 20: Load Test Patient 20 | LT-2026-020 | M | 18:30
 **Print this checklist and use it during your load test!**
 
 **For detailed instructions, see**: `MANUAL_LOAD_TEST_GUIDE.md`
+

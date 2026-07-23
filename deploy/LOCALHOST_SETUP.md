@@ -1,4 +1,4 @@
-# Anot — Localhost setup (complete guide)
+﻿# docva — Localhost setup (complete guide)
 
 Run the **Node API** and **Vite React app** on your computer for development and testing.
 
@@ -40,23 +40,23 @@ Optional: **Git** (to clone/pull the repo).
 GitHub zips often add an extra nested folder. In this repo the **real** `package.json` files are here:
 
 ```text
-anot/                                      ← repository root
+docva/                                      ← repository root
   package.json                             ← workspace: npm run dev, install:all, seed:dev
-  anot-backend-main/
-    anot-backend-main/                     ← BACKEND (Node API)
+  docva-backend-main/
+    docva-backend-main/                     ← BACKEND (Node API)
       package.json
       .env                                 ← YOU CREATE (gitignored)
       src/server.js
       migrations/
       scripts/seed-dev-users.js
-  anot-frontend-main/
-    anot-frontend-main/                    ← FRONTEND (Vite)
+  docva-frontend-main/
+    docva-frontend-main/                    ← FRONTEND (Vite)
       package.json
       .env.local                           ← optional (gitignored)
       src/
 ```
 
-All commands below assume you know whether you are at **repo root** `anot/` or inside an **inner** folder.
+All commands below assume you know whether you are at **repo root** `docva/` or inside an **inner** folder.
 
 ---
 
@@ -67,7 +67,7 @@ All commands below assume you know whether you are at **repo root** `anot/` or i
 **Windows (PowerShell):**
 
 ```powershell
-cd "C:\Path\To\anot"
+cd "C:\Path\To\docva"
 npm install
 npm run install:all
 ```
@@ -78,10 +78,10 @@ npm run install:all
 ### Option B — each package manually
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 npm install
 
-cd ..\..\anot-frontend-main\anot-frontend-main
+cd ..\..\docva-frontend-main\docva-frontend-main
 npm install
 ```
 
@@ -102,7 +102,7 @@ The API **exits on startup** if it cannot connect — fix DB credentials before 
 If **Neon** credentials fail (`password authentication failed for user 'neondb_owner'`) but **PostgreSQL 18** is installed locally, run once from an **elevated** PowerShell if needed:
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 .\scripts\setup-local-postgres.ps1
 ```
 
@@ -124,7 +124,7 @@ After setup, **restart** `npm run dev` so the API reloads `.env`.
 
 ## 5) Backend configuration (`.env`)
 
-**Path:** `anot-backend-main/anot-backend-main/.env`
+**Path:** `docva-backend-main/docva-backend-main/.env`
 
 ### Required
 
@@ -194,7 +194,7 @@ DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@127.0.0.1:5432/anot_dev
 From **repo root**:
 
 ```powershell
-cd "C:\Path\To\anot"
+cd "C:\Path\To\docva"
 npm run dev
 ```
 
@@ -208,14 +208,14 @@ You should see **`[api]`** and **`[web]`** streams:
 **Terminal 1 — API**
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 npm run dev
 ```
 
 **Terminal 2 — UI**
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 npm run dev
 ```
 
@@ -233,8 +233,8 @@ Start the **API first** so the browser does not call a dead server on first pain
 Equivalent without root scripts:
 
 ```powershell
-npm run dev --prefix anot-backend-main/anot-backend-main
-npm run dev --prefix anot-frontend-main/anot-frontend-main
+npm run dev --prefix docva-backend-main/docva-backend-main
+npm run dev --prefix docva-frontend-main/docva-frontend-main
 ```
 
 ---
@@ -243,7 +243,7 @@ npm run dev --prefix anot-frontend-main/anot-frontend-main
 
 | Service | URL | Expected |
 |---------|-----|----------|
-| **API health** | `http://127.0.0.1:5000/` | JSON: `Anot API is running` |
+| **API health** | `http://127.0.0.1:5000/` | JSON: `docva API is running` |
 | **UI** | `http://localhost:5173/` (or next port if busy) | Vite prints **Local:** in the terminal |
 
 **PowerShell health check:**
@@ -256,7 +256,7 @@ Sign in at **`/login`** (e.g. `http://localhost:5173/login`). Route **`/`** redi
 
 ### How the UI chooses the API
 
-File: `anot-frontend-main/anot-frontend-main/src/services/api.js`
+File: `docva-frontend-main/docva-frontend-main/src/services/api.js`
 
 - On **`localhost` or `127.0.0.1`**, the app uses **`http://127.0.0.1:5000/api`** by default (reduces Windows IPv6 **`::1`** vs IPv4 issues).
 - To use a **remote** API while on localhost: create **`.env.local`** with:
@@ -283,25 +283,25 @@ See [Vite env documentation](https://vite.dev/guide/env-and-mode.html). Only **`
 Migrations live in:
 
 ```text
-anot-backend-main/anot-backend-main/migrations/
+docva-backend-main/docva-backend-main/migrations/
 ```
 
 Apply with **`psql`** (repeat for each file in chronological order):
 
 ```bash
-psql "postgresql://USER:PASS@HOST:5432/DBNAME" -f anot-backend-main/anot-backend-main/migrations/20260210_visits_visit_type_add_other.sql
+psql "postgresql://USER:PASS@HOST:5432/DBNAME" -f docva-backend-main/docva-backend-main/migrations/20260210_visits_visit_type_add_other.sql
 ```
 
 **Windows (from repo root), example:**
 
 ```powershell
-psql $env:DATABASE_URL -f anot-backend-main\anot-backend-main\migrations\20260210_visits_visit_type_add_other.sql
+psql $env:DATABASE_URL -f docva-backend-main\docva-backend-main\migrations\20260210_visits_visit_type_add_other.sql
 ```
 
 **Package helper** (check `package.json` for exact script name):
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 npm run migrate:visit-type-other
 ```
 
@@ -320,14 +320,14 @@ npm run seed:dev
 **From backend folder:**
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 npm run seed:dev
 ```
 
 **Manual:**
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 ALLOW_DEV_SEED=true node scripts/seed-dev-users.js
 ```
 
@@ -341,18 +341,18 @@ node scripts/seed-dev-users.js --force-dev-seed
 
 | Email | Password | Role | After login |
 |-------|----------|------|-------------|
-| `clinician@dev.anot.local` | `DevClinician!2026` | `clinician` | `/clinician` |
-| `scribe@dev.anot.local` | `DevScribe!2026` | `scribe` | `/scribe` |
-| `qps@dev.anot.local` | `DevQps!2026` | `qps` | `/qps` |
-| `admin@dev.anot.local` | `DevAdmin!2026` | `admin` | `/admin` |
-| `superadmin@dev.anot.local` | `DevSuperAdmin!2026` | `super_admin` | `/admin` |
+| `clinician@dev.docva.local` | `DevClinician!2026` | `clinician` | `/clinician` |
+| `scribe@dev.docva.local` | `DevScribe!2026` | `scribe` | `/scribe` |
+| `qps@dev.docva.local` | `DevQps!2026` | `qps` | `/qps` |
+| `admin@dev.docva.local` | `DevAdmin!2026` | `admin` | `/admin` |
+| `superadmin@dev.docva.local` | `DevSuperAdmin!2026` | `super_admin` | `/admin` |
 
 ---
 
 ## 11) Production build preview
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 npm run build
 npm run preview
 ```
@@ -365,7 +365,7 @@ If the preview calls the wrong API, read **`src/services/api.js`** and adjust **
 
 | Symptom | What to do |
 |---------|------------|
-| **“Cannot reach the API” / “Failed to fetch”** | Ensure **`npm run dev`** is running and the **`[api]`** stream shows `Anot server running on http://127.0.0.1:5000`. Hit `http://127.0.0.1:5000/` in the browser. |
+| **“Cannot reach the API” / “Failed to fetch”** | Ensure **`npm run dev`** is running and the **`[api]`** stream shows `docva server running on http://127.0.0.1:5000`. Hit `http://127.0.0.1:5000/` in the browser. |
 | **Backend exits immediately** | Missing **`JWT_SECRET`** or bad **`DATABASE_URL`** — read the API terminal. |
 | **Port 5000 in use (Windows)** | `netstat -ano \| findstr :5000` — stop the other process or set **`PORT=5001`** in backend `.env` and set **`VITE_API_URL=http://127.0.0.1:5001/api`** in frontend `.env.local`. |
 | **Error before sign-in** | Old **`token`** in `localStorage` triggers **`/api/auth/me`**; failing API looks like a login failure. Clear site data or use a private window. |
@@ -379,11 +379,12 @@ If the preview calls the wrong API, read **`src/services/api.js`** and adjust **
 ## Quick reference (copy-paste)
 
 ```powershell
-cd "C:\Path\To\anot"
+cd "C:\Path\To\docva"
 npm install
 npm run install:all
-# Create anot-backend-main\anot-backend-main\.env with JWT_SECRET + DATABASE_URL
+# Create docva-backend-main\docva-backend-main\.env with JWT_SECRET + DATABASE_URL
 npm run dev
 ```
 
 Product overview: **`../README.md`**.
+

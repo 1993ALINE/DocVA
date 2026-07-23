@@ -1,4 +1,4 @@
-# CI/CD Pipeline
+﻿# CI/CD Pipeline
 
 **Tests auto-run on every push; production deploy is manual.**
 
@@ -8,7 +8,7 @@
 | **Deploy** | `.github/workflows/deploy.yml` | Push to `main` | Backend tests + frontend build validation (no automated EB deploy) |
 | **Security scan** | `.github/workflows/security-scan.yml` | Scheduled / manual | Dependency audit |
 
-![Deploy Status](https://github.com/1993ALINE/anot-health/actions/workflows/deploy.yml/badge.svg)
+![Deploy Status](https://github.com/1993ALINE/docva/actions/workflows/deploy.yml/badge.svg)
 
 ---
 
@@ -20,7 +20,7 @@ flowchart LR
   test --> frontend[deploy-frontend build]
 ```
 
-1. **Test** — `npm ci` + `npm test` in `anot-backend-main/anot-backend-main` (71 tests).
+1. **Test** — `npm ci` + `npm test` in `docva-backend-main/docva-backend-main` (71 tests).
 2. **Deploy-frontend** — validates the production Vite build (upload to hosting is manual).
 
 The **deploy-backend** job is disabled in GitHub Actions. Backend production releases use the manual script below.
@@ -32,7 +32,7 @@ The **deploy-backend** job is disabled in GitHub Actions. Backend production rel
 After tests pass locally or in CI:
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 powershell -File scripts\deploy-to-eb.ps1
 ```
 
@@ -66,3 +66,4 @@ All GitHub Actions jobs use **Node.js 22** (matches local development and Elasti
 - [DEPLOYMENT_RUNBOOK.md](./DEPLOYMENT_RUNBOOK.md) — team SOP, rollback, escalation
 - [SSM_PARAMETERS.md](./SSM_PARAMETERS.md) — production secrets
 - [SECURITY.md](../SECURITY.md) — deployment security controls
+

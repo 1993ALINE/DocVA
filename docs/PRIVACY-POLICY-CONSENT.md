@@ -1,6 +1,6 @@
 ﻿## User Consent Management
 
-Anot Health tracks explicit user consent for:
+docva Health tracks explicit user consent for:
 
 | Consent type | Purpose |
 |--------------|---------|

@@ -1,17 +1,17 @@
-# Anot Health — Deployment Runbook
+﻿# docva Health — Deployment Runbook
 
-Standard operating procedure for deploying the Anot backend to AWS Elastic Beanstalk production.
+Standard operating procedure for deploying the docva backend to AWS Elastic Beanstalk production.
 
 | Item | Value |
 |------|-------|
 | AWS Account | `625242092266` |
 | Region | `ap-southeast-1` |
-| EB Application | `anot-backend` |
-| EB Environment | `anot-backend-prod` |
-| Production URL | `https://app.anot.health` |
-| Health endpoint | `https://app.anot.health/api/health` |
-| SSM prefix | `/anot/prod` |
-| RDS instance | `anot-postgres` |
+| EB Application | `docva-backend` |
+| EB Environment | `docva-backend-prod` |
+| Production URL | `https://app.docva.health` |
+| Health endpoint | `https://app.docva.health/api/health` |
+| SSM prefix | `/docva/prod` |
+| RDS instance | `docva-postgres` |
 
 ---
 
@@ -36,7 +36,7 @@ The script runs seven gates:
 | 2 | `npm run migrate` | SQL migrations apply cleanly against the target DB |
 | 3 | `npm start` | Server boots without startup errors |
 | 4 | `curl /api/health` | Local health returns **200 OK** with `status: "ok"` |
-| 5 | SSM parameters | Required secrets exist under `/anot/prod` (see [SSM_PARAMETERS.md](./SSM_PARAMETERS.md)) |
+| 5 | SSM parameters | Required secrets exist under `/docva/prod` (see [SSM_PARAMETERS.md](./SSM_PARAMETERS.md)) |
 | 6 | Database | Postgres connectivity via `.env` / `DATABASE_URL` |
 | 7 | Deploy zip | `migrations/*.sql` and `scripts/run-migrations.js` are in the artifact |
 
@@ -55,13 +55,13 @@ PORT=5000 HEALTH_URL=http://127.0.0.1:5000/api/health ./scripts/pre-deploy-check
 ### 1.2 Manual pre-flight (if scripts unavailable)
 
 1. Confirm you are on the intended release branch / tag.
-2. Review migration files in `anot-backend-main/anot-backend-main/migrations/` — destructive changes need a backup.
-3. Verify SSM secrets: `aws ssm get-parameters-by-path --path /anot/prod --recursive --region ap-southeast-1`
+2. Review migration files in `docva-backend-main/docva-backend-main/migrations/` — destructive changes need a backup.
+3. Verify SSM secrets: `aws ssm get-parameters-by-path --path /docva/prod --recursive --region ap-southeast-1`
 4. Create an RDS snapshot if the release includes schema changes:
    ```bash
    aws rds create-db-snapshot \
-     --db-instance-identifier anot-postgres \
-     --db-snapshot-identifier "anot-pre-deploy-$(date +%Y%m%d-%H%M)" \
+     --db-instance-identifier docva-postgres \
+     --db-snapshot-identifier "docva-pre-deploy-$(date +%Y%m%d-%H%M)" \
      --region ap-southeast-1
    ```
 
@@ -72,7 +72,7 @@ PORT=5000 HEALTH_URL=http://127.0.0.1:5000/api/health ./scripts/pre-deploy-check
 Deploy from the **backend project root** on Windows:
 
 ```powershell
-cd anot-backend-main\anot-backend-main
+cd docva-backend-main\docva-backend-main
 powershell -File scripts\deploy-to-eb.ps1
 ```
 
@@ -82,7 +82,7 @@ Optional parameters:
 powershell -File scripts\deploy-to-eb.ps1 `
   -VersionPrefix v43 `
   -Region ap-southeast-1 `
-  -HealthUrl https://app.anot.health/api/health `
+  -HealthUrl https://app.docva.health/api/health `
   -WaitTimeoutSec 300
 ```
 
@@ -91,7 +91,7 @@ What the deploy script does:
 1. Builds a Linux-compatible zip with `tar` (forward-slash paths — **never** `Compress-Archive`)
 2. Uploads to the EB S3 bucket
 3. Registers a new application version
-4. Updates `anot-backend-prod`
+4. Updates `docva-backend-prod`
 5. Waits for EB **Ready / Green**
 6. Verifies `GET /api/health` returns 200
 
@@ -99,7 +99,7 @@ What the deploy script does:
 
 ```bash
 chmod +x scripts/setup-alarms.sh
-ALERT_EMAIL=ops@anot.health ./scripts/setup-alarms.sh
+ALERT_EMAIL=ops@docva.health ./scripts/setup-alarms.sh
 ```
 
 ---
@@ -113,7 +113,7 @@ chmod +x scripts/post-deploy-verification.sh
 ./scripts/post-deploy-verification.sh
 ```
 
-The script polls `https://app.anot.health/api/health` for **5 minutes** (10 s interval).
+The script polls `https://app.docva.health/api/health` for **5 minutes** (10 s interval).
 
 | Outcome | Action |
 |---------|--------|
@@ -123,10 +123,10 @@ The script polls `https://app.anot.health/api/health` for **5 minutes** (10 s in
 Quick manual smoke test:
 
 ```bash
-curl -sS https://app.anot.health/api/health
+curl -sS https://app.docva.health/api/health
 # Expected: {"status":"ok",...}
 
-curl -sS -o /dev/null -w "%{http_code}\n" https://app.anot.health/api/csrf-token
+curl -sS -o /dev/null -w "%{http_code}\n" https://app.docva.health/api/csrf-token
 # Expected: 200
 ```
 
@@ -142,8 +142,8 @@ Use when post-deploy verification fails, EB health is **Red**, or `/api/health` 
 
 ```powershell
 $Region = 'ap-southeast-1'
-$EbAppName = 'anot-backend'
-$EbEnvName = 'anot-backend-prod'
+$EbAppName = 'docva-backend'
+$EbEnvName = 'docva-backend-prod'
 
 # List recent versions (newest first)
 aws elasticbeanstalk describe-application-versions `
@@ -174,7 +174,7 @@ Then re-run post-deploy verification:
 
 ### 4.2 SSM / secrets rollback
 
-If the failure is SSM-related (missing parameters, wrong `USE_SSM` flag), follow [ROLLBACK_V40_SSM.md](../anot-backend-main/anot-backend-main/ROLLBACK_V40_SSM.md).
+If the failure is SSM-related (missing parameters, wrong `USE_SSM` flag), follow [ROLLBACK_V40_SSM.md](../docva-backend-main/docva-backend-main/ROLLBACK_V40_SSM.md).
 
 ### 4.3 Database rollback
 
@@ -192,9 +192,9 @@ If a bad migration was applied:
 
 | Role | Contact | When to escalate |
 |------|---------|------------------|
-| On-call engineering | `ops@anot.health` | Production down, rollback failed, data integrity concern |
+| On-call engineering | `ops@docva.health` | Production down, rollback failed, data integrity concern |
 | AWS account admin | Internal ops lead | IAM, RDS snapshot restore, EB platform issues |
-| Security / HIPAA | `security@anot.health` | Suspected breach, PHI exposure, audit log tampering |
+| Security / HIPAA | `security@docva.health` | Suspected breach, PHI exposure, audit log tampering |
 
 ### Incident checklist
 
@@ -209,19 +209,19 @@ If a bad migration was applied:
 ```bash
 # EB environment status
 aws elasticbeanstalk describe-environments \
-  --application-names anot-backend \
-  --environment-names anot-backend-prod \
+  --application-names docva-backend \
+  --environment-names docva-backend-prod \
   --region ap-southeast-1
 
 # Recent EB events
 aws elasticbeanstalk describe-events \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --region ap-southeast-1 \
   --max-records 20
 
 # CloudWatch alarms
 aws cloudwatch describe-alarms \
-  --alarm-name-prefix anot-prod \
+  --alarm-name-prefix docva-prod \
   --region ap-southeast-1
 ```
 
@@ -231,5 +231,6 @@ aws cloudwatch describe-alarms \
 
 - [SSM_PARAMETERS.md](./SSM_PARAMETERS.md) — required Parameter Store paths
 - [AWS_DEPLOYMENT.md](../deploy/AWS_DEPLOYMENT.md) — full AWS architecture guide
-- [DEPLOYMENT_V40_SSM.md](../anot-backend-main/anot-backend-main/DEPLOYMENT_V40_SSM.md) — SSM bootstrap details
-- [ROLLBACK_V40_SSM.md](../anot-backend-main/anot-backend-main/ROLLBACK_V40_SSM.md) — secrets rollback playbook
+- [DEPLOYMENT_V40_SSM.md](../docva-backend-main/docva-backend-main/DEPLOYMENT_V40_SSM.md) — SSM bootstrap details
+- [ROLLBACK_V40_SSM.md](../docva-backend-main/docva-backend-main/ROLLBACK_V40_SSM.md) — secrets rollback playbook
+

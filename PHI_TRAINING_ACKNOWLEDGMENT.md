@@ -1,9 +1,9 @@
-# PHI Awareness Training & Acknowledgment
+﻿# PHI Awareness Training & Acknowledgment
 
-**Anot Health** · Version 1.0 · Effective June 14, 2026
+**docva Health** · Version 1.0 · Effective June 14, 2026
 
 This is a short, plain-language training you complete before working with patient information on
-Anot Health. Please read it, then sign at the bottom.
+docva Health. Please read it, then sign at the bottom.
 
 ---
 
@@ -12,7 +12,7 @@ Anot Health. Please read it, then sign at the bottom.
 **PHI** stands for **Protected Health Information**. It's any information that can identify a patient
 *and* relates to their health, care, or treatment.
 
-On Anot Health, PHI includes:
+On docva Health, PHI includes:
 
 - Recorded **patient encounter audio**
 - **Transcripts** and **AI-generated clinical notes**
@@ -22,7 +22,7 @@ If it could tell someone *who* a patient is and *something about their health*, 
 
 ---
 
-## How Anot Health Protects PHI
+## How docva Health Protects PHI
 
 You're working on a platform built with patient privacy in mind:
 
@@ -41,7 +41,7 @@ You're working on a platform built with patient privacy in mind:
 
 ## Your Responsibilities
 
-By using Anot Health, you agree to:
+By using docva Health, you agree to:
 
 1. **Access only what you need.** Look at patient information only when your job requires it
    (the "minimum necessary" rule).
@@ -60,7 +60,7 @@ for example, a lost device, a shared password, a suspicious login, or data sent 
 
 **What to do — act fast, don't investigate alone:**
 
-1. **Report it immediately** to **support@anot.health** (and **admin@anot.health** for anything
+1. **Report it immediately** to **support@docva.health** (and **admin@docva.health** for anything
    urgent or serious).
 2. **Don't try to cover it up or "fix it" quietly.** Reporting early protects patients and protects you.
 3. **Write down what you saw** — what happened, when, and which patients or data might be involved.
@@ -73,9 +73,9 @@ Reporting in good faith is always the right call. You will not be penalized for 
 ## Acknowledgment & Sign-Off
 
 > I confirm that I have read and understood this PHI Awareness Training. I understand what PHI is, how
-> Anot Health protects it, and my responsibilities for keeping it safe. I agree to access PHI only as
+> docva Health protects it, and my responsibilities for keeping it safe. I agree to access PHI only as
 > needed for my role, to keep my credentials secure, and to report any suspected breach immediately to
-> support@anot.health.
+> support@docva.health.
 
 | Field | Entry |
 | --- | --- |
@@ -84,4 +84,5 @@ Reporting in good faith is always the right call. You will not be penalized for 
 | Signature | ______________________________ |
 | Date | ______________________________ |
 
-*Retain the signed copy in the employee/contractor compliance file. Questions: admin@anot.health.*
+*Retain the signed copy in the employee/contractor compliance file. Questions: admin@docva.health.*
+

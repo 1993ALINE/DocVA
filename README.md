@@ -1,19 +1,19 @@
-# anot — full stack workspace
+﻿# docva — full stack workspace
 
-![Deploy Status](https://github.com/1993ALINE/anot-health/actions/workflows/deploy.yml/badge.svg)
+![Deploy Status](https://github.com/1993ALINE/docva/actions/workflows/deploy.yml/badge.svg)
 
 **CI/CD:** Automated tests on every push to `main`; **production backend deploy is manual** ([runbook](docs/DEPLOYMENT_RUNBOOK.md)).
 
 ## What this project is
 
-**Anot** is a **clinical documentation** platform: care teams capture **visit audio**, produce **structured notes** (transcription via **Deepgram**, with optional **AI** draft via **Anthropic Claude**), and move work through **scribe → QPS review** flows. **Clinicians** (physicians) manage **patients and visits**; **admins** handle **users, assignments, payroll, and audit**.
+**docva** is a **clinical documentation** platform: care teams capture **visit audio**, produce **structured notes** (transcription via **Deepgram**, with optional **AI** draft via **Anthropic Claude**), and move work through **scribe → QPS review** flows. **Clinicians** (physicians) manage **patients and visits**; **admins** handle **users, assignments, payroll, and audit**.
 
 It is built as **two packages** in one workspace—**not** two unrelated apps:
 
 | Part | Stack | Role |
 |------|--------|------|
-| **Backend** (`anot-backend-main/anot-backend-main`) | Node, Express, PostgreSQL, JWT | REST API, file/audio, AI pipeline |
-| **Frontend** (`anot-frontend-main/anot-frontend-main`) | React 19, Vite, React Router | Role-based SPA (clinician, scribe, QPS, admin, super admin) |
+| **Backend** (`docva-backend-main/docva-backend-main`) | Node, Express, PostgreSQL, JWT | REST API, file/audio, AI pipeline |
+| **Frontend** (`docva-frontend-main/docva-frontend-main`) | React 19, Vite, React Router | Role-based SPA (clinician, scribe, QPS, admin, super admin) |
 
 **Why two folders?** The code is often split across two Git repos (API vs UI). Locally they are **merged operationally**: same product, shared API contract (`/api/...`), run together against one dev database.
 
@@ -35,24 +35,24 @@ It is built as **two packages** in one workspace—**not** two unrelated apps:
 GitHub zips often unpack with a nested folder. Your workspace uses:
 
 ```text
-anot/                                    ← repo root (this README)
+docva/                                    ← repo root (this README)
   .env                                   ← optional copy of DATABASE_URL (gitignored)
-  anot-backend-main/
-    anot-backend-main/                   ← Node API: npm install / npm run dev
+  docva-backend-main/
+    docva-backend-main/                   ← Node API: npm install / npm run dev
       .env                               ← DATABASE_URL, JWT_SECRET (gitignored)
       src/server.js
-  anot-frontend-main/
-    anot-frontend-main/                  ← Vite app: npm install / npm run dev
+  docva-frontend-main/
+    docva-frontend-main/                  ← Vite app: npm install / npm run dev
       .env.local                         ← VITE_API_URL (gitignored)
       src/
 ```
 
 ## Local development
 
-From the **repo root** (`anot`), install everything once, then start **API + web** together:
+From the **repo root** (`docva`), install everything once, then start **API + web** together:
 
 ```powershell
-Set-Location "C:\Users\Jp Asher\Documents\GitHub\anot"
+Set-Location "C:\Users\Jp Asher\Documents\GitHub\docva"
 npm install
 npm run install:all
 npm run dev
@@ -61,7 +61,7 @@ npm run dev
 - **API:** `http://127.0.0.1:5000/` (health JSON)  
 - **App:** URL printed by Vite (often `http://localhost:5173`) — sign in at **`/login`**. **`/`** redirects by session/role.
 
-On localhost the client uses **`http://127.0.0.1:5000/api`** by default — see `anot-frontend-main/anot-frontend-main/src/services/api.js`. Override with **`VITE_API_URL`** / **`VITE_USE_LOCAL_API`** in `.env.local` — [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md).
+On localhost the client uses **`http://127.0.0.1:5000/api`** by default — see `docva-frontend-main/docva-frontend-main/src/services/api.js`. Override with **`VITE_API_URL`** / **`VITE_USE_LOCAL_API`** in `.env.local` — [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md).
 
 **“Failed to fetch” / “Cannot reach the API”:** [deploy/LOCALHOST_SETUP.md#12-troubleshooting-localhost](deploy/LOCALHOST_SETUP.md#12-troubleshooting-localhost). Quick checks: API still running; open `http://127.0.0.1:5000/`; use the Vite URL from the terminal if port 5173 is busy.
 
@@ -69,26 +69,26 @@ On localhost the client uses **`http://127.0.0.1:5000/api`** by default — see 
 
 ```powershell
 # Terminal 1
-Set-Location ".\anot-backend-main\anot-backend-main"
+Set-Location ".\docva-backend-main\docva-backend-main"
 npm install
 npm run dev
 
 # Terminal 2
-Set-Location ".\anot-frontend-main\anot-frontend-main"
+Set-Location ".\docva-frontend-main\docva-frontend-main"
 npm install
 npm run dev
 ```
 
 ### Dev test accounts (disposable DB only)
 
-With **`DATABASE_URL`** in **`anot-backend-main\anot-backend-main\.env`** pointing at your **dev** database:
+With **`DATABASE_URL`** in **`docva-backend-main\docva-backend-main\.env`** pointing at your **dev** database:
 
 ```powershell
 # From repo root
 npm run seed:dev
 
 # Or from the backend folder
-Set-Location ".\anot-backend-main\anot-backend-main"
+Set-Location ".\docva-backend-main\docva-backend-main"
 npm run seed:dev
 ```
 
@@ -98,11 +98,11 @@ That creates or updates the accounts below (and prints the same details in the t
 
 | Email | Password | Role (DB) | Portal after login |
 |-------|----------|-----------|-------------------|
-| `clinician@dev.anot.local` | `DevClinician!2026` | `clinician` | Doctor/clinician workspace (`/clinician`) |
-| `scribe@dev.anot.local` | `DevScribe!2026` | `scribe` | Scribe (`/scribe`) |
-| `qps@dev.anot.local` | `DevQps!2026` | `qps` | QPS (`/qps`) |
-| `admin@dev.anot.local` | `DevAdmin!2026` | `admin` | Admin (`/admin`) |
-| `superadmin@dev.anot.local` | `DevSuperAdmin!2026` | `super_admin` | Super Admin (`/admin`) |
+| `clinician@dev.docva.local` | `DevClinician!2026` | `clinician` | Doctor/clinician workspace (`/clinician`) |
+| `scribe@dev.docva.local` | `DevScribe!2026` | `scribe` | Scribe (`/scribe`) |
+| `qps@dev.docva.local` | `DevQps!2026` | `qps` | QPS (`/qps`) |
+| `admin@dev.docva.local` | `DevAdmin!2026` | `admin` | Admin (`/admin`) |
+| `superadmin@dev.docva.local` | `DevSuperAdmin!2026` | `super_admin` | Super Admin (`/admin`) |
 
 Sign-in is always at **`/login`**; the app routes by **`role`** from the server — no role choice on the login page.
 
@@ -110,16 +110,17 @@ Sign-in is always at **`/login`**; the app routes by **`role`** from the server 
 
 | Location | Purpose |
 |----------|---------|
-| `anot-backend-main/anot-backend-main/.env` | `DATABASE_URL`, `JWT_SECRET`, optional `ANTHROPIC_API_KEY`, `PORT` |
-| `anot-frontend-main/anot-frontend-main/.env.local` | Optional. On **localhost** / **127.0.0.1**, the app uses **`http://127.0.0.1:5000/api`** by default unless **`VITE_USE_LOCAL_API=false`**. See [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md). |
+| `docva-backend-main/docva-backend-main/.env` | `DATABASE_URL`, `JWT_SECRET`, optional `ANTHROPIC_API_KEY`, `PORT` |
+| `docva-frontend-main/docva-frontend-main/.env.local` | Optional. On **localhost** / **127.0.0.1**, the app uses **`http://127.0.0.1:5000/api`** by default unless **`VITE_USE_LOCAL_API=false`**. See [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md). |
 
 Use your **Neon dev** database only for local work; production is separate.
 
 ## Upstream repos
 
-- Frontend: `https://github.com/1993ALINE/anot-frontend.git`
-- Backend: `https://github.com/1993ALINE/anot-backend.git`
+- Frontend: `https://github.com/1993ALINE/docva-frontend.git`
+- Backend: `https://github.com/1993ALINE/docva-backend.git`
 
 ## Security
 
 Do not commit `.env` / `.env.local`. Rotate any database password that has been exposed outside your team.
+

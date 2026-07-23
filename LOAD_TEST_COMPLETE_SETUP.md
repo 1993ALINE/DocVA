@@ -1,4 +1,4 @@
-# COMPREHENSIVE LOAD TEST - COMPLETE SETUP
+﻿# COMPREHENSIVE LOAD TEST - COMPLETE SETUP
 
 **Status:** ✅ READY TO EXECUTE  
 **Date Created:** 2026-07-11  
@@ -8,7 +8,7 @@
 
 ## WHAT WAS CREATED
 
-### Scripts (in `anot-backend-main/scripts/`)
+### Scripts (in `docva-backend-main/scripts/`)
 1. **comprehensive-load-test.js** - Full Playwright automation (2-3 hours)
 2. **api-load-test.js** - API-based test (30-45 minutes automated)
 3. **generate-test-audio.js** - Audio file generator
@@ -34,14 +34,14 @@
 
 ### Option A: Automated Browser Test (Recommended for First Run)
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 ```
 This will open Chrome and execute all phases automatically.
 
 ### Option B: API Test (Faster, for CI/CD)
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load:api
 ```
 Executes phases 1-5 via API, phases 6-8 need manual completion.
@@ -55,7 +55,7 @@ Open and follow: `MANUAL_LOAD_TEST_GUIDE.md`
 
 Start real-time monitoring in a separate terminal:
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run monitor:load
 ```
 
@@ -71,7 +71,7 @@ Shows live progress:
 
 ### Phase 1: Create Test Clinician (5 min)
 - Admin logs in
-- Creates clinician: load-test-doctor@anot.health
+- Creates clinician: load-test-doctor@docva.health
 - Verifies clinician can login
 
 ### Phase 2: Create 20 Patients (10 min)
@@ -136,13 +136,13 @@ Shows live progress:
 - atiqurrahmanaline@gmail.com / #1Knowtex2026
 
 **Test Clinician (auto-created):**
-- load-test-doctor@anot.health / LoadTest@2026
+- load-test-doctor@docva.health / LoadTest@2026
 
 **Scribe:**
-- shahib@anot.health / #1Knowtex2026
+- shahib@docva.health / #1Knowtex2026
 
 **QPS:**
-- farhan@anot.health / #1Knowtex2026
+- farhan@docva.health / #1Knowtex2026
 
 ---
 
@@ -282,7 +282,7 @@ FROM visits WHERE locked_at IS NOT NULL;
 
 ## IMPORTANT NOTES
 
-1. **Test Clinician:** Will be created fresh each time (load-test-doctor@anot.health)
+1. **Test Clinician:** Will be created fresh each time (load-test-doctor@docva.health)
 2. **Test Patients:** 20 patients with MRNs LT-2026-001 through LT-2026-020
 3. **Audio File:** 38 MB WAV file, 20 minutes, 1000 Hz sine wave
 4. **Cleanup:** Test data remains in database (can be filtered by date or MRN prefix)
@@ -319,7 +319,7 @@ After test:
 
 **Recommended first run:**
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run test:load
 ```
 
@@ -327,7 +327,7 @@ This will execute the full automated test with browser automation, giving you vi
 
 **Monitor in separate terminal:**
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 npm run monitor:load
 ```
 
@@ -352,3 +352,4 @@ For questions or issues during test execution, refer to:
 - MANUAL_LOAD_TEST_GUIDE.md (troubleshooting section)
 - CloudWatch logs (real-time error tracking)
 - Sentry dashboard (error aggregation)
+

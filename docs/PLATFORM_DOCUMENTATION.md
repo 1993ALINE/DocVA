@@ -1,8 +1,8 @@
-# Anot Health — Platform Documentation
+﻿# docva Health — Platform Documentation
 
 **Version 1.0 · June 16, 2026**
 
-A comprehensive technical and operational guide to the Anot Health platform: a HIPAA-aware
+A comprehensive technical and operational guide to the docva Health platform: a HIPAA-aware
 clinical documentation system that turns recorded patient encounters into reviewed, approved
 clinical notes.
 
@@ -39,9 +39,9 @@ clinical notes.
 
 ## 1. Platform Overview
 
-### What is Anot Health?
+### What is docva Health?
 
-Anot Health is a clinical documentation platform that converts recorded patient encounters into
+docva Health is a clinical documentation platform that converts recorded patient encounters into
 structured, reviewed clinical notes. It removes the manual burden of charting by recording the
 visit audio, transcribing it with speech-to-text, drafting a note with AI, and then routing that
 draft through a human review-and-approval chain before it is uploaded to the EHR. Every action that
@@ -130,12 +130,12 @@ record  →  transcribe  →  AI draft  →  scribe review  →  clinician appro
 
 ### Database
 
-- **PostgreSQL** managed by **AWS RDS** (`anot-postgres`).
+- **PostgreSQL** managed by **AWS RDS** (`docva-postgres`).
 - Encrypted at rest (AES-256), automated daily snapshots with point-in-time recovery.
 
 ### Storage
 
-- Audio recordings are stored in **S3** (`anot-audio-625242092266`) with **AES-256** server-side
+- Audio recordings are stored in **S3** (`docva-audio-625242092266`) with **AES-256** server-side
   encryption. Audio is never served from a public URL — access is only via the authenticated
   `GET /api/audio/:visitId` route, which issues short-lived presigned URLs.
 
@@ -149,7 +149,7 @@ record  →  transcribe  →  AI draft  →  scribe review  →  clinician appro
 
 ## 3. System Components
 
-### Frontend (`anot-frontend-main`)
+### Frontend (`docva-frontend-main`)
 
 | Property | Value |
 | --- | --- |
@@ -163,7 +163,7 @@ record  →  transcribe  →  AI draft  →  scribe review  →  clinician appro
 > frontend repo before changing the build. The deployable artifact is always the static `dist/`
 > output from `vite build`.
 
-### Backend (`anot-backend-main`)
+### Backend (`docva-backend-main`)
 
 | Property | Value |
 | --- | --- |
@@ -194,7 +194,7 @@ Mounted route map (`src/server.js`):
 
 | Property | Value |
 | --- | --- |
-| Host | `anot-postgres.c5casia24do8.ap-southeast-1.rds.amazonaws.com` |
+| Host | `docva-postgres.c5casia24do8.ap-southeast-1.rds.amazonaws.com` |
 | Application user | `anot_app` |
 | Core tables | `users`, `patients`, `visits`, `notes`, `audit_logs`, `grades`, `scribe_assignments` |
 | Backup | Automated daily RDS snapshots (7-day retention, PITR) |
@@ -208,7 +208,7 @@ Mounted route map (`src/server.js`):
 
 | Property | Value |
 | --- | --- |
-| Bucket | `anot-audio-625242092266` |
+| Bucket | `docva-audio-625242092266` |
 | Region | `ap-southeast-1` |
 | Purpose | Store visit audio recordings |
 | Lifecycle | Auto-delete after 90 days |
@@ -236,7 +236,7 @@ Mounted route map (`src/server.js`):
 backend) → RDS / S3 / Deepgram / Anthropic.
 
 > The frontend's production API base URL lives in
-> `anot-frontend-main/anot-frontend-main/.env.production` (`VITE_API_URL`). The backend enforces a
+> `docva-frontend-main/docva-frontend-main/.env.production` (`VITE_API_URL`). The backend enforces a
 > CORS allow-list (configurable via the `CORS_ORIGINS` env var) so only approved origins may call
 > the API.
 
@@ -619,7 +619,7 @@ post-incident procedures.
 | Variable | Purpose | Example |
 | --- | --- | --- |
 | `VITE_API_URL` | Backend API base URL | `https://d3t0m4s0ayca85.cloudfront.net/api` |
-| `VITE_APP_NAME` | Display app name (optional) | `Anot Health` |
+| `VITE_APP_NAME` | Display app name (optional) | `docva Health` |
 
 ### Backend (Elastic Beanstalk environment)
 
@@ -631,7 +631,7 @@ post-incident procedures.
 | `DEEPGRAM_API_KEY` | **Yes** | Deepgram speech-to-text (or set in Admin → Settings) |
 | `ANTHROPIC_API_KEY` | **Yes** | Anthropic Claude (or set in Admin → Settings) |
 | `AWS_REGION` | Yes | AWS region (default `ap-southeast-1`) |
-| `S3_AUDIO_BUCKET` | Yes | Audio bucket (default `anot-audio-625242092266`) |
+| `S3_AUDIO_BUCKET` | Yes | Audio bucket (default `docva-audio-625242092266`) |
 | `SETTINGS_ENCRYPTION_KEY` | **Yes** | Encrypts stored system/AI settings (e.g. API keys) |
 | `SENTRY_DSN` | No | Sentry error tracking endpoint |
 | `CORS_ORIGINS` | No | Comma-separated additional allowed origins |
@@ -759,14 +759,14 @@ the step-by-step procedure and RTO/RPO targets.
 
 | Resource | URL |
 | --- | --- |
-| GitHub | https://github.com/1993ALINE/anot-health |
-| Frontend repo path | `anot-frontend-main/anot-frontend-main` |
-| Backend repo path | `anot-backend-main/anot-backend-main` |
+| GitHub | https://github.com/1993ALINE/docva |
+| Frontend repo path | `docva-frontend-main/docva-frontend-main` |
+| Backend repo path | `docva-backend-main/docva-backend-main` |
 | AWS Console | https://console.aws.amazon.com |
 | Deepgram Console | https://console.deepgram.com |
 | Anthropic Console | https://console.anthropic.com |
-| Admin Panel | https://app.anot.health/admin |
-| System Health | https://app.anot.health/admin/health |
+| Admin Panel | https://app.docva.health/admin |
+| System Health | https://app.docva.health/admin/health |
 
 **Companion docs:** `docs/COST_MONITORING.md`, `docs/DISASTER_RECOVERY.md`,
 `docs/CLINICIAN_ONBOARDING.md`, `docs/ADMIN_ONBOARDING.md`, `SECURITY_AND_COMPLIANCE_MANUAL.md`,
@@ -819,7 +819,8 @@ the step-by-step procedure and RTO/RPO targets.
 
 | Role | Contact |
 | --- | --- |
-| Technical lead | Atiqur Rahman — `admin@anot.health` |
-| Support | `support@anot.health` |
-| Privacy | `privacy@anot.health` |
+| Technical lead | Atiqur Rahman — `admin@docva.health` |
+| Support | `support@docva.health` |
+| Privacy | `privacy@docva.health` |
 | Emergency | +8801521434819 |
+

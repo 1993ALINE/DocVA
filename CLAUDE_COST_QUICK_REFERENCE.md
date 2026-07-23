@@ -1,4 +1,4 @@
-# Claude Cost Control - Quick Reference Card
+﻿# Claude Cost Control - Quick Reference Card
 
 **Version:** 1.0 | **Date:** July 12, 2026
 
@@ -8,19 +8,19 @@
 
 ```bash
 # 1. Add to .env
-echo "CLAUDE_DAILY_LIMIT=5.00" >> anot-backend-main/.env
-echo "CLAUDE_ENFORCE_CAP=false" >> anot-backend-main/.env
-echo "CLAUDE_RATE_LIMIT=30" >> anot-backend-main/.env
+echo "CLAUDE_DAILY_LIMIT=5.00" >> docva-backend-main/.env
+echo "CLAUDE_ENFORCE_CAP=false" >> docva-backend-main/.env
+echo "CLAUDE_RATE_LIMIT=30" >> docva-backend-main/.env
 
 # 2. Run migration
-cd anot-backend-main
+cd docva-backend-main
 psql -d anot_db -f src/migrations/add_claude_usage_log.sql
 
 # 3. Verify installation
 npm run claude:verify
 
 # 4. Restart server
-npm run dev  # or: pm2 restart anot-backend
+npm run dev  # or: pm2 restart docva-backend
 
 # 5. Test monitoring
 npm run claude:costs
@@ -232,7 +232,7 @@ curl -X POST http://localhost:5000/api/claude-stats/reset \
 ## 📚 Full Documentation
 
 - **Setup Guide:** `CLAUDE_COST_CONTROL_SETUP.md`
-- **Full Documentation:** `anot-backend-main/CLAUDE_COST_TRACKING.md`
+- **Full Documentation:** `docva-backend-main/CLAUDE_COST_TRACKING.md`
 - **Implementation Summary:** `CLAUDE_COST_IMPLEMENTATION_SUMMARY.md`
 - **This Card:** `CLAUDE_COST_QUICK_REFERENCE.md`
 
@@ -265,8 +265,8 @@ npm run claude:verify
 npm run claude:costs
 
 # 2. If very high, enable hard cap immediately
-echo "CLAUDE_ENFORCE_CAP=true" >> anot-backend-main/.env
-pm2 restart anot-backend
+echo "CLAUDE_ENFORCE_CAP=true" >> docva-backend-main/.env
+pm2 restart docva-backend
 
 # 3. Investigate
 SELECT DATE(created_at), COUNT(*), SUM(cost)
@@ -308,3 +308,4 @@ curl -H "Auth: Bearer $JWT" http://localhost:5000/api/claude-stats/today
 **Last Updated:** July 12, 2026  
 **Status:** ✅ Production Ready  
 **Support:** See full documentation in `CLAUDE_COST_TRACKING.md`
+

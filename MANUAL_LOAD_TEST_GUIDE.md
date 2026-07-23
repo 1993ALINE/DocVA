@@ -1,4 +1,4 @@
-# COMPREHENSIVE MANUAL LOAD TEST GUIDE
+﻿# COMPREHENSIVE MANUAL LOAD TEST GUIDE
 **Date**: July 11, 2026  
 **Objective**: Test platform with 20 visits, 20-min audio each, all user roles  
 **Duration**: 2-3 hours  
@@ -29,7 +29,7 @@
 ### Before Starting
 
 1. **Open Multiple Browser Windows**:
-   - Window 1: Admin portal (https://app.anot.health)
+   - Window 1: Admin portal (https://app.docva.health)
    - Window 2: Clinician portal (for later)
    - Window 3: Scribe portal (for later)
    - Window 4: QPS portal (for later)
@@ -37,10 +37,10 @@
 2. **Prepare Test Audio File**:
    - If not already generated, run:
      ```powershell
-     cd anot-backend-main
+     cd docva-backend-main
      node scripts/generate-test-audio.js 20
      ```
-   - Location: `anot-backend-main/scripts/test-audio-20min.wav`
+   - Location: `docva-backend-main/scripts/test-audio-20min.wav`
    - Size: ~38 MB
    - Duration: 20 minutes
 
@@ -57,7 +57,7 @@
 ## PHASE 1: ADMIN CREATES NEW CLINICIAN (5 minutes)
 
 ### Test Clinician Details
-- **Email**: `load-test-doctor-[TIMESTAMP]@anot.health` (replace [TIMESTAMP] with current Unix timestamp or use: `load-test-doctor-july11@anot.health`)
+- **Email**: `load-test-doctor-[TIMESTAMP]@docva.health` (replace [TIMESTAMP] with current Unix timestamp or use: `load-test-doctor-july11@docva.health`)
 - **Password**: `LoadTest@2026`
 - **First Name**: Load
 - **Last Name**: Test
@@ -68,7 +68,7 @@
 ### Steps
 
 **1.1 Admin Login**
-- [ ] Open https://app.anot.health in Window 1
+- [ ] Open https://app.docva.health in Window 1
 - [ ] Login credentials:
   - Email: `atiqurrahmanaline@gmail.com`
   - Password: `#1Knowtex2026`
@@ -82,7 +82,7 @@
 **1.3 Create New Clinician**
 - [ ] Click "Add New User" or "Create User"
 - [ ] Fill in form:
-  - Email: `load-test-doctor-july11@anot.health`
+  - Email: `load-test-doctor-july11@docva.health`
   - First Name: `Load`
   - Last Name: `Test`
   - Role: Select `Clinician`
@@ -95,9 +95,9 @@
 
 **1.4 Verify Clinician Login**
 - [ ] Open new incognito/private window (Window 2)
-- [ ] Navigate to https://app.anot.health
+- [ ] Navigate to https://app.docva.health
 - [ ] Login with clinician credentials:
-  - Email: `load-test-doctor-july11@anot.health`
+  - Email: `load-test-doctor-july11@docva.health`
   - Password: `LoadTest@2026`
 - [ ] **Verify**: Redirected to clinician portal/dashboard
 - [ ] **Verify**: No errors displayed
@@ -266,7 +266,7 @@ Visit 10: 13:30    Visit 20: 18:30
 ### Stay logged in as Clinician (Window 2)
 
 ### Audio File
-- **Location**: `anot-backend-main/scripts/test-audio-20min.wav`
+- **Location**: `docva-backend-main/scripts/test-audio-20min.wav`
 - **Size**: ~38 MB
 - **Duration**: 20 minutes
 - **Format**: WAV, 16kHz, mono
@@ -275,11 +275,11 @@ Visit 10: 13:30    Visit 20: 18:30
 
 **4.1 Locate Test Audio File**
 - [ ] Open File Explorer
-- [ ] Navigate to: `C:\Users\Administrator\Desktop\anot-health\anot-backend-main\scripts\`
+- [ ] Navigate to: `C:\Users\Administrator\Desktop\docva\docva-backend-main\scripts\`
 - [ ] **Verify**: `test-audio-20min.wav` exists (38 MB)
 - [ ] If not, generate it:
   ```powershell
-  cd anot-backend-main
+  cd docva-backend-main
   node scripts/generate-test-audio.js 20
   ```
 
@@ -422,9 +422,9 @@ Check | Time | Transcribed Count | Notes Generated | Notes
 
 **6.1 Scribe Login**
 - [ ] Open Window 3 (new incognito/private window)
-- [ ] Navigate to https://app.anot.health
+- [ ] Navigate to https://app.docva.health
 - [ ] Login with scribe credentials:
-  - Email: `shahib@anot.health`
+  - Email: `shahib@docva.health`
   - Password: `#1Knowtex2026`
 - [ ] **Verify**: Redirected to scribe portal/dashboard
 
@@ -495,9 +495,9 @@ Visit | Review Start | Review End | Duration (s) | Quality | Issues | Status
 
 **7.1 QPS Login**
 - [ ] Open Window 4 (new incognito/private window)
-- [ ] Navigate to https://app.anot.health
+- [ ] Navigate to https://app.docva.health
 - [ ] Login with QPS credentials:
-  - Email: `farhan@anot.health`
+  - Email: `farhan@docva.health`
   - Password: `#1Knowtex2026`
 - [ ] **Verify**: Redirected to QPS portal/dashboard
 
@@ -574,7 +574,7 @@ Visits 16-20: 90, 85, 92, 89, 91
 **8.1 Clinician Re-Login** (if needed)
 - [ ] Return to Window 2 (Clinician portal)
 - [ ] If logged out, re-login:
-  - Email: `load-test-doctor-july11@anot.health`
+  - Email: `load-test-doctor-july11@docva.health`
   - Password: `LoadTest@2026`
 - [ ] **Verify**: In clinician portal
 
@@ -1078,21 +1078,21 @@ Average: _____ / 100
 
 ### Generate Test Audio
 ```powershell
-cd anot-backend-main
+cd docva-backend-main
 node scripts/generate-test-audio.js 20
 ```
 
 ### Check EB Health
 ```powershell
 # Open in browser:
-https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 ```
 
 ### Monitor CloudWatch Logs (AWS Console)
 ```
 1. Go to CloudWatch console
 2. Navigate to Log Groups
-3. Select /aws/elasticbeanstalk/anot-backend-prod
+3. Select /aws/elasticbeanstalk/docva-backend-prod
 4. Filter by timestamp during test
 5. Search for errors or timeouts
 ```
@@ -1154,3 +1154,4 @@ https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/h
 **Good luck with your load test!** 🚀
 
 *Remember: This test validates that your platform is ready for production launch. Take your time, document everything, and ensure all phases complete successfully.*
+

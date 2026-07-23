@@ -1,4 +1,4 @@
-# ANOT HEALTH — FINAL AUDIT SCORE REPORT
+﻿# docva HEALTH — FINAL AUDIT SCORE REPORT
 
 **Audit Date:** Thursday, July 2, 2026  
 **Platform:** Production Live (v43-20260702-152309)  
@@ -296,7 +296,7 @@ TOTAL SCORE:                           84/100
 | Check | Result | Evidence |
 |-------|--------|----------|
 | CloudWatch alarms | ✅ PASS | 4+ production alarms in `setup-alarms.sh` |
-| Email alerts | ✅ PASS | SNS → ops@anot.health |
+| Email alerts | ✅ PASS | SNS → ops@docva.health |
 | Metrics baseline | ⏳ PENDING | Not yet captured (Saturday task) |
 | Health checks | ✅ PASS | EB + ALB configured |
 | Log streaming | ✅ PASS | EB → CloudWatch |
@@ -441,3 +441,4 @@ TOTAL SCORE:                           84/100
 **Document Generated:** July 2, 2026  
 **Valid Until:** Saturday, July 6, 2026 (launch day)  
 **Next Review:** Sunday, July 7, 2026 (post-launch debrief)
+

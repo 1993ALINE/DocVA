@@ -1,0 +1,40 @@
+﻿/**
+ * Dismiss the inline HTML boot splash (#docva-splash). Idempotent and safe
+ * if the node is already gone.
+ */
+import { hasValidSession, getStoredUserRaw } from '../utils/sessionAuth'
+
+export function releaseSplash() {  if (typeof document === 'undefined') {return}
+  const splash = document.getElementById('docva-splash')
+  if (!splash) {
+    document.body.classList.add('docva-app-ready')
+    return
+  }
+  if (splash.dataset.anotReleased === '1') {return}
+  splash.dataset.anotReleased = '1'
+  splash.classList.add('docva-splash--exit')
+  splash.setAttribute('aria-busy', 'false')
+  window.setTimeout(() => {
+    splash.remove()
+    document.body.classList.add('docva-app-ready')
+  }, 420)
+}
+
+/** True when we should keep the boot splash until getMe / session bootstrap finishes. */
+export function needsAuthSplashHold() {
+  if (typeof window === 'undefined') {return false}
+  const has = hasValidSession() && !!getStoredUserRaw()
+  if (!has) {return false}
+  const p = window.location.pathname
+  if (p === '/login' || p === '/') {return true}
+  if (
+    p.startsWith('/clinician') ||
+    p.startsWith('/scribe') ||
+    p.startsWith('/qps') ||
+    p.startsWith('/admin')
+  ) {
+    return true
+  }
+  return false
+}
+

@@ -1,4 +1,4 @@
-# Elastic Beanstalk Deployment Failure - Root Cause Analysis
+﻿# Elastic Beanstalk Deployment Failure - Root Cause Analysis
 **Date:** July 10, 2026 11:15 PM  
 **Incident:** v50 deployment failed - Environment RED  
 **Impact:** Production backend unavailable  
@@ -15,9 +15,9 @@ The v50 deployment to Elastic Beanstalk **FAILED** due to a **major backend stru
 ### Root Cause
 Backend folder structure was flattened from:
 ```
-anot-backend-main/anot-backend-main/src/server.js  (v48 - WORKING)
+docva-backend-main/docva-backend-main/src/server.js  (v48 - WORKING)
 →
-anot-backend-main/src/server.js  (v50 - FAILED)
+docva-backend-main/src/server.js  (v50 - FAILED)
 ```
 
 This structural change broke the deployment package, causing EB to fail starting the application.
@@ -44,7 +44,7 @@ This structural change broke the deployment package, causing EB to fail starting
 Commit: 935e891
 Message: "Major cleanup: flatten backend structure and remove 1.9GB of old archives"
 Changes:
-  - Flattened nested anot-backend-main/anot-backend-main/ structure
+  - Flattened nested docva-backend-main/docva-backend-main/ structure
   - Removed 10 old deployment archives (1.9GB)
   - Structure reduced from 2GB to 177MB (91% reduction)
 ```
@@ -59,7 +59,7 @@ Changes:
 ```
 
 #### ~04:00 AM - v50 Deployment Triggered
-- Deployment to anot-backend-prod initiated
+- Deployment to docva-backend-prod initiated
 - EB attempted to deploy new structure
 
 #### ~04:10 AM - Deployment FAILED
@@ -84,8 +84,8 @@ Changes:
 **v48 Structure (WORKING):**
 ```
 deployment.zip
-└── anot-backend-main/
-    └── anot-backend-main/
+└── docva-backend-main/
+    └── docva-backend-main/
         ├── src/
         │   └── server.js
         ├── package.json
@@ -96,7 +96,7 @@ deployment.zip
 **v50 Structure (FAILED):**
 ```
 deployment.zip
-└── anot-backend-main/
+└── docva-backend-main/
     ├── src/
     │   └── server.js
     ├── package.json
@@ -123,9 +123,9 @@ deployment.zip
 
 3. **Structure Verified:** Correct structure exists locally
    ```
-   ✅ anot-backend-main/src/server.js
-   ✅ anot-backend-main/package.json
-   ✅ anot-backend-main/.ebextensions/
+   ✅ docva-backend-main/src/server.js
+   ✅ docva-backend-main/package.json
+   ✅ docva-backend-main/.ebextensions/
    ```
 
 4. **package.json start script:** Correct
@@ -195,7 +195,7 @@ web: npm start
   - Report status
 
 ### 4. Created Procfile
-- **File:** `anot-backend-main/Procfile`
+- **File:** `docva-backend-main/Procfile`
 - **Content:** `web: npm start`
 - **Purpose:** Explicitly tell EB how to start the app
 
@@ -218,7 +218,7 @@ web: npm start
 **Benefit:** Immediate GREEN status
 
 **Steps:**
-1. AWS Console → EB → anot-backend-prod
+1. AWS Console → EB → docva-backend-prod
 2. Application Versions → v48
 3. Deploy → Confirm
 4. Wait 5-10 minutes
@@ -371,7 +371,7 @@ web: npm start
    - Tests runner
    - Status reporter
 
-4. **anot-backend-main/Procfile**
+4. **docva-backend-main/Procfile**
    - Explicit EB entry point
    - `web: npm start`
 
@@ -394,15 +394,15 @@ web: npm start
 ### Files Changed (935e891)
 ```
 BACKEND_FOLDER_CLEANUP_REPORT.md
-anot-backend-main/* (structure flattened)
-- Moved anot-backend-main/anot-backend-main/* up one level
+docva-backend-main/* (structure flattened)
+- Moved docva-backend-main/docva-backend-main/* up one level
 - Removed 10 deployment archives (1.9GB)
 ```
 
 ### Environment Details
 ```
 Region: ap-southeast-1 (Singapore)
-Environment: anot-backend-prod
+Environment: docva-backend-prod
 Platform: Node.js 22 on Amazon Linux 2023
 Instances: 2 (behind load balancer)
 Health check: /api/health (30s interval)
@@ -411,7 +411,7 @@ Health check: /api/health (30s interval)
 ### Error Pattern (Suspected)
 Based on structure change, likely errors in v50:
 ```
-- "Cannot find module '/var/app/current/anot-backend-main/src/server.js'"
+- "Cannot find module '/var/app/current/docva-backend-main/src/server.js'"
 - "Application process terminated unexpectedly"
 - "502 Bad Gateway"
 - Health check timeout
@@ -533,3 +533,4 @@ Fix: npm update esbuild
 **Generated:** July 10, 2026 11:15 PM  
 **Next Action:** Execute QUICK_START_FIX_EB.md  
 **ETA to GREEN:** 10 minutes (rollback)
+

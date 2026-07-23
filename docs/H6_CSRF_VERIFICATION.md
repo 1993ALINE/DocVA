@@ -1,4 +1,4 @@
-# H6 — Admin Form CSRF Verification
+﻿# H6 — Admin Form CSRF Verification
 
 **Status:** ✅ Verified (no code changes required)
 
@@ -7,7 +7,7 @@
 ## Summary
 
 All Admin portal mutating requests route through `apiFetch()` / `apiMutate()` in
-`anot-frontend-main/src/services/api.js`, which attaches:
+`docva-frontend-main/src/services/api.js`, which attaches:
 
 - `credentials: 'include'` (sends the `csrf_token` cookie)
 - `X-CSRF-Token` header (double-submit token from `GET /api/csrf-token`)
@@ -64,3 +64,4 @@ once with a refreshed token.
 
 H6 requirement satisfied: Admin forms use the unified API layer with CSRF protection.
 No additional frontend changes needed after H5 `apiFetch()` migration.
+

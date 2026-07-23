@@ -1,4 +1,4 @@
-# QUICK START: Fix EB Deployment NOW
+﻿# QUICK START: Fix EB Deployment NOW
 
 **Time to fix:** 15-30 minutes  
 **Difficulty:** Easy  
@@ -10,7 +10,7 @@
 
 Your v50 deployment **FAILED** because the backend structure was flattened from:
 ```
-anot-backend-main/anot-backend-main/src/  →  anot-backend-main/src/
+docva-backend-main/docva-backend-main/src/  →  docva-backend-main/src/
 ```
 
 This broke the deployment package. **Solution: Rollback to v48**.
@@ -23,14 +23,14 @@ This broke the deployment package. **Solution: Rollback to v48**.
 ```
 https://console.aws.amazon.com/elasticbeanstalk
 → Region: ap-southeast-1
-→ Environment: anot-backend-prod
+→ Environment: docva-backend-prod
 ```
 
 ### Step 2: Deploy v48 (Last Working Version)
 1. Click **"Application versions"** (left sidebar)
 2. Find: **v48-transcription-fix-20260705** (or latest v48)
 3. Click **"Deploy"** button
-4. Select environment: **anot-backend-prod**
+4. Select environment: **docva-backend-prod**
 5. Click **"Deploy"** to confirm
 
 ### Step 3: Wait 5-10 minutes
@@ -44,7 +44,7 @@ Watch **Events** tab for:
 ### Step 4: Verify Health
 Open in browser:
 ```
-https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 ```
 
 Should see:
@@ -55,7 +55,7 @@ Should see:
 ### Step 5: Test Login
 Try logging in at:
 ```
-https://app.anot.health/
+https://app.docva.health/
 ```
 
 **If login works: YOU'RE DONE! ✅**
@@ -83,12 +83,12 @@ This will:
 
 ```bash
 # Backend
-cd anot-backend-main
+cd docva-backend-main
 npm audit fix
 npm test  # Verify 152 tests pass
 
 # Frontend
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 npm audit fix
 
 # Commit
@@ -117,7 +117,7 @@ If you want to deploy the fixed structure (not urgent):
 After rollback:
 - [ ] EB Status: GREEN
 - [ ] Health endpoint: 200 OK
-- [ ] Can log in at app.anot.health
+- [ ] Can log in at app.docva.health
 - [ ] No errors in CloudWatch logs
 
 **All checked? READY FOR SATURDAY ✅**
@@ -141,7 +141,7 @@ Date: July 10, 2026
 Change: "Major cleanup: flatten backend structure"
 
 Files affected:
-- Moved anot-backend-main/anot-backend-main/* up one level
+- Moved docva-backend-main/docva-backend-main/* up one level
 - Removed 1.9GB of old archives
 - All 152 tests still passing locally
 
@@ -173,3 +173,4 @@ Fix: Rollback to v48 (working), then deploy v51 (fixed) later
 
 *Generated: July 10, 2026 11:15 PM*  
 *Priority: CRITICAL*
+

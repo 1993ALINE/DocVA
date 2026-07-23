@@ -1,7 +1,7 @@
-# CODE CLEANUP & UNUSED CODE REPORT
+﻿# CODE CLEANUP & UNUSED CODE REPORT
 ## Generated: Thursday, July 2, 2026
 
-**Scope:** Backend `anot-backend-main/anot-backend-main/src/` and Frontend `anot-frontend-main/anot-frontend-main/src/`
+**Scope:** Backend `docva-backend-main/docva-backend-main/src/` and Frontend `docva-frontend-main/docva-frontend-main/src/`
 
 ---
 
@@ -175,3 +175,4 @@ Frontend JSX files are large but mostly active code. No significant multi-line c
 ---
 
 *See `CLEANUP_TASKS.md` for actionable sprint backlog.*
+

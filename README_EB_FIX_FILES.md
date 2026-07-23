@@ -1,4 +1,4 @@
-# EB Deployment Fix - File Guide
+﻿# EB Deployment Fix - File Guide
 **Generated:** July 10, 2026 11:15 PM  
 **Purpose:** Guide to all files created for fixing EB deployment failure
 
@@ -107,7 +107,7 @@ This directory contains all documentation and scripts needed to fix the Elastic 
 
 ### 📝 CONFIGURATION FILES
 
-#### 8. anot-backend-main/Procfile
+#### 8. docva-backend-main/Procfile
 **Purpose:** Explicit EB application entry point  
 **Created:** Automatically  
 **Content:**
@@ -197,7 +197,7 @@ Fix: Any issues found
   ↓
 Test: Locally
   ↓
-Deploy: cd anot-backend-main && powershell scripts/deploy-to-eb.ps1
+Deploy: cd docva-backend-main && powershell scripts/deploy-to-eb.ps1
   ↓
 Monitor: Events and CloudWatch
   ↓
@@ -264,7 +264,7 @@ DONE - v51 deployed! 🎉
 ```
 1. Open: https://console.aws.amazon.com/elasticbeanstalk
 2. Region: ap-southeast-1
-3. Environment: anot-backend-prod
+3. Environment: docva-backend-prod
 4. Application versions → v48 → Deploy
 ```
 
@@ -288,10 +288,10 @@ git push origin main
 ### Check Status
 ```bash
 # Health endpoint
-curl https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+curl https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 
 # Login page
-open https://app.anot.health/
+open https://app.docva.health/
 ```
 
 ---
@@ -303,7 +303,7 @@ You'll know the fix is complete when:
 ### Immediately After Rollback
 - ✅ EB Dashboard: Status = GREEN
 - ✅ Health endpoint: 200 OK
-- ✅ Login works: app.anot.health
+- ✅ Login works: app.docva.health
 - ✅ CloudWatch: No errors
 - ✅ Uptime: >1 hour stable
 
@@ -333,13 +333,13 @@ EB_DEPLOYMENT_ROOT_CAUSE.md
   └─> Complete standalone analysis
 
 fix-npm-vulnerabilities.ps1
-  └─> Requires: anot-backend-main/package.json
-                anot-frontend-main/anot-frontend-main/package.json
+  └─> Requires: docva-backend-main/package.json
+                docva-frontend-main/docva-frontend-main/package.json
 
 verify-before-deploy.ps1
-  └─> Requires: anot-backend-main/Procfile
-                anot-backend-main/package.json
-                anot-backend-main/src/server.js
+  └─> Requires: docva-backend-main/Procfile
+                docva-backend-main/package.json
+                docva-backend-main/src/server.js
 
 Procfile
   └─> No dependencies
@@ -446,3 +446,4 @@ You have a complete deployment fix toolkit:
 *Generated: July 10, 2026 11:15 PM*  
 *Status: Complete and ready to use*  
 *Version: 1.0*
+

@@ -1,8 +1,8 @@
-# Admin Onboarding Guide
+﻿# Admin Onboarding Guide
 
-**Anot Health** · Version 1.1 · June 16, 2026
+**docva Health** · Version 1.1 · June 16, 2026
 
-Welcome. This guide walks administrators through the day-to-day tasks of running Anot Health: signing
+Welcome. This guide walks administrators through the day-to-day tasks of running docva Health: signing
 in, creating and managing staff, resetting passwords, reviewing audit logs, enabling/disabling
 accounts, monitoring system health, and troubleshooting common issues.
 
@@ -19,8 +19,8 @@ accounts, monitoring system health, and troubleshooting common issues.
 
 ## 1. Logging In
 
-1. Open the application URL: **https://app.anot.health** (your CloudFront/app domain).
-2. Enter your **email** (e.g. `atiqur@anot.health` or your assigned admin email) and **password**,
+1. Open the application URL: **https://app.docva.health** (your CloudFront/app domain).
+2. Enter your **email** (e.g. `atiqur@docva.health` or your assigned admin email) and **password**,
    then submit.
 3. **First login (or after a password reset):** two modals appear in sequence before you reach the
    dashboard:
@@ -51,7 +51,7 @@ To create a clinician:
    - **Role** — defaults to Clinician (you can switch to Scribe/QPS here; **Admin** appears only for
      super-admins).
    - **Full Name \*** (required)
-   - **Email \*** (required, e.g. `name@anot.health`)
+   - **Email \*** (required, e.g. `name@docva.health`)
    - **Phone** (optional)
    - **Specialty** (optional, e.g. Internal Medicine)
    - **NPI Number** (optional, clinicians only)
@@ -148,7 +148,7 @@ The page auto-refreshes every **30 seconds**; use **Refresh Now** for an immedia
 6. Click **Refresh Now** to re-run the checks after making a change.
 
 > Additional monitoring outside this tab: the backend health endpoint `GET /` returns
-> `✅ Anot API is running` (via CloudFront, `https://<your-domain>/api/`). Application errors are
+> `✅ docva API is running` (via CloudFront, `https://<your-domain>/api/`). Application errors are
 > reported to **Sentry** (PHI scrubbed) and operational logs ship to **CloudWatch**.
 
 ---
@@ -169,12 +169,13 @@ The page auto-refreshes every **30 seconds**; use **Refresh Now** for an immedia
 | Can't delete a user | User has linked clinical records | **Disable** instead of deleting |
 
 **Escalation:** For suspected security incidents or PHI exposure, follow `BREACH_RESPONSE_PLAN.md`
-and report immediately to **support@anot.health** (and **admin@anot.health** for urgent issues).
+and report immediately to **support@docva.health** (and **admin@docva.health** for urgent issues).
 
 ---
 
 ## Support
 
-- **Support:** support@anot.health
-- **Administrator / Security Officer:** admin@anot.health
-- **Privacy / Compliance:** privacy@anot.health
+- **Support:** support@docva.health
+- **Administrator / Security Officer:** admin@docva.health
+- **Privacy / Compliance:** privacy@docva.health
+

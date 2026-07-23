@@ -1,6 +1,6 @@
-# Anot — cPanel hosting deployment (complete guide)
+﻿# docva — cPanel hosting deployment (complete guide)
 
-**Anot’s backend** is **Node.js + PostgreSQL**. Typical **cPanel shared hosting** is built for **PHP + MySQL**, so you usually **cannot** run this API stack on the cheapest shared plans.
+**docva’s backend** is **Node.js + PostgreSQL**. Typical **cPanel shared hosting** is built for **PHP + MySQL**, so you usually **cannot** run this API stack on the cheapest shared plans.
 
 This guide uses the **recommended pattern**:
 
@@ -57,7 +57,7 @@ The UI must be built with **`VITE_API_URL`** pointing at the **live** API (HTTPS
 **Windows (PowerShell):**
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 Set-Content -Path .env.production -Value "VITE_API_URL=https://api.yourdomain.com/api"
 npm ci
 npm run build
@@ -66,7 +66,7 @@ npm run build
 **Linux / macOS:**
 
 ```bash
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 printf '%s\n' 'VITE_API_URL=https://api.yourdomain.com/api' > .env.production
 npm ci && npm run build
 ```
@@ -112,7 +112,7 @@ Paths vary by host (`public_html`, subdomain folder, etc.).
 ### Method C — `scp` from your PC (OpenSSH)
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 npm run build
 scp -P 22 -r .\dist\* YOUR_USER@YOUR_HOST:/remote/path/to/document/root/
 ```
@@ -164,7 +164,7 @@ location / {
 After the UI is on **HTTPS**, the API URL in **`VITE_API_URL`** must be **`https://...`** (avoid mixed content). Rebuild if you changed it:
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 Set-Content -Path .env.production -Value "VITE_API_URL=https://api.yourdomain.com/api"
 npm run build
 ```
@@ -204,7 +204,7 @@ Some panels give a path like:
 **Windows example:**
 
 ```powershell
-cd anot-frontend-main\anot-frontend-main
+cd docva-frontend-main\docva-frontend-main
 npm run build
 scp -r .\dist\* YOUR_USER@YOUR_SERVER:/var/www/GUID/your-subdomain.yourdomain.com/
 ```
@@ -252,3 +252,4 @@ Use the user/group your host documents (`www-data` is common on Debian/Ubuntu).
 
 - **Local development:** [LOCALHOST_SETUP.md](./LOCALHOST_SETUP.md)  
 - **AWS / Linux VPS (API):** [AWS_DEPLOYMENT.md](./AWS_DEPLOYMENT.md)
+

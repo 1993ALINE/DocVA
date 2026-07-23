@@ -1,8 +1,8 @@
-# Cost Monitoring Guide
+﻿# Cost Monitoring Guide
 
-**Anot Health** · Version 1.0 · June 16, 2026
+**docva Health** · Version 1.0 · June 16, 2026
 
-This document describes how Anot Health tracks and controls its monthly cloud and AI spend. It covers the
+This document describes how docva Health tracks and controls its monthly cloud and AI spend. It covers the
 AWS budget alert, the expected per-service cost breakdown, third-party AI usage monitoring (Deepgram and
 Anthropic), how to check current spend, the monthly cost report procedure, and ongoing optimization
 practices.
@@ -15,7 +15,7 @@ practices.
 > - **Hard cap:** $200/month (AWS budget)
 > - **Alert trigger:** 80% → $160/month
 > - **Target run-rate:** ~$135/month (AWS) + AI usage within budget
-> - **Owner / notifications:** `admin@anot.health`
+> - **Owner / notifications:** `admin@docva.health`
 
 ---
 
@@ -30,14 +30,14 @@ Set up a monthly cost budget so the team is notified before spend approaches the
 3. Choose **Use a template (simplified)** → **Monthly cost budget** (or **Customize (advanced)** for a
    cost budget).
 4. Configure:
-   - **Budget name:** `anot-monthly-cap`
+   - **Budget name:** `docva-monthly-cap`
    - **Period:** Monthly
    - **Budget amount:** **`$200`** (fixed)
 5. Configure the **alert threshold**:
    - Trigger at **80% of budgeted amount** → **$160** (actual spend).
    - Recommended: add a second alert at **100% ($200)** and a **forecasted** alert at 100% for early
      warning.
-6. **Notification:** email to **`admin@anot.health`**.
+6. **Notification:** email to **`admin@docva.health`**.
 7. Click **Create budget**.
 
 > **Note:** AWS Budgets evaluates a few times per day, so alerts are near-real-time, not instant. The
@@ -52,7 +52,7 @@ Expected steady-state AWS spend. These are planning targets, not hard limits —
 
 | Service | Role | Target / month |
 | --- | --- | --- |
-| **RDS** | PostgreSQL database (`anot-postgres`) | ~$50 |
+| **RDS** | PostgreSQL database (`docva-postgres`) | ~$50 |
 | **S3** | Audio storage (`S3_AUDIO_BUCKET`) | ~$20 |
 | **EC2 / Elastic Beanstalk** | Backend API host | ~$50 |
 | **CloudFront** | Frontend / API distribution | ~$10 |
@@ -151,4 +151,5 @@ Update monthly with actual spend from [§5](#5-how-to-check-current-spend) and [
 | Deepgram | $50 | TBD | $40 | Admin |
 | Anthropic | $50 | TBD | $40 | Admin |
 
-> **Contact / notifications:** `admin@anot.health`
+> **Contact / notifications:** `admin@docva.health`
+

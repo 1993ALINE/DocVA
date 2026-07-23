@@ -1,7 +1,7 @@
-# Elastic Beanstalk Deployment Fix Guide
+﻿# Elastic Beanstalk Deployment Fix Guide
 **Date:** July 10, 2026 11:15 PM  
 **Status:** CRITICAL - Environment needs restoration  
-**Target:** Restore anot-backend-prod to GREEN status before Saturday
+**Target:** Restore docva-backend-prod to GREEN status before Saturday
 
 ---
 
@@ -10,7 +10,7 @@
 ### Root Cause Identified ✅
 **v50 deployment failed due to backend structure flattening**
 - **Commit:** 935e891 "Major cleanup: flatten backend structure"  
-- **Change:** `anot-backend-main/anot-backend-main/src/` → `anot-backend-main/src/`
+- **Change:** `docva-backend-main/docva-backend-main/src/` → `docva-backend-main/src/`
 - **Impact:** Deployment package structure changed, breaking EB app startup
 
 ### Current Status
@@ -38,11 +38,11 @@
 ```
 URL: https://console.aws.amazon.com/elasticbeanstalk
 Region: ap-southeast-1 (Singapore)
-Environment: anot-backend-prod
+Environment: docva-backend-prod
 ```
 
 #### 1.2 Check Current Status
-Go to: **Elastic Beanstalk** → **anot-backend-prod** → **Dashboard**
+Go to: **Elastic Beanstalk** → **docva-backend-prod** → **Dashboard**
 
 Document current state:
 - [ ] Current Status: [Red/Yellow/Green]
@@ -75,7 +75,7 @@ Note: Look for the version deployed before the structure flattening (before July
 #### 1.5 Deploy v48
 1. Click on **v48** version
 2. Click **"Deploy"** button
-3. Select environment: **anot-backend-prod**
+3. Select environment: **docva-backend-prod**
 4. Confirm: **"Deploy"**
 
 #### 1.6 Monitor Deployment (5-10 minutes)
@@ -89,7 +89,7 @@ Watch the **Events** tab for:
 
 #### 1.7 Verify Health Endpoint
 ```bash
-curl https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+curl https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 ```
 
 Expected response:
@@ -103,7 +103,7 @@ Expected response:
 
 #### 1.8 Test Authentication
 ```bash
-curl -X POST https://app.anot.health/api/auth/login \
+curl -X POST https://app.docva.health/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"atiqurrahmanaline@gmail.com","password":"#1Knowtex2026"}'
 ```
@@ -136,13 +136,13 @@ Check for:
 #### Download EB Logs
 ```bash
 aws elasticbeanstalk request-environment-info \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --info-type bundle \
   --region ap-southeast-1
 
 # Wait 5 minutes, then:
 aws elasticbeanstalk retrieve-environment-info \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --info-type bundle \
   --region ap-southeast-1
 ```
@@ -164,7 +164,7 @@ npm ERR! code ELIFECYCLE
 
 #### Pattern B: Wrong entry point
 ```
-Error: Cannot find module '/var/app/current/anot-backend-main/src/server.js'
+Error: Cannot find module '/var/app/current/docva-backend-main/src/server.js'
 ```
 **Cause:** EB looking for server.js in wrong location  
 **Fix:** Create Procfile or update package.json start script
@@ -188,8 +188,8 @@ Error: Environment variable JWT_SECRET is required
 
 **v48 Structure (WORKING):**
 ```
-anot-backend-main/
-├── anot-backend-main/
+docva-backend-main/
+├── docva-backend-main/
 │   ├── src/server.js
 │   ├── package.json
 │   ├── .ebextensions/
@@ -198,7 +198,7 @@ anot-backend-main/
 
 **v50 Structure (FAILED):**
 ```
-anot-backend-main/
+docva-backend-main/
 ├── src/server.js
 ├── package.json
 ├── .ebextensions/
@@ -217,7 +217,7 @@ anot-backend-main/
 ### 3.1 Verify Local Structure is Correct
 
 ```bash
-cd C:\Users\Administrator\Desktop\anot-health\anot-backend-main
+cd C:\Users\Administrator\Desktop\docva\docva-backend-main
 
 # Should see:
 ls src/server.js          # ✅ exists
@@ -228,7 +228,7 @@ ls .ebextensions/         # ✅ exists
 ### 3.2 Update Deployment Configuration
 
 #### Option A: Add Procfile (Recommended)
-Create `anot-backend-main/Procfile`:
+Create `docva-backend-main/Procfile`:
 ```
 web: npm start
 ```
@@ -246,7 +246,7 @@ web: npm start
 
 #### Backend: Fix uuid vulnerability
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 
 # Option 1: Update specific packages
 npm update bull exceljs
@@ -265,7 +265,7 @@ found 0 vulnerabilities
 
 #### Frontend: Fix esbuild vulnerability
 ```bash
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 
 # Update esbuild
 npm update esbuild
@@ -278,20 +278,20 @@ npm audit
 
 ```bash
 # Backend tests
-cd anot-backend-main
+cd docva-backend-main
 npm test
 
 # Expected: 152 tests passed
 
 # Frontend tests (if available)
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 npm test
 ```
 
 ### 3.5 Create Deployment Package
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 
 # Clean any build artifacts
 rm -rf node_modules
@@ -304,7 +304,7 @@ npm ci
 npm test
 
 # Create deployment zip
-zip -r ../anot-backend-v51-structure-fix.zip . \
+zip -r ../docva-backend-v51-structure-fix.zip . \
   -x "node_modules/*" \
   -x "coverage/*" \
   -x "*.log" \
@@ -336,9 +336,9 @@ curl http://localhost:5000/api/health
 ### 4.1 Commit and Push Changes
 
 ```bash
-cd C:\Users\Administrator\Desktop\anot-health
+cd C:\Users\Administrator\Desktop\docva
 
-git add anot-backend-main/
+git add docva-backend-main/
 git commit -m "fix(deploy): restore EB deployment after structure flattening
 
 - Add Procfile for explicit EB entry point
@@ -354,9 +354,9 @@ git push origin main
 
 ### 4.2 Deploy via AWS Console
 
-1. Go to **Elastic Beanstalk** → **anot-backend-prod**
+1. Go to **Elastic Beanstalk** → **docva-backend-prod**
 2. Click **"Upload and Deploy"**
-3. Choose file: `anot-backend-v51-structure-fix.zip`
+3. Choose file: `docva-backend-v51-structure-fix.zip`
 4. Version label: `v51-structure-fix-20260710`
 5. Click **"Deploy"**
 
@@ -420,7 +420,7 @@ git push origin main
 
 ### 6.1 Add Deployment Tests
 
-Create `anot-backend-main/.ebextensions/99_test_structure.config`:
+Create `docva-backend-main/.ebextensions/99_test_structure.config`:
 ```yaml
 container_commands:
   00_verify_structure:
@@ -434,13 +434,13 @@ container_commands:
 
 ### 6.2 Add Health Check Script
 
-Create `anot-backend-main/scripts/verify-deployment.sh`:
+Create `docva-backend-main/scripts/verify-deployment.sh`:
 ```bash
 #!/bin/bash
 # Quick health check for post-deployment verification
 
 echo "Testing health endpoint..."
-response=$(curl -s -o /dev/null -w "%{http_code}" https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health)
+response=$(curl -s -o /dev/null -w "%{http_code}" https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health)
 
 if [ "$response" = "200" ]; then
   echo "✅ Health check passed"
@@ -518,7 +518,7 @@ app.listen(PORT, '0.0.0.0', () => {
       "ssm:GetParameters",
       "ssm:GetParametersByPath"
     ],
-    "Resource": "arn:aws:ssm:ap-southeast-1:*:parameter/anot/*"
+    "Resource": "arn:aws:ssm:ap-southeast-1:*:parameter/docva/*"
   }]
 }
 ```
@@ -546,12 +546,12 @@ app.listen(PORT, '0.0.0.0', () => {
 
 ```bash
 # 1. Login test
-curl -X POST https://app.anot.health/api/auth/login \
+curl -X POST https://app.docva.health/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"test123"}'
 
 # 2. Upload test (with JWT token from step 1)
-curl -X POST https://app.anot.health/api/visits/123/audio \
+curl -X POST https://app.docva.health/api/visits/123/audio \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -F "audio=@test-audio.wav"
 
@@ -570,11 +570,11 @@ curl -X POST https://app.anot.health/api/visits/123/audio \
 
 ```bash
 # Backend
-cd anot-backend-main
+cd docva-backend-main
 npm audit
 
 # Frontend
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 npm audit
 ```
 
@@ -653,11 +653,11 @@ If deployment fails after following this guide:
 pip install awsebcli
 
 # Initialize EB (if not initialized)
-cd anot-backend-main
+cd docva-backend-main
 eb init --region ap-southeast-1
 
 # Deploy
-eb deploy anot-backend-prod
+eb deploy docva-backend-prod
 
 # Check status
 eb status
@@ -673,12 +673,12 @@ eb ssh
 ```bash
 # List versions
 aws elasticbeanstalk describe-application-versions \
-  --application-name anot-backend \
+  --application-name docva-backend \
   --region ap-southeast-1
 
 # Deploy specific version
 aws elasticbeanstalk update-environment \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --version-label v48-transcription-fix-20260705 \
   --region ap-southeast-1
 ```
@@ -688,9 +688,9 @@ aws elasticbeanstalk update-environment \
 ## APPENDIX B: Quick Reference
 
 ### URLs
-- **Production API:** https://app.anot.health/api
+- **Production API:** https://app.docva.health/api
 - **EB Console:** https://console.aws.amazon.com/elasticbeanstalk
-- **Health Endpoint:** https://anot-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
+- **Health Endpoint:** https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com/api/health
 - **CloudWatch Logs:** https://console.aws.amazon.com/cloudwatch/home?region=ap-southeast-1#logsV2:log-groups
 
 ### Key Files
@@ -702,7 +702,7 @@ aws elasticbeanstalk update-environment \
 
 ### Environment
 - **Region:** ap-southeast-1 (Singapore)
-- **Environment:** anot-backend-prod
+- **Environment:** docva-backend-prod
 - **Node.js:** 22.x
 - **Platform:** Amazon Linux 2023
 
@@ -733,3 +733,4 @@ EB DEPLOYMENT FIXED - ENVIRONMENT HEALTHY - READY FOR SATURDAY ✅
 *Generated: July 10, 2026 11:15 PM*  
 *Version: 1.0*  
 *Status: Ready for execution*
+

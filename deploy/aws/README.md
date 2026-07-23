@@ -1,6 +1,6 @@
-# Anot — AWS Deployment Guide
+﻿# docva — AWS Deployment Guide
 
-Deploy the Anot **backend** to **Elastic Beanstalk** (Node.js on Amazon Linux
+Deploy the docva **backend** to **Elastic Beanstalk** (Node.js on Amazon Linux
 2023, backed by **RDS for PostgreSQL**, with an **S3** bucket for audio) and the
 **frontend** to **S3 + CloudFront**.
 
@@ -103,16 +103,16 @@ Creates `s3://<app>-audio-<account-id>` with **all public access blocked** and
 AES-256 default encryption. Used for durable audio storage/backups.
 
 ### 2. RDS PostgreSQL + security group
-Creates a security group (`anot-db-sg`) that allows port 5432 from inside the
+Creates a security group (`docva-db-sg`) that allows port 5432 from inside the
 VPC, then creates a **`db.t3.micro`**, single-AZ, 20 GB, encrypted PostgreSQL
-instance (`anot-postgres`). The RDS **master user is `anot_app`** (so it doubles
-as the app user) and owns the `anot` database. The generated password is stored
-**only** in SSM Parameter Store (`/anot/db-password`).
+instance (`docva-postgres`). The RDS **master user is `anot_app`** (so it doubles
+as the app user) and owns the `docva` database. The generated password is stored
+**only** in SSM Parameter Store (`/docva/db-password`).
 
 ### 3. Secrets (SSM Parameter Store)
-Creates/uses SecureString parameters: `/anot/jwt-secret`,
-`/anot/settings-encryption-key`, `/anot/anthropic-key`,
-`/anot/deepgram-webhook-secret`, `/anot/db-password`. The JWT secret and
+Creates/uses SecureString parameters: `/docva/jwt-secret`,
+`/docva/settings-encryption-key`, `/docva/anthropic-key`,
+`/docva/deepgram-webhook-secret`, `/docva/db-password`. The JWT secret and
 encryption key are auto-generated with `openssl` if absent.
 
 ### 4. IAM roles
@@ -121,7 +121,7 @@ Web/Worker tier policies + an inline policy for the audio bucket) and the EB
 **service role** (`aws-elasticbeanstalk-service-role`, for enhanced health).
 
 ### 5. Deploy backend to Elastic Beanstalk
-Packages the backend (dropping the monorepo-only `anot-workspace` dependency and
+Packages the backend (dropping the monorepo-only `docva-workspace` dependency and
 adding `.ebextensions`), uploads it as an application version, and creates a
 **SingleInstance `t3.micro`** environment on the latest **Node.js** solution
 stack. All non-CORS env vars (DB connection + secrets) are injected as
@@ -151,7 +151,7 @@ Sets `CORS_ORIGINS=https://<dist>.cloudfront.net` on the backend.
 
 ## Database migrations  ⚠️ run once
 
-SQL migrations live in `anot-backend-main/anot-backend-main/migrations/*.sql` and
+SQL migrations live in `docva-backend-main/docva-backend-main/migrations/*.sql` and
 must be applied in filename order. RDS is **not publicly accessible**, so run
 them from inside the VPC. Two easy options:
 
@@ -160,8 +160,8 @@ available if you install it, or use `node`):
 
 ```bash
 # Install the EB CLI once: pip install awsebcli
-cd anot-backend-main/anot-backend-main
-eb ssh anot-backend-prod        # opens a shell on the instance
+cd docva-backend-main/docva-backend-main
+eb ssh docva-backend-prod        # opens a shell on the instance
 # then, on the instance:
 sudo dnf install -y postgresql15   # client only
 cd /var/app/current
@@ -174,7 +174,7 @@ done
 **Option B — temporarily expose RDS to your IP** (revert afterwards):
 
 ```bash
-DB_INSTANCE_ID=anot-postgres
+DB_INSTANCE_ID=docva-postgres
 MYIP=$(curl -s https://checkip.amazonaws.com)
 SG=$(aws rds describe-db-instances --db-instance-identifier $DB_INSTANCE_ID \
   --query 'DBInstances[0].VpcSecurityGroups[0].VpcSecurityGroupId' --output text)
@@ -182,10 +182,10 @@ aws rds modify-db-instance --db-instance-identifier $DB_INSTANCE_ID --publicly-a
 aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 5432 --cidr ${MYIP}/32
 
 HOST=$(aws rds describe-db-instances --db-instance-identifier $DB_INSTANCE_ID --query 'DBInstances[0].Endpoint.Address' --output text)
-PASS=$(aws ssm get-parameter --name /anot/db-password --with-decryption --query 'Parameter.Value' --output text)
-cd anot-backend-main/anot-backend-main
+PASS=$(aws ssm get-parameter --name /docva/db-password --with-decryption --query 'Parameter.Value' --output text)
+cd docva-backend-main/docva-backend-main
 for f in $(ls migrations/*.sql | sort); do
-  echo "Applying $f"; PGPASSWORD="$PASS" psql "sslmode=require host=$HOST user=anot_app dbname=anot" -f "$f"
+  echo "Applying $f"; PGPASSWORD="$PASS" psql "sslmode=require host=$HOST user=anot_app dbname=docva" -f "$f"
 done
 
 # revert
@@ -207,7 +207,7 @@ Apply the rule in [`s3-audio-lifecycle.json`](./s3-audio-lifecycle.json) to the
 audio bucket (objects expire 90 days after creation):
 
 ```bash
-AUDIO_BUCKET="anot-audio-$(aws sts get-caller-identity --query Account --output text)"
+AUDIO_BUCKET="docva-audio-$(aws sts get-caller-identity --query Account --output text)"
 aws s3api put-bucket-lifecycle-configuration \
   --bucket "$AUDIO_BUCKET" \
   --lifecycle-configuration file://deploy/aws/s3-audio-lifecycle.json
@@ -226,17 +226,17 @@ re-apply, or `aws s3api delete-bucket-lifecycle --bucket "$AUDIO_BUCKET"`.
 **Backend only** (after the first full setup) — repackage and push a new version:
 
 ```bash
-APP=anot-backend ENV=anot-backend-prod
+APP=docva-backend ENV=docva-backend-prod
 STAGE=$(mktemp -d)
-cp -r anot-backend-main/anot-backend-main/. "$STAGE"/
+cp -r docva-backend-main/docva-backend-main/. "$STAGE"/
 rm -rf "$STAGE/node_modules" "$STAGE/src/uploads"
-( cd "$STAGE" && npm pkg delete dependencies.anot-workspace )
+( cd "$STAGE" && npm pkg delete dependencies.docva-workspace )
 mkdir -p "$STAGE/.ebextensions" && cp deploy/aws/ebextensions/.ebextensions/* "$STAGE/.ebextensions/"
-( cd "$STAGE" && zip -qr /tmp/anot-backend.zip . )
+( cd "$STAGE" && zip -qr /tmp/docva-backend.zip . )
 
 BUCKET=$(aws elasticbeanstalk create-storage-location --query S3Bucket --output text)
 VER="manual-$(date +%Y%m%d-%H%M%S)"
-aws s3 cp /tmp/anot-backend.zip "s3://$BUCKET/$APP/$VER.zip"
+aws s3 cp /tmp/docva-backend.zip "s3://$BUCKET/$APP/$VER.zip"
 aws elasticbeanstalk create-application-version --application-name "$APP" --version-label "$VER" \
   --source-bundle "S3Bucket=$BUCKET,S3Key=$APP/$VER.zip" --process
 aws elasticbeanstalk update-environment --environment-name "$ENV" --version-label "$VER"
@@ -245,11 +245,11 @@ aws elasticbeanstalk update-environment --environment-name "$ENV" --version-labe
 **Frontend only:**
 
 ```bash
-DIST=$(aws cloudfront list-distributions --query "DistributionList.Items[?Comment=='anot-anot-backend-prod'].Id | [0]" --output text)
+DIST=$(aws cloudfront list-distributions --query "DistributionList.Items[?Comment=='docva-docva-backend-prod'].Id | [0]" --output text)
 DOMAIN=$(aws cloudfront get-distribution --id "$DIST" --query 'Distribution.DomainName' --output text)
-cd anot-frontend-main/anot-frontend-main
+cd docva-frontend-main/docva-frontend-main
 VITE_API_URL="https://$DOMAIN/api" npm run build
-aws s3 sync dist "s3://anot-frontend-$(aws sts get-caller-identity --query Account --output text)" --delete
+aws s3 sync dist "s3://docva-frontend-$(aws sts get-caller-identity --query Account --output text)" --delete
 aws cloudfront create-invalidation --distribution-id "$DIST" --paths '/*'
 ```
 
@@ -269,10 +269,10 @@ AWS_REGION=ap-southeast-1 DB_CLASS=db.t3.small EB_INSTANCE_TYPE=t3.small \
 Update a secret later and redeploy to pick it up:
 
 ```bash
-aws ssm put-parameter --name /anot/anthropic-key --type SecureString --overwrite --value 'sk-ant-NEWKEY'
+aws ssm put-parameter --name /docva/anthropic-key --type SecureString --overwrite --value 'sk-ant-NEWKEY'
 # Re-set the EB env property from SSM (EB env props are a snapshot, not live):
-VAL=$(aws ssm get-parameter --name /anot/anthropic-key --with-decryption --query 'Parameter.Value' --output text)
-aws elasticbeanstalk update-environment --environment-name anot-backend-prod \
+VAL=$(aws ssm get-parameter --name /docva/anthropic-key --with-decryption --query 'Parameter.Value' --output text)
+aws elasticbeanstalk update-environment --environment-name docva-backend-prod \
   --option-settings "Namespace=aws:elasticbeanstalk:application:environment,OptionName=ANTHROPIC_API_KEY,Value=$VAL"
 ```
 
@@ -281,17 +281,17 @@ aws elasticbeanstalk update-environment --environment-name anot-backend-prod \
 ## Verify
 
 ```bash
-# Backend health check (should return the "Anot API is running" JSON)
-EB_CNAME=$(aws elasticbeanstalk describe-environments --environment-names anot-backend-prod --query 'Environments[0].CNAME' --output text)
+# Backend health check (should return the "docva API is running" JSON)
+EB_CNAME=$(aws elasticbeanstalk describe-environments --environment-names docva-backend-prod --query 'Environments[0].CNAME' --output text)
 curl -s "http://$EB_CNAME/"
 
 # Through CloudFront (HTTPS, once the distribution finishes deploying)
-DIST=$(aws cloudfront list-distributions --query "DistributionList.Items[?Comment=='anot-anot-backend-prod'].Id | [0]" --output text)
+DIST=$(aws cloudfront list-distributions --query "DistributionList.Items[?Comment=='docva-docva-backend-prod'].Id | [0]" --output text)
 DOMAIN=$(aws cloudfront get-distribution --id "$DIST" --query 'Distribution.DomainName' --output text)
 curl -s "https://$DOMAIN/api/"   # routed to the backend
 
 # Tail backend logs
-eb logs anot-backend-prod        # or: aws elasticbeanstalk request-environment-info / retrieve-environment-info
+eb logs docva-backend-prod        # or: aws elasticbeanstalk request-environment-info / retrieve-environment-info
 ```
 
 Open `https://<dist>.cloudfront.net` and log in.
@@ -305,7 +305,7 @@ Open `https://<dist>.cloudfront.net` and log in.
   balancer** (which would otherwise be a fixed hourly cost).
 - **RDS `db.t3.micro`** is Free Tier eligible (750 hrs/month + 20 GB for 12
   months) and runs continuously. For demos, stop it when idle:
-  `aws rds stop-db-instance --db-instance-identifier anot-postgres`
+  `aws rds stop-db-instance --db-instance-identifier docva-postgres`
   (RDS auto-starts stopped instances after 7 days).
 - **S3** is billed by stored volume + requests (Free Tier: 5 GB).
 - **CloudFront** Free Tier includes 1 TB egress + 10M requests/month.
@@ -317,11 +317,11 @@ Open `https://<dist>.cloudfront.net` and log in.
 - **Tighten the RDS security group** to allow 5432 only from the EB instance's
   security group instead of the whole VPC CIDR:
   ```bash
-  EBSG=$(aws elasticbeanstalk describe-environment-resources --environment-name anot-backend-prod \
+  EBSG=$(aws elasticbeanstalk describe-environment-resources --environment-name docva-backend-prod \
     --query 'EnvironmentResources.Instances[0].Id' --output text \
     | xargs -I{} aws ec2 describe-instances --instance-ids {} \
     --query 'Reservations[0].Instances[0].SecurityGroups[0].GroupId' --output text)
-  DBSG=$(aws ec2 describe-security-groups --filters Name=group-name,Values=anot-db-sg --query 'SecurityGroups[0].GroupId' --output text)
+  DBSG=$(aws ec2 describe-security-groups --filters Name=group-name,Values=docva-db-sg --query 'SecurityGroups[0].GroupId' --output text)
   aws ec2 authorize-security-group-ingress --group-id $DBSG --protocol tcp --port 5432 --source-group $EBSG
   aws ec2 revoke-security-group-ingress  --group-id $DBSG --protocol tcp --port 5432 --cidr <your-vpc-cidr>
   ```
@@ -341,10 +341,11 @@ Open `https://<dist>.cloudfront.net` and log in.
 | Symptom | Fix |
 |---------|-----|
 | `JWT_SECRET is required` / app crash-loops | Ensure the EB env properties include `JWT_SECRET` (≥16 chars). Re-run `setup.sh` or set it via `update-environment`. |
-| `Database connection failed at startup` | Check the EB `DB_HOST` matches the RDS endpoint and `anot-db-sg` allows 5432 from the VPC. RDS must be `available`. |
-| `npm install` fails on EB referencing `anot-workspace` | The bundle must have that dependency stripped — `setup.sh` does this; for manual deploys run `npm pkg delete dependencies.anot-workspace` before zipping. |
+| `Database connection failed at startup` | Check the EB `DB_HOST` matches the RDS endpoint and `docva-db-sg` allows 5432 from the VPC. RDS must be `available`. |
+| `npm install` fails on EB referencing `docva-workspace` | The bundle must have that dependency stripped — `setup.sh` does this; for manual deploys run `npm pkg delete dependencies.docva-workspace` before zipping. |
 | Audio fails / `ffmpeg not found` | Confirm the `.ebextensions/nodejs.config` ran (check EB deploy logs); it installs a static ffmpeg into `/usr/local/bin`. |
 | Mixed-content / CORS errors in browser | Make sure the frontend was built with `VITE_API_URL=https://<dist>.cloudfront.net/api` and `CORS_ORIGINS` includes the CloudFront domain. |
 | Login returns **403** with valid CSRF cookie + header in browser | CloudFront `/api/*` must forward `X-CSRF-Token` to Elastic Beanstalk. Run `./fix-cloudfront-csrf-header.sh` (see `setup.sh` for new distributions). |
 | 404 on frontend deep links | The frontend bucket's website error document must be `index.html` (set by `setup.sh`). |
 | CloudFront returns stale assets | Invalidate: `aws cloudfront create-invalidation --distribution-id <id> --paths '/*'`. |
+

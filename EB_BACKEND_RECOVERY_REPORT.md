@@ -1,4 +1,4 @@
-# ELASTIC BEANSTALK BACKEND RECOVERY REPORT
+﻿# ELASTIC BEANSTALK BACKEND RECOVERY REPORT
 **Date:** July 10, 2026
 **Time:** 21:00 UTC+6
 **Recovery Duration:** 6 minutes
@@ -40,7 +40,7 @@ The Elastic Beanstalk backend has been successfully recovered and is now fully o
 
 ### 1. Environment Status
 ```
-Environment: anot-backend-prod
+Environment: docva-backend-prod
 Status: Ready
 Health: Green  
 HealthStatus: Ok
@@ -50,7 +50,7 @@ Instances: 2 (both healthy)
 
 ### 2. Health Endpoint
 ```bash
-URL: https://app.anot.health/api/health
+URL: https://app.docva.health/api/health
 Status: 200 OK
 Response: {"status":"healthy","db":"ok","uptime":382}
 ```
@@ -89,7 +89,7 @@ ELB (HTTP) → Backend Instances
 ### Important Findings
 1. **CloudFront handles HTTPS:** The architecture correctly terminates HTTPS at CloudFront
 2. **Direct EB CNAME HTTPS doesn't work:** This is BY DESIGN - no HTTPS listener on EB load balancer
-3. **Use app.anot.health domain:** Always use `https://app.anot.health` for API access
+3. **Use app.docva.health domain:** Always use `https://app.docva.health` for API access
 4. **Direct LB HTTP works:** `http://awseb-e-g-AWSEBLoa...elb.amazonaws.com` works for internal testing
 
 ---
@@ -144,7 +144,7 @@ ELB (HTTP) → Backend Instances
 **For API calls:**
 ```bash
 # Health check
-curl https://app.anot.health/api/health
+curl https://app.docva.health/api/health
 
 # Response
 {"status":"healthy","db":"ok","uptime":382}
@@ -281,10 +281,10 @@ Error: Admin login failed - not redirected to admin portal
 ║  READY FOR PRODUCTION USE                  ║
 ╚════════════════════════════════════════════╝
 
-Environment: anot-backend-prod
+Environment: docva-backend-prod
 Status: Green ✅
 Health: OK ✅
-API: https://app.anot.health ✅
+API: https://app.docva.health ✅
 Database: Connected ✅
 Response Time: <10ms ✅
 Error Rate: 0% ✅
@@ -297,13 +297,13 @@ Error Rate: 0% ✅
 ## 📞 SUPPORT INFORMATION
 
 ### Working Endpoints
-- **Health:** https://app.anot.health/api/health
-- **Login:** https://app.anot.health/api/auth/login
-- **API Base:** https://app.anot.health/api
+- **Health:** https://app.docva.health/api/health
+- **Login:** https://app.docva.health/api/auth/login
+- **API Base:** https://app.docva.health/api
 
 ### AWS Resources
-- **Environment:** anot-backend-prod
-- **Application:** anot-backend
+- **Environment:** docva-backend-prod
+- **Application:** docva-backend
 - **Version:** v48-nova3-medical-dropdown-20260703-170816
 - **Region:** ap-southeast-1
 - **Load Balancer:** awseb-e-g-AWSEBLoa-1NFND4Y8RLKGM-944630959.ap-southeast-1.elb.amazonaws.com
@@ -317,3 +317,4 @@ Error Rate: 0% ✅
 **Report Generated:** 2026-07-10 21:06:50 UTC
 **Recovery Completed:** 2026-07-10 21:02:00 UTC
 **Backend Status:** ✅ OPERATIONAL
+

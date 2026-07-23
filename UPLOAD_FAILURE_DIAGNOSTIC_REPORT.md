@@ -1,4 +1,4 @@
-# UPLOAD FAILURE DIAGNOSTIC REPORT
+﻿# UPLOAD FAILURE DIAGNOSTIC REPORT
 **Date:** July 11, 2026, 4:20 AM UTC+6  
 **Incident:** Audio upload #16 failed (Visit ID: 501)  
 **Status:** ✅ **ROOT CAUSE IDENTIFIED**
@@ -62,7 +62,7 @@ Server returned an HTML error page instead of API response, indicating:
 
 **Environment Overview:**
 ```
-EnvironmentName: anot-backend-prod
+EnvironmentName: docva-backend-prod
 Status: Ready
 Health: Red ⚠️
 HealthStatus: Degraded ⚠️
@@ -415,7 +415,7 @@ The system proved it can:
 ### AWS Environment Details
 
 **Elastic Beanstalk:**
-- Environment: `anot-backend-prod`
+- Environment: `docva-backend-prod`
 - Platform: Node.js 20 on Amazon Linux 2023
 - Instances: 2 × t3.micro
 - Load Balancer: Application Load Balancer (ALB)
@@ -425,7 +425,7 @@ The system proved it can:
 - `i-02dad1f4fcfb4d9f6` - Remained healthy (33% of uploads)
 
 **RDS Database:**
-- Instance: `anot-postgres`
+- Instance: `docva-postgres`
 - Type: db.t3.micro
 - Status: Available ✅
 
@@ -434,18 +434,18 @@ The system proved it can:
 ```bash
 # Check environment health
 aws elasticbeanstalk describe-environment-health \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --attribute-names All \
   --region ap-southeast-1
 
 # Check nginx error logs
-aws logs tail /aws/elasticbeanstalk/anot-backend-prod/var/log/nginx/error.log \
+aws logs tail /aws/elasticbeanstalk/docva-backend-prod/var/log/nginx/error.log \
   --since 2h \
   --region ap-southeast-1
 
 # Check instance health
 aws elasticbeanstalk describe-instances-health \
-  --environment-name anot-backend-prod \
+  --environment-name docva-backend-prod \
   --region ap-southeast-1
 ```
 
@@ -454,3 +454,4 @@ aws elasticbeanstalk describe-instances-health \
 **Report Generated:** July 11, 2026, 4:20 AM UTC+6  
 **Diagnostic Status:** ✅ COMPLETE  
 **Production Status:** ✅ READY FOR LAUNCH
+

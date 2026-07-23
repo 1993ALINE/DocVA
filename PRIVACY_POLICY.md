@@ -1,15 +1,15 @@
-# Privacy Policy
+﻿# Privacy Policy
 
-**Anot Health**
+**docva Health**
 **Effective Date:** June 16, 2026
 **Version:** 1.0
 
-This Privacy Policy explains what information the Anot Health platform ("Anot Health," "we," "us")
+This Privacy Policy explains what information the docva Health platform ("docva Health," "we," "us")
 collects, how we store and protect it, how long we keep it, and the choices and rights you have. We
-built Anot Health to handle Protected Health Information (PHI) responsibly and in line with HIPAA,
+built docva Health to handle Protected Health Information (PHI) responsibly and in line with HIPAA,
 and we've written this policy in plain language so it's easy to follow.
 
-This policy applies to the Anot Health web application and backend services. It is intended for the
+This policy applies to the docva Health web application and backend services. It is intended for the
 healthcare organizations (our customers) and their workforce members — administrators, clinicians,
 scribes, and quality reviewers — who use the platform.
 
@@ -17,10 +17,10 @@ scribes, and quality reviewers — who use the platform.
 
 ## 1. Who This Policy Is For
 
-Anot Health is a **business associate** to the healthcare providers who use it. Those providers are
+docva Health is a **business associate** to the healthcare providers who use it. Those providers are
 the **covered entities** that own the patient relationship and the clinical record. We process PHI on
 their behalf under a Business Associate Agreement (BAA). Patients with questions about their own
-records should contact their healthcare provider directly; this policy describes how Anot Health, as
+records should contact their healthcare provider directly; this policy describes how docva Health, as
 the technology platform, handles data.
 
 ---
@@ -112,7 +112,7 @@ PHI with any other third party except as required by law or with the covered ent
 
 ## 7. Your Rights and Choices
 
-Because Anot Health acts on behalf of healthcare providers, requests related to a patient's records
+Because docva Health acts on behalf of healthcare providers, requests related to a patient's records
 are generally fulfilled **through the covered entity**. Subject to that relationship, the platform
 supports:
 
@@ -131,7 +131,7 @@ should use the contact below or reach out to their provider.
 
 ## 8. Data Location
 
-Anot Health's infrastructure is hosted on AWS in the **Asia Pacific (Singapore) region**
+docva Health's infrastructure is hosted on AWS in the **Asia Pacific (Singapore) region**
 (`ap-southeast-1`). Some processing by sub-processors (Deepgram, Anthropic) may occur in other
 regions under their respective agreements.
 
@@ -158,9 +158,10 @@ appropriate channels.
 
 Questions or requests about privacy:
 
-- **Privacy / Compliance:** privacy@anot.health
-- **Support:** support@anot.health
-- **Administrator / Security Officer:** admin@anot.health
+- **Privacy / Compliance:** privacy@docva.health
+- **Support:** support@docva.health
+- **Administrator / Security Officer:** admin@docva.health
 
 > **Note:** The governing-law and entity details for contractual purposes are set out in the Terms of
 > Service and the applicable Business Associate Agreement.
+

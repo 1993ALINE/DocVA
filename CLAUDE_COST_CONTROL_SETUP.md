@@ -1,4 +1,4 @@
-# Claude Cost Control - Quick Setup
+﻿# Claude Cost Control - Quick Setup
 
 **Status:** ✅ IMPLEMENTED  
 **Date:** July 12, 2026  
@@ -21,7 +21,7 @@
 
 ### Step 1: Add Environment Variables
 
-Add to `anot-backend-main/.env`:
+Add to `docva-backend-main/.env`:
 
 ```bash
 # Claude Cost Control (add these lines)
@@ -43,7 +43,7 @@ CLAUDE_RATE_LIMIT=30              # 30 calls per minute max
 Run the migration:
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 
 # Using psql (recommended)
 psql -d anot_db -U your_user -f src/migrations/add_claude_usage_log.sql
@@ -64,7 +64,7 @@ psql -d anot_db -c "SELECT COUNT(*) FROM claude_usage_log"
 npm run dev
 
 # Production
-pm2 restart anot-backend
+pm2 restart docva-backend
 ```
 
 **Verify cost tracking is active:**
@@ -81,7 +81,7 @@ pm2 restart anot-backend
 ### Option 1: Real-time Dashboard (Recommended)
 
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 
 # One-time check
 npm run claude:costs
@@ -304,7 +304,7 @@ Budget remaining: $5.00 - $0.05 = $4.95 ✅
 
 **Fix:**
 ```bash
-cd anot-backend-main
+cd docva-backend-main
 psql -d anot_db -f src/migrations/add_claude_usage_log.sql
 ```
 
@@ -339,16 +339,16 @@ psql -d anot_db -f src/migrations/add_claude_usage_log.sql
 ## Files Modified/Created
 
 ### Modified Files
-- ✅ `anot-backend-main/src/services/claudeService.js` - Added cost tracking
-- ✅ `anot-backend-main/src/server.js` - Added API route
-- ✅ `anot-backend-main/.env.example` - Added config documentation
-- ✅ `anot-backend-main/package.json` - Added monitoring scripts
+- ✅ `docva-backend-main/src/services/claudeService.js` - Added cost tracking
+- ✅ `docva-backend-main/src/server.js` - Added API route
+- ✅ `docva-backend-main/.env.example` - Added config documentation
+- ✅ `docva-backend-main/package.json` - Added monitoring scripts
 
 ### New Files
-- ✅ `anot-backend-main/src/migrations/add_claude_usage_log.sql` - Database schema
-- ✅ `anot-backend-main/src/routes/claude-stats.js` - API endpoints
-- ✅ `anot-backend-main/scripts/monitor-claude-costs.js` - Monitoring dashboard
-- ✅ `anot-backend-main/CLAUDE_COST_TRACKING.md` - Full documentation
+- ✅ `docva-backend-main/src/migrations/add_claude_usage_log.sql` - Database schema
+- ✅ `docva-backend-main/src/routes/claude-stats.js` - API endpoints
+- ✅ `docva-backend-main/scripts/monitor-claude-costs.js` - Monitoring dashboard
+- ✅ `docva-backend-main/CLAUDE_COST_TRACKING.md` - Full documentation
 - ✅ `CLAUDE_COST_CONTROL_SETUP.md` - This file
 
 ---
@@ -367,7 +367,7 @@ psql -d anot_db -f src/migrations/add_claude_usage_log.sql
 ## Support
 
 **Documentation:**
-- Full guide: `anot-backend-main/CLAUDE_COST_TRACKING.md`
+- Full guide: `docva-backend-main/CLAUDE_COST_TRACKING.md`
 - Setup: This file
 
 **Monitoring:**
@@ -389,3 +389,4 @@ npm run claude:alert 5      # Alert at $5
 **Implementation Date:** July 12, 2026  
 **Cost to implement:** $0 (all in-house development)  
 **Estimated savings:** Prevents $50-100+ overages
+

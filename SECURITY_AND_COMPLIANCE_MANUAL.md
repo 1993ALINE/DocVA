@@ -1,6 +1,6 @@
-# Anot Health — Security & Compliance Manual
+﻿# docva Health — Security & Compliance Manual
 
-**Document Owner:** Anot Health
+**Document Owner:** docva Health
 **Classification:** Internal — Confidential
 **Version:** 1.0
 **Effective Date:** June 14, 2026
@@ -11,9 +11,9 @@
 
 ## 1. Executive Summary
 
-Anot Health operates a clinical documentation platform that captures, transcribes, and stores
+docva Health operates a clinical documentation platform that captures, transcribes, and stores
 patient encounter audio and AI-generated clinical notes. Because this data constitutes Protected
-Health Information (PHI), Anot Health maintains administrative, physical, and technical safeguards
+Health Information (PHI), docva Health maintains administrative, physical, and technical safeguards
 designed to satisfy the HIPAA Security Rule (45 CFR §164.302–318) and Privacy Rule.
 
 This manual documents the security program as **implemented and verified in production**, not as
@@ -50,7 +50,7 @@ response, access control, and audit/monitoring procedures.
 | **Operational metadata** | Audit logs, IP addresses, user-agent strings, timestamps | Moderate |
 | **System configuration** | Encrypted API keys and integration settings | High |
 
-Anot Health collects only the minimum data necessary to deliver clinical documentation services,
+docva Health collects only the minimum data necessary to deliver clinical documentation services,
 consistent with the HIPAA **Minimum Necessary** standard (§164.502(b)).
 
 ### 2.2 Retention Schedule
@@ -83,7 +83,7 @@ misconfiguration.
 
 ### 3.1 Collection
 
-1. A clinician/scribe records encounter audio through the Anot application over a TLS-encrypted
+1. A clinician/scribe records encounter audio through the docva application over a TLS-encrypted
    connection.
 2. The act of creating a visit is captured as an audit event (`VISIT_CREATED`).
 3. Only data necessary for transcription and note generation is collected (Minimum Necessary).
@@ -99,7 +99,7 @@ misconfiguration.
 
 | Asset | Location | Protection |
 | --- | --- | --- |
-| Audio files | Amazon S3 (`anot-audio-*` bucket) | **AES-256 server-side encryption**; private bucket; access only via short-lived presigned URLs |
+| Audio files | Amazon S3 (`docva-audio-*` bucket) | **AES-256 server-side encryption**; private bucket; access only via short-lived presigned URLs |
 | Database (PHI, notes, users, audit) | Amazon RDS / managed PostgreSQL | **Encryption at rest**; network-restricted |
 | Audit trail | `audit_logs` table | **Append-only**, trigger-enforced; tamper-resistant |
 
@@ -145,9 +145,9 @@ regulators within legally required timelines; and improve controls post-incident
 
 ### 4.3 Escalation Ladder
 
-1. **Discovery** → Anyone who detects an incident reports immediately to **support@anot.health**.
+1. **Discovery** → Anyone who detects an incident reports immediately to **support@docva.health**.
 2. **Triage (within 1 hour)** → Security/On-call lead classifies severity.
-3. **Escalation (SEV-1/SEV-2)** → Notify the **Security Officer / Administrator at admin@anot.health**.
+3. **Escalation (SEV-1/SEV-2)** → Notify the **Security Officer / Administrator at admin@docva.health**.
 4. **Containment** → Authorized administrators isolate affected systems and revoke credentials.
 5. **Notification decision** → Security Officer determines breach status and notification obligations.
 6. **Closure** → Post-incident review filed; corrective actions tracked to completion.
@@ -155,7 +155,7 @@ regulators within legally required timelines; and improve controls post-incident
 ### 4.4 Mandatory Timelines
 
 - **Patient notification:** without unreasonable delay and **no later than 60 days** after discovery
-  (Anot targets initiation within **30 days**).
+  (docva targets initiation within **30 days**).
 - **HHS notification:** within 60 days for breaches affecting **500+ individuals**; annual log for
   smaller breaches.
 
@@ -163,7 +163,7 @@ regulators within legally required timelines; and improve controls post-incident
 
 ## 5. Access Control Policy
 
-Anot Health enforces **role-based access control (RBAC)** with least-privilege defaults. PHI access
+docva Health enforces **role-based access control (RBAC)** with least-privilege defaults. PHI access
 is restricted to authenticated users whose role and module permissions authorize the specific action.
 
 ### 5.1 Role Definitions
@@ -199,7 +199,7 @@ is restricted to authenticated users whose role and module permissions authorize
 
 ### 6.1 Audit Logging (Technical Safeguard — §164.312(b))
 
-Anot Health maintains a comprehensive, tamper-resistant audit trail in the `audit_logs` table.
+docva Health maintains a comprehensive, tamper-resistant audit trail in the `audit_logs` table.
 
 **Events captured include:**
 
@@ -223,7 +223,7 @@ The application connects to PostgreSQL as the table **owner**, which in PostgreS
 role including the owner:
 
 - `trg_audit_logs_append_only` — **UPDATE always rejected**; **DELETE rejected** unless the current
-  transaction sets `anot.allow_audit_purge = 'on'`.
+  transaction sets `docva.allow_audit_purge = 'on'`.
 - `trg_audit_logs_no_truncate` — **TRUNCATE rejected** at the statement level.
 
 This behavior is **verified on production**: arbitrary `UPDATE`/`DELETE`/`TRUNCATE` against
@@ -271,13 +271,14 @@ Sub-processor relationships are reviewed at least annually and upon any change i
 
 | Field | Value |
 | --- | --- |
-| Owner | Anot Health |
-| Approver | Security Officer / Administrator (admin@anot.health) |
+| Owner | docva Health |
+| Approver | Security Officer / Administrator (admin@docva.health) |
 | Review cadence | Annual, or upon material infrastructure/regulatory change |
-| Contacts | support@anot.health · admin@anot.health |
+| Contacts | support@docva.health · admin@docva.health |
 
 **Revision History**
 
 | Version | Date | Author | Summary |
 | --- | --- | --- | --- |
-| 1.0 | 2026-06-14 | Anot Health | Initial audit-ready release reflecting verified production controls |
+| 1.0 | 2026-06-14 | docva Health | Initial audit-ready release reflecting verified production controls |
+

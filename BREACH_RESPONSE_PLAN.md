@@ -1,6 +1,6 @@
-# Anot Health — Breach Response Plan
+﻿# docva Health — Breach Response Plan
 
-**Document Owner:** Anot Health
+**Document Owner:** docva Health
 **Classification:** Internal — Confidential
 **Version:** 1.0
 **Effective Date:** June 14, 2026
@@ -10,8 +10,8 @@
 
 | Role | Contact |
 | --- | --- |
-| First report / triage | **support@anot.health** |
-| Security Officer / escalation | **admin@anot.health** |
+| First report / triage | **support@docva.health** |
+| Security Officer / escalation | **admin@docva.health** |
 
 > This is an **actionable playbook**. When an incident is suspected, start at Phase 1 and work down.
 > Do not wait for certainty — contain first, confirm later.
@@ -26,7 +26,7 @@ Know the signs. A breach may be surfacing if you see any of the following.
 | --- | --- | --- |
 | **Suspicious audit logs** | `/api/audit`, audit summary | Spike in `LOGIN_FAILED`; PHI reads (`VISITS_VIEWED`) from an unexpected user/IP; `VISIT_DELETED` or `USER_DELETED` you can't account for |
 | **Authentication anomalies** | Audit trail, rate-limit hits | Logins from unfamiliar IPs/regions; repeated lockouts; off-hours admin access |
-| **User reports** | support@anot.health | "I got logged out," "I see another patient's note," lost/stolen device, phished credentials |
+| **User reports** | support@docva.health | "I got logged out," "I see another patient's note," lost/stolen device, phished credentials |
 | **System/monitoring alerts** | Sentry, CloudWatch | Audit-write failure alerts (`reportAuditFailure`), unexpected error spikes, S3/RDS access anomalies |
 | **Third-party notice** | Email from vendor | Deepgram/Anthropic/AWS reporting a security event |
 
@@ -38,8 +38,8 @@ Know the signs. A breach may be surfacing if you see any of the following.
 
 **Goal: stop the bleeding and preserve evidence.**
 
-1. **Acknowledge & assign.** First responder logs the incident and notifies **support@anot.health**.
-   For any suspected PHI exposure, escalate to **admin@anot.health** immediately (target: within 1 hour).
+1. **Acknowledge & assign.** First responder logs the incident and notifies **support@docva.health**.
+   For any suspected PHI exposure, escalate to **admin@docva.health** immediately (target: within 1 hour).
 2. **Classify severity** (see manual: SEV-1 confirmed/likely PHI exposure → SEV-4 low).
 3. **Stop the breach:**
    - **Compromised credentials** → reset the affected password(s), force re-authentication, revoke
@@ -84,14 +84,14 @@ Know the signs. A breach may be surfacing if you see any of the following.
 
 ## Phase 3 — Patient Notification
 
-**Timeline: without unreasonable delay, and no later than 60 days after discovery. Anot Health
+**Timeline: without unreasonable delay, and no later than 60 days after discovery. docva Health
 targets initiating notification within 30 days.**
 
 Notify affected individuals in **plain language**, by first-class mail (or email if the individual
 agreed to electronic notice).
 
 **Required content (per §164.404(c)):** a brief description of what happened; the types of PHI
-involved; steps individuals should take to protect themselves; what Anot Health is doing to
+involved; steps individuals should take to protect themselves; what docva Health is doing to
 investigate, mitigate, and prevent recurrence; and contact information.
 
 ### Template Notification Letter
@@ -106,7 +106,7 @@ health information. We take the privacy and security of your information serious
 explain what happened and what we are doing about it.
 
 WHAT HAPPENED
-On [date of discovery], Anot Health identified [brief, non-technical description of the incident].
+On [date of discovery], docva Health identified [brief, non-technical description of the incident].
 
 WHAT INFORMATION WAS INVOLVED
 The information that may have been involved includes: [e.g., your name, encounter audio,
@@ -119,15 +119,15 @@ steps to prevent a recurrence, including [specific safeguards strengthened].
 
 WHAT YOU CAN DO
 [e.g., Remain alert for suspicious activity; we recommend you monitor any related accounts.]
-You do not need to take any action to keep using Anot Health services.
+You do not need to take any action to keep using docva Health services.
 
 FOR MORE INFORMATION
-If you have questions, please contact us at support@anot.health or admin@anot.health.
+If you have questions, please contact us at support@docva.health or admin@docva.health.
 
 We sincerely apologize for any concern this may cause.
 
 Sincerely,
-Anot Health
+docva Health
 ```
 
 ---
@@ -184,8 +184,8 @@ Within **2 weeks** of containment, the Security Officer leads a review.
 ## Quick-Reference Flow
 
 ```
-Detect ──► Report (support@anot.health)
-              │  escalate SEV-1/2 ──► admin@anot.health
+Detect ──► Report (support@docva.health)
+              │  escalate SEV-1/2 ──► admin@docva.health
               ▼
         Contain (reset creds, isolate, PRESERVE logs)
               ▼
@@ -198,3 +198,4 @@ Detect ──► Report (support@anot.health)
               ▼
         Post-incident review (root cause + fixes)
 ```
+
