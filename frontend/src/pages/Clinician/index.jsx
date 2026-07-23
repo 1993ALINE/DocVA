@@ -953,9 +953,9 @@ function AudioVisitTabs({ visits, activeVisitId, onSelect, fmtTime }) {
             fontWeight:600,
             cursor:'pointer',
             border:'2px solid',
-            background: activeVisitId === v.id ? 'linear-gradient(135deg,#4260E9,#7B61FF)' : '#fff',
+            background: activeVisitId === v.id ? 'linear-gradient(135deg,#0B1F42,#2F6FED)' : '#fff',
             color: activeVisitId === v.id ? '#fff' : '#64748B',
-            borderColor: activeVisitId === v.id ? '#4260E9' : '#E2E8F0',
+            borderColor: activeVisitId === v.id ? '#0B1F42' : '#E2E8F0',
             minHeight: 44,
           }}
         >
@@ -971,7 +971,7 @@ function AudioRecordingTabs({ count, idx, onSelect }) {
   return (
     <div className="cl-audio-modal__rec-tabs" style={{ display:'flex', gap:8, marginBottom:20, flexWrap:'wrap' }}>
       {Array.from({ length: count }, (_, i) => (
-        <button key={i} type="button" className="cl-audio-modal__rec-tab" onClick={() => onSelect(i)} style={{ padding:'10px 16px', borderRadius:10, fontSize:14, fontWeight:600, cursor:'pointer', border:'2px solid', background: idx===i ? 'linear-gradient(135deg,#4260E9,#7B61FF)' : '#fff', color: idx===i ? '#fff' : '#64748B', borderColor: idx===i ? '#4260E9' : '#E2E8F0', minHeight: 44 }}>
+        <button key={i} type="button" className="cl-audio-modal__rec-tab" onClick={() => onSelect(i)} style={{ padding:'10px 16px', borderRadius:10, fontSize:14, fontWeight:600, cursor:'pointer', border:'2px solid', background: idx===i ? 'linear-gradient(135deg,#0B1F42,#2F6FED)' : '#fff', color: idx===i ? '#fff' : '#64748B', borderColor: idx===i ? '#0B1F42' : '#E2E8F0', minHeight: 44 }}>
           Rec {i+1}
         </button>
       ))}
@@ -985,14 +985,14 @@ function AudioPlaybackControls({ status, playing, cur, dur, onToggle, onSkip, on
     <div className="cl-audio-modal__controls" style={{ display:'flex', alignItems:'center', gap:12 }}>
       <div className="cl-audio-modal__transport">
         <button type="button" className="cl-audio-modal__skip" onClick={() => onSkip(-10)} style={{ padding:'10px 16px', borderRadius:10, background:'#E2E8F0', border:'none', fontSize:14, fontWeight:700, cursor:'pointer', color:'#475569' }}>−10s</button>
-        <button type="button" className="cl-audio-modal__play" onClick={onToggle} style={{ width:52, height:52, borderRadius:'50%', background:'linear-gradient(135deg,#4260E9,#7B61FF)', color:'#fff', border:'none', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+        <button type="button" className="cl-audio-modal__play" onClick={onToggle} style={{ width:52, height:52, borderRadius:'50%', background:'linear-gradient(135deg,#0B1F42,#2F6FED)', color:'#fff', border:'none', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
           {status === 'loading' ? '⏳' : playing ? '⏸' : '▶'}
         </button>
         <button type="button" className="cl-audio-modal__skip" onClick={() => onSkip(10)} style={{ padding:'10px 16px', borderRadius:10, background:'#E2E8F0', border:'none', fontSize:14, fontWeight:700, cursor:'pointer', color:'#475569' }}>+10s</button>
       </div>
       <div className="cl-audio-modal__progress" style={{ flex:1 }}>
         <div className="cl-audio-modal__progress-track" onClick={onSeek} onTouchEnd={onSeek} role="slider" aria-valuemin={0} aria-valuemax={dur} aria-valuenow={Math.floor(cur)} style={{ height:8, background:'#E2E8F0', borderRadius:4, cursor:'pointer', overflow:'hidden' }}>
-          <div style={{ height:'100%', background:'linear-gradient(90deg,#4260E9,#7B61FF)', width:`${prog}%`, transition:'width 0.3s linear', borderRadius:4 }} />
+          <div style={{ height:'100%', background:'linear-gradient(90deg,#0B1F42,#2F6FED)', width:`${prog}%`, transition:'width 0.3s linear', borderRadius:4 }} />
         </div>
         <div style={{ display:'flex', justifyContent:'space-between', marginTop:4, fontSize:12, color:'#94A3B8', fontWeight:500 }}>
           <span>{audiofmt(cur)}</span>
@@ -1007,7 +1007,7 @@ function AudioTranscriptionFooter({ txSt, txLabel, txBusy, onSendToScribe }) {
   return (
     <div className="cl-audio-modal__footer" style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #E2E8F0', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, justifyContent: 'space-between' }}>
       {txLabel ? <StatusBadge label={txLabel} className={transcriptionStatusBadgeClass(txSt)} /> : <span />}
-      <button type="button" disabled={txBusy} onClick={onSendToScribe} style={{ marginLeft: 'auto', padding: '12px 16px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#4260E9,#7B61FF)', color: '#fff', fontSize: 14, fontWeight: 600, cursor: txBusy ? 'wait' : 'pointer', opacity: txBusy ? 0.7 : 1, fontFamily: 'inherit', minHeight: 44 }}>
+      <button type="button" disabled={txBusy} onClick={onSendToScribe} style={{ marginLeft: 'auto', padding: '12px 16px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#0B1F42,#2F6FED)', color: '#fff', fontSize: 14, fontWeight: 600, cursor: txBusy ? 'wait' : 'pointer', opacity: txBusy ? 0.7 : 1, fontFamily: 'inherit', minHeight: 44 }}>
         {txBusy ? 'Sending…' : 'Send to scribe'}
       </button>
     </div>
@@ -1197,7 +1197,7 @@ function AIModalHeader({ visit, hideAudioControls, txBadge, txSt, txBusy, loadin
             <StatusBadge label={txBadge} className={transcriptionStatusBadgeClass(txSt)} />
           ) : null}
           {!hideAudioControls && visit.audio_file ? (
-            <button type="button" disabled={txBusy || loading} onClick={onRunTx} style={{ padding: '8px 14px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#4260E9,#7B61FF)', color: '#fff', fontSize: 12, fontWeight: 600, cursor: txBusy ? 'wait' : 'pointer', opacity: txBusy ? 0.75 : 1, fontFamily: 'inherit' }}>
+            <button type="button" disabled={txBusy || loading} onClick={onRunTx} style={{ padding: '8px 14px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#0B1F42,#2F6FED)', color: '#fff', fontSize: 12, fontWeight: 600, cursor: txBusy ? 'wait' : 'pointer', opacity: txBusy ? 0.75 : 1, fontFamily: 'inherit' }}>
               {txBusy ? 'Sending…' : 'Send to scribe'}
             </button>
           ) : null}
@@ -1213,7 +1213,7 @@ function AIModalTabBar({ tab, onTabChange, hideAudioControls }) {
   return (
     <div style={{ display:'flex', borderBottom:'1px solid #E2E8F0', padding:'0 24px' }}>
       {[['ai','Scribe draft'],['transcription','Transcript']].map(([k,l]) => (
-        <button key={k} onClick={() => onTabChange(k)} style={{ padding:'12px 0', marginRight:24, fontSize:14, fontWeight: tab===k ? 700 : 400, color: tab===k ? '#4260E9' : '#94A3B8', background:'none', border:'none', borderBottom: tab===k ? '2px solid #4260E9' : '2px solid transparent', cursor:'pointer', fontFamily:'inherit' }}>{l}</button>
+        <button key={k} onClick={() => onTabChange(k)} style={{ padding:'12px 0', marginRight:24, fontSize:14, fontWeight: tab===k ? 700 : 400, color: tab===k ? '#0B1F42' : '#94A3B8', background:'none', border:'none', borderBottom: tab===k ? '2px solid #0B1F42' : '2px solid transparent', cursor:'pointer', fontFamily:'inherit' }}>{l}</button>
       ))}
     </div>
   )
@@ -1249,7 +1249,7 @@ function AIModalTranscriptContent({ txts, recIdx, onRecIdxChange }) {
       {txts.length > 1 && (
         <div style={{ display:'flex', gap:8, marginBottom:16 }}>
           {txts.map((_, i) => (
-            <button key={i} onClick={() => onRecIdxChange(i)} style={{ padding:'6px 16px', borderRadius:10, fontSize:13, fontWeight:600, cursor:'pointer', border:'2px solid', background: recIdx===i ? 'linear-gradient(135deg,#4260E9,#7B61FF)' : '#fff', color: recIdx===i ? '#fff' : '#64748B', borderColor: recIdx===i ? '#4260E9' : '#E2E8F0' }}>Rec {i+1}</button>
+            <button key={i} onClick={() => onRecIdxChange(i)} style={{ padding:'6px 16px', borderRadius:10, fontSize:13, fontWeight:600, cursor:'pointer', border:'2px solid', background: recIdx===i ? 'linear-gradient(135deg,#0B1F42,#2F6FED)' : '#fff', color: recIdx===i ? '#fff' : '#64748B', borderColor: recIdx===i ? '#0B1F42' : '#E2E8F0' }}>Rec {i+1}</button>
           ))}
         </div>
       )}
@@ -1738,7 +1738,7 @@ function ClinicianTopbar({
 // ─── BUTTON STYLES ────────────────────────────────────────────────────────────
 
 const _B = {
-  primary: { display:'inline-flex', alignItems:'center', gap:8, padding:'10px 20px', borderRadius:12, background:'linear-gradient(135deg,#4260E9,#7B61FF)', color:'#fff', border:'none', fontSize:14, fontWeight:700, cursor:'pointer', fontFamily:'inherit', boxShadow:'0 4px 14px rgba(66,96,233,.35)' },
+  primary: { display:'inline-flex', alignItems:'center', gap:8, padding:'10px 20px', borderRadius:12, background:'linear-gradient(135deg,#0B1F42,#2F6FED)', color:'#fff', border:'none', fontSize:14, fontWeight:700, cursor:'pointer', fontFamily:'inherit', boxShadow:'0 4px 14px rgba(47,111,237,.35)' },
   outline: { display:'inline-flex', alignItems:'center', gap:8, padding:'10px 20px', borderRadius:12, background:'#fff', color:'#475569', border:'1.5px solid #E2E8F0', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'inherit' },
   action:  { display:'inline-flex', alignItems:'center', gap:6, padding:'9px 16px', borderRadius:10, fontSize:13, fontWeight:700, cursor:'pointer', border:'none', fontFamily:'inherit', whiteSpace:'nowrap' },
   small:   { padding:'7px 14px', borderRadius:10, fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'inherit' },
@@ -2792,7 +2792,7 @@ function Clinician() {
               <div className="sf-card__title">My activity</div>
               <div className="sf-metric-grid">
                 {[
-                  [encDayLabel, todayEnc, '#4260E9'],
+                  [encDayLabel, todayEnc, '#0B1F42'],
                   ['With Scribe', pendingEnc, '#FFB547'],
                   ['Completed', completedEnc, '#00C896'],
                 ].map(([label, val, color]) => (

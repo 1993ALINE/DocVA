@@ -22,7 +22,7 @@ html, body, #root { height: 100%; }
     --danger-light: #FFE8ED;
     --bg-main: #F4F7FF;
     --bg-card: #FFFFFF;
-    --bg-section: #EEF2FF;
+    --bg-section: #EBEDF0;
     --bg-dark: #0F172A;
     --sidebar-bg: #111827;
     --text-main: #1E293B;
@@ -559,7 +559,7 @@ h1, h2, h3, h4, .sf-topbar-title { font-family: 'Poppins', system-ui, sans-serif
 }
 
 .sf-account-menu__trigger:focus-visible {
-    outline: 2px solid var(--brand-focus-ring, #4260e9);
+    outline: 2px solid var(--brand-focus-ring, #0b1f42);
     outline-offset: 3px;
 }
 
@@ -1476,8 +1476,8 @@ button.sf-back:hover { text-decoration: underline; }
 }
 
 .sf-note-toolbar__btn:hover:not(:disabled) {
-    border-color: rgba(66, 96, 233, 0.5);
-    box-shadow: 0 4px 16px rgba(66, 96, 233, 0.15);
+    border-color: rgba(47, 111, 237, 0.5);
+    box-shadow: 0 4px 16px rgba(47, 111, 237, 0.15);
     transform: translateY(-1px);
 }
 
@@ -1502,8 +1502,8 @@ button.sf-back:hover { text-decoration: underline; }
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid rgba(66, 96, 233, 0.2);
-    border-top-color: #4260e9;
+    border: 2px solid rgba(47, 111, 237, 0.2);
+    border-top-color: #0b1f42;
     animation: sf-spin 0.7s linear infinite;
     flex-shrink: 0;
 }

@@ -418,7 +418,7 @@
 
 .adm-auditpro-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px var(--brand-glow-soft, rgba(66, 96, 233, 0.18));
+    box-shadow: 0 4px 14px var(--brand-glow-soft, rgba(47, 111, 237, 0.18));
 }
 
 .adm-auditpro-btn--ghost {
@@ -526,7 +526,7 @@
     bottom: 4px;
     width: 2px;
     border-radius: 2px;
-    background: linear-gradient(180deg, var(--brand-primary), var(--brand-secondary, #7b61ff));
+    background: linear-gradient(180deg, var(--brand-primary), var(--brand-secondary, #2f6fed));
     opacity: 0.35;
 }
 

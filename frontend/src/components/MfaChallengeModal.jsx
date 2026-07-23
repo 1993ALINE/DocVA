@@ -167,7 +167,7 @@ const S = {
     width: 44,
     height: 44,
     borderRadius: 10,
-    background: '#eef2ff',
+    background: '#ebedf0',
     color: '#4338ca',
     display: 'flex',
     alignItems: 'center',

@@ -168,11 +168,11 @@ function getRegisterUserErrorMessage(err) {
 
 /** Primary brand palette — align with CSS :root (--brand-primary / --brand-secondary) */
 const BRAND = {
-    root: '#4260E9',
-    light: '#6D84F5',
-    deep: '#2D49C7',
-    secondary: '#7B61FF',
-    secondaryLight: '#9D8DFF',
+    root: '#0B1F42',
+    light: '#4F5E77',
+    deep: '#081832',
+    secondary: '#2F6FED',
+    secondaryLight: '#6997F2',
     muted: '#64748b',
 }
 
@@ -183,12 +183,12 @@ const SEM = {
 }
 
 const ROLE_CFG = {
-    clinician:    { label: 'Clinician',    bg: '#EEF2FF', color: BRAND.deep, icon: '🩺' },
+    clinician:    { label: 'Clinician',    bg: '#EBEDF0', color: BRAND.deep, icon: '🩺' },
     scribe:       { label: 'Scribe',       bg: '#F5F3FF', color: BRAND.secondary, icon: '📝' },
     qps:          { label: 'QPS',          bg: '#EDE9FE', color: '#5b21b6', icon: '✅' },
-    admin:        { label: 'Admin',        bg: '#EEF2FF', color: BRAND.root, icon: '⚙️' },
+    admin:        { label: 'Admin',        bg: '#EBEDF0', color: BRAND.root, icon: '⚙️' },
     super_admin:  { label: 'Super Admin',  bg: '#FEF3C7', color: '#b45309', icon: '👑' },
-    elevated:     { label: 'Administrator', bg: '#EEF2FF', color: BRAND.root, icon: '⚙️' },
+    elevated:     { label: 'Administrator', bg: '#EBEDF0', color: BRAND.root, icon: '⚙️' },
 }
 
 const NAV = [
@@ -263,8 +263,8 @@ const DEFAULT_SETTINGS_FORM = {
     x_url: '',
     logo_data_url: '',
     favicon_data_url: '',
-    primary_color: '#4260E9',
-    secondary_color: '#7B61FF',
+    primary_color: '#0B1F42',
+    secondary_color: '#2F6FED',
     system_description: 'Clinical documentation platform',
     audit_retention_days: 2555,
     transcribe_enabled: false,
@@ -635,7 +635,7 @@ function AdminUserTableRow({
                 <span
                     className="adm-badge"
                     style={{
-                        background: u.status === 'active' ? '#d1fae5' : '#eef2ff',
+                        background: u.status === 'active' ? '#d1fae5' : '#ebedf0',
                         color: u.status === 'active' ? '#065f46' : '#64748b',
                     }}
                 >
@@ -2050,7 +2050,7 @@ function Admin() {
                                                         <span
                                                             className="adm-badge"
                                                             style={{
-                                                                background: p.status === 'active' ? '#d1fae5' : '#eef2ff',
+                                                                background: p.status === 'active' ? '#d1fae5' : '#ebedf0',
                                                                 color: p.status === 'active' ? '#065f46' : '#64748b',
                                                             }}
                                                         >

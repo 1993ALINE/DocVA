@@ -316,9 +316,9 @@
 }
 
 .scribe-portal .scribe-status-badge--ehr {
-  background: #eef2ff;
-  color: #4260e9;
-  border: 1px solid #4260e9;
+  background: #ebedf0;
+  color: #0b1f42;
+  border: 1px solid #0b1f42;
 }
 
 .scribe-portal .scribe-note-readonly__ehr {
@@ -492,14 +492,14 @@
   width: 100%;
   padding: 14px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #4260e9, #7b61ff);
+  background: linear-gradient(135deg, #0b1f42, #2f6fed);
   color: #fff;
   border: none;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  box-shadow: 0 4px 14px rgba(66, 96, 233, 0.35);
+  box-shadow: 0 4px 14px rgba(47, 111, 237, 0.35);
 }
 
 .scribe-portal .scribe-date-nav__day--today:not(.active) {
@@ -519,7 +519,7 @@
   border-radius: 8px;
   font-size: 12px;
   font-weight: 500;
-  background: #eef2ff;
+  background: #ebedf0;
   color: #64748b;
   border: 1px solid #e2e8f0;
   cursor: pointer;
@@ -636,7 +636,7 @@
 }
 
 .scribe-portal .scribe-final-note--readonly {
-  background: #eef2ff;
+  background: #ebedf0;
 }
 
 .scribe-portal .scribe-ai-draft-readonly.scribe-final-note--readonly {
@@ -751,7 +751,7 @@
 }
 
 .scribe-portal .scribe-save-draft-btn:hover:not(:disabled) {
-  background: #eef2ff;
+  background: #ebedf0;
   border-color: #4338ca;
   color: #4338ca;
 }
@@ -1128,7 +1128,7 @@
 }
 
 .patient-visit-tabs__tab.is-active {
-  background: linear-gradient(135deg, #4260e9, #7b61ff);
+  background: linear-gradient(135deg, #0b1f42, #2f6fed);
   color: #fff;
-  border-color: #4260e9;
+  border-color: #0b1f42;
 }

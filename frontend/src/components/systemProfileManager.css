@@ -27,7 +27,7 @@
   right: 0;
   top: 0;
   height: 3px;
-  background: linear-gradient(90deg, #4260e9, #7b61ff, #0d9488);
+  background: linear-gradient(90deg, #0b1f42, #2f6fed, #0d9488);
   opacity: 0.95;
   pointer-events: none;
 }
@@ -70,14 +70,14 @@
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.95);
   box-shadow:
-    0 0 0 1px rgba(66, 96, 233, 0.15),
+    0 0 0 1px rgba(47, 111, 237, 0.15),
     0 10px 28px rgba(15, 23, 42, 0.12);
 }
 
 .pm-avatar--placeholder {
   display: grid;
   place-items: center;
-  background: linear-gradient(145deg, #4260e9, #7b61ff);
+  background: linear-gradient(145deg, #0b1f42, #2f6fed);
   color: #fff;
   font-weight: 800;
   font-size: 1.65rem;
@@ -90,12 +90,12 @@
   font-size: 0.625rem;
   padding: 0.35rem 0.55rem;
   border-radius: 999px;
-  border: 1px solid rgba(66, 96, 233, 0.35);
+  border: 1px solid rgba(47, 111, 237, 0.35);
   background: #fff;
-  color: #2d49c7;
+  color: #081832;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(66, 96, 233, 0.2);
+  box-shadow: 0 4px 12px rgba(47, 111, 237, 0.2);
 }
 
 .pm-title {
@@ -180,8 +180,8 @@
 }
 
 .pm-input:focus {
-  border-color: #4260e9;
-  box-shadow: 0 0 0 3px rgba(66, 96, 233, 0.18);
+  border-color: #0b1f42;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.18);
 }
 
 .pm-textarea {
@@ -223,8 +223,8 @@
   font-size: 0.8125rem;
   font-weight: 700;
   color: #fff;
-  background: var(--gradient-btn, linear-gradient(135deg, #4260e9, #7b61ff));
-  box-shadow: 0 8px 22px rgba(66, 96, 233, 0.3);
+  background: var(--gradient-btn, linear-gradient(135deg, #0b1f42, #2f6fed));
+  box-shadow: 0 8px 22px rgba(47, 111, 237, 0.3);
   cursor: pointer;
   font-family: inherit;
 }

@@ -1142,7 +1142,7 @@
 .adm-stat-card--premium.tone-amber { background: linear-gradient(170deg, color-mix(in srgb, var(--brand-primary) 5%, #fffbeb), rgba(255, 255, 255, 0.9)); }
 .adm-stat-card--premium.tone-green { background: linear-gradient(170deg, rgba(240, 253, 244, 0.95), rgba(255, 255, 255, 0.9)); }
 .adm-stat-card--premium.tone-rose { background: linear-gradient(170deg, rgba(255, 241, 242, 0.95), rgba(255, 255, 255, 0.9)); }
-.adm-stat-card--premium.tone-indigo { background: linear-gradient(170deg, color-mix(in srgb, var(--brand-secondary) 7%, #eef2ff), rgba(255, 255, 255, 0.88)); }
+.adm-stat-card--premium.tone-indigo { background: linear-gradient(170deg, color-mix(in srgb, var(--brand-secondary) 7%, #ebedf0), rgba(255, 255, 255, 0.88)); }
 
 @keyframes adm-count-in {
     from {
@@ -1418,7 +1418,7 @@
 }
 
 .adm-btn-action--modules {
-    color: var(--brand-primary, #4260e9);
+    color: var(--brand-primary, #0b1f42);
     background: color-mix(in srgb, var(--brand-primary) 8%, rgba(238, 242, 255, 0.98));
     border-color: color-mix(in srgb, var(--brand-primary) 28%, rgba(148, 163, 184, 0.35));
 }

@@ -1139,8 +1139,8 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--brand-primary-dark);
-  background: rgba(66, 96, 233, 0.1);
-  border: 1px solid rgba(66, 96, 233, 0.2);
+  background: rgba(47, 111, 237, 0.1);
+  border: 1px solid rgba(47, 111, 237, 0.2);
 }
 
 .cl-templates-intro__text {
@@ -1329,7 +1329,7 @@
 .cl-template-editor:focus {
   outline: none;
   border-color: var(--brand-primary);
-  box-shadow: 0 0 0 3px rgba(66, 96, 233, 0.2);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.2);
 }
 
 .cl-template-preview {
@@ -1395,7 +1395,7 @@
   font-weight: 700;
   color: #fff;
   background: var(--gradient-btn);
-  box-shadow: 0 8px 28px rgba(66, 96, 233, 0.35);
+  box-shadow: 0 8px 28px rgba(47, 111, 237, 0.35);
 }
 
 .cl-profile-hero__text {
@@ -1479,8 +1479,8 @@
   align-items: center;
   justify-content: center;
   font-size: 1.125rem;
-  background: rgba(66, 96, 233, 0.08);
-  border: 1px solid rgba(66, 96, 233, 0.12);
+  background: rgba(47, 111, 237, 0.08);
+  border: 1px solid rgba(47, 111, 237, 0.12);
 }
 
 .cl-profile-field__body {
@@ -3082,8 +3082,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #4260e9;
-  background: #eef2ff;
+  color: #0b1f42;
+  background: #ebedf0;
   padding: 2px 8px;
   border-radius: 6px;
 }
@@ -3107,8 +3107,8 @@
 }
 
 .patient-visit-tabs__tab.is-active {
-  background: linear-gradient(135deg, #4260e9, #7b61ff);
+  background: linear-gradient(135deg, #0b1f42, #2f6fed);
   color: #fff;
-  border-color: #4260e9;
+  border-color: #0b1f42;
 }
 
