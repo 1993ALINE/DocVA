@@ -14,7 +14,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
-  background: #4f46e5 !important;
+  background: #0b1f42 !important;
   background-image: none !important;
   border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 6px 0 32px rgba(79, 70, 229, 0.25) !important;
@@ -192,7 +192,7 @@
   .adm-shell.sf-portal.qps-portal
 ) .sf-sidebar--rich.adm-sidebar .sf-sidebar-rich__nav-badge {
   background: #fff !important;
-  color: #4F46E5 !important;
+  color: #0B1F42 !important;
   font-size: 11px !important;
   font-weight: 700 !important;
   border-radius: 20px !important;
@@ -287,7 +287,7 @@
   .adm-shell.sf-portal.scribe-portal,
   .adm-shell.sf-portal.qps-portal
 ) .sf-sidebar--rich.adm-sidebar .adm-sidebar-footer__card {
-  background: #3730a3 !important;
+  background: #081832 !important;
   background-image: none !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: none !important;

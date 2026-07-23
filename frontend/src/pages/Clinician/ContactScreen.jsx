@@ -26,7 +26,7 @@ const inputBaseStyle = {
 }
 const buttonStyle = {
   width: '100%',
-  background: '#4F46E5',
+  background: '#0B1F42',
   color: '#FFFFFF',
   border: 'none',
   borderRadius: 8,
@@ -47,7 +47,7 @@ export default function ContactScreen({ currentUser, showToast }) {
   const [sent, setSent] = useState(false)
 
   const handleFocus = (e) => {
-    e.target.style.borderColor = '#4F46E5'
+    e.target.style.borderColor = '#0B1F42'
   }
   const handleBlur = (e) => {
     e.target.style.borderColor = '#E5E7EB'

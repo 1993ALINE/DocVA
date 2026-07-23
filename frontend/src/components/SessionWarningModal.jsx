@@ -74,7 +74,7 @@ export default function SessionWarningModal({ remaining, expiresAt, onStayLogged
           onClick={onStayLoggedIn}
           style={{
             width: '100%',
-            background: '#4F46E5',
+            background: '#0B1F42',
             color: '#fff',
             border: 'none',
             borderRadius: 8,

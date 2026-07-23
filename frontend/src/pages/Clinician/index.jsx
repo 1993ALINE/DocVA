@@ -2930,7 +2930,7 @@ function Clinician() {
                           padding: '10px 20px',
                           borderRadius: '8px',
                           border: 'none',
-                          background: '#3B82F6',
+                          background: '#2F6FED',
                           color: 'white',
                           fontWeight: 600,
                           fontSize: '14px',
@@ -3011,7 +3011,7 @@ function Clinician() {
                       fontSize: '13px',
                       lineHeight: '1.6',
                       padding: '16px',
-                      border: '2px solid #4F46E5',
+                      border: '2px solid #0B1F42',
                       borderRadius: '8px',
                       resize: 'vertical',
                     }}
@@ -3128,11 +3128,11 @@ function Clinician() {
                     gap: 6,
                     whiteSpace: 'nowrap',
                     background: notesActiveFilterCount > 0 ? '#EFF6FF' : 'white',
-                    border: `1px solid ${notesActiveFilterCount > 0 ? '#4F46E5' : '#E5E7EB'}`,
+                    border: `1px solid ${notesActiveFilterCount > 0 ? '#0B1F42' : '#E5E7EB'}`,
                     borderRadius: 6,
                     padding: '6px 12px',
                     fontSize: 13,
-                    color: notesActiveFilterCount > 0 ? '#4F46E5' : '#374151',
+                    color: notesActiveFilterCount > 0 ? '#0B1F42' : '#374151',
                     cursor: 'pointer',
                   }}
                 >
