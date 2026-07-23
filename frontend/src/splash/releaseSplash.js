@@ -5,14 +5,14 @@
 import { hasValidSession, getStoredUserRaw } from '../utils/sessionAuth'
 
 export function releaseSplash() {  if (typeof document === 'undefined') {return}
-  const splash = document.getElementById('docva-splash')
+  const splash = document.getElementById('anot-splash')
   if (!splash) {
     document.body.classList.add('docva-app-ready')
     return
   }
   if (splash.dataset.anotReleased === '1') {return}
   splash.dataset.anotReleased = '1'
-  splash.classList.add('docva-splash--exit')
+  splash.classList.add('anot-splash--exit')
   splash.setAttribute('aria-busy', 'false')
   window.setTimeout(() => {
     splash.remove()
