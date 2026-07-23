@@ -1,4 +1,4 @@
-﻿const fs = require('fs')
+const fs = require('fs')
 const path = require('path')
 const { getPublicErrorMessage, sendHttpError } = require('../utils/errorMessages')
 const pool = require('../config/db')
@@ -27,7 +27,7 @@ const {
 } = require('../utils/auditRetentionPolicy')
 
 const DEFAULT_SETTINGS = {
-  system_name: 'docva',
+  system_name: 'DOCVA',
   system_email: '',
   phone: '',
   address: '',
@@ -77,7 +77,7 @@ async function ensureSettingsTable() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS system_settings (
       id                INTEGER PRIMARY KEY DEFAULT 1,
-      system_name       TEXT NOT NULL DEFAULT 'docva',
+      system_name       TEXT NOT NULL DEFAULT 'DOCVA',
       system_email      TEXT,
       phone             TEXT,
       address           TEXT,
@@ -99,6 +99,9 @@ async function ensureSettingsTable() {
     INSERT INTO system_settings (id)
     VALUES (1)
     ON CONFLICT (id) DO NOTHING
+  `)
+  await pool.query(`
+    UPDATE system_settings SET system_name = 'DOCVA' WHERE system_name IN ('Anot', 'docva')
   `)
   await addColumnIfMissing(
     'system_settings',

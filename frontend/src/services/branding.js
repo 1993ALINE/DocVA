@@ -1,11 +1,11 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { settingsAPI } from './api'
 
 /** Static fallback when `logo_data_url` is empty — file in `public/brand/`. */
 export const DEFAULT_BRAND_LOGO_SRC = '/brand/docva-logo.jfif'
 
 export const DEFAULT_BRANDING = {
-  system_name: 'docva',
+  system_name: 'DOCVA',
   system_email: '',
   phone: '',
   address: '',
@@ -20,7 +20,7 @@ export const DEFAULT_BRANDING = {
   system_description: 'Clinical documentation platform',
 }
 
-const STORAGE_KEY = 'anot_branding_settings'
+const STORAGE_KEY = 'docva_branding_settings'
 const EVENT_NAME = 'docva:branding-updated'
 
 export function normalizeBranding(data = {}) {
@@ -45,7 +45,7 @@ export function applyBrandingToDocument(settings) {
   const s = normalizeBranding(settings)
   document.documentElement.style.setProperty('--brand-primary', s.primary_color || DEFAULT_BRANDING.primary_color)
   document.documentElement.style.setProperty('--brand-secondary', s.secondary_color || DEFAULT_BRANDING.secondary_color)
-  document.title = `${s.system_name || 'docva'}`
+  document.title = `${s.system_name || 'DOCVA'}`
 
   if (s.favicon_data_url) {
     let link = document.querySelector("link[rel='icon']")

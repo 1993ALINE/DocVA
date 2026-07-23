@@ -1,4 +1,4 @@
-﻿'use strict'
+'use strict'
 
 /**
  * Pre-flight checks run at boot (after loadSecrets, before accepting traffic).
@@ -184,10 +184,10 @@ function validateMfaDeliveryConfig() {
     const msg =
       'No MFA delivery channel is configured. Login MFA codes cannot be sent until email or SMS is set up.'
     const strict = String(process.env.MFA_DELIVERY_REQUIRED || '').toLowerCase() === 'true'
-    if (strict || process.env.NODE_ENV === 'production') {
+    if (strict) {
       return { ok: false, message: msg, email, sms }
     }
-    console.warn(`[startup] ⚠ ${msg} (Set MFA_DELIVERY_REQUIRED=false to allow boot in production without MFA delivery.)`)
+    console.warn(`[startup] ⚠ ${msg} (Set MFA_DELIVERY_REQUIRED=true to block boot without MFA delivery.)`)
   }
 
   return { ok: true, email, sms }

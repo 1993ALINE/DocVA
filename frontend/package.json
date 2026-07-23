@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "docva",
   "private": true,
   "version": "0.0.0",
@@ -38,4 +38,3 @@
     "esbuild": ">=0.28.1"
   }
 }
-

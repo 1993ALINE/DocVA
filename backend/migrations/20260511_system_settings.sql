@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS system_settings (
   id                 INTEGER PRIMARY KEY DEFAULT 1,
-  system_name        TEXT NOT NULL DEFAULT 'Anot',
+  system_name        TEXT NOT NULL DEFAULT 'DOCVA',
   system_email       TEXT,
   phone              TEXT,
   address            TEXT,

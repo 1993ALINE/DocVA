@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, lazy, Suspense, useMemo } from 'react'
+import { useState, useEffect, useCallback, lazy, Suspense, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authAPI, usersAPI, adminAPI, settingsAPI, assignmentsAPI, API_BASE } from '../../services/api'
 import { fetchCsrfToken } from '../../utils/csrf'
@@ -249,7 +249,7 @@ function formatCustomVocabularyText(raw) {
 }
 
 const DEFAULT_SETTINGS_FORM = {
-    system_name: 'docva',
+    system_name: 'DOCVA',
     system_email: '',
     phone: '',
     address: '',
