@@ -4,17 +4,17 @@ html, body, #root { height: 100%; }
 
 /* ── Design system (medical SaaS / Anot) ───────────────── */
 :root {
-    --brand-primary: #4260E9;
-    --brand-primary-light: #6D84F5;
-    --brand-primary-dark: #2D49C7;
-    --brand-primary-ultra-light: #EEF2FF;
-    --brand-secondary: #7B61FF;
-    --brand-secondary-light: #9D8DFF;
+    --brand-primary: #0B1F42;
+    --brand-primary-light: #4F5E77;
+    --brand-primary-dark: #081832;
+    --brand-primary-ultra-light: #EBEDF0;
+    --brand-secondary: #2F6FED;
+    --brand-secondary-light: #6997F2;
     --brand-sky: #4FACFE;
     --brand-soft-blue: #8EA2FF;
-    --gradient-hero: linear-gradient(135deg, #4260E9 0%, #5B6DF5 45%, #7B61FF 100%);
-    --gradient-btn: linear-gradient(135deg, #4260E9, #7B61FF);
-    --gradient-btn-hover: linear-gradient(135deg, #2D49C7, #6847FF);
+    --gradient-hero: linear-gradient(135deg, #0B1F42 0%, #163775 45%, #2F6FED 100%);
+    --gradient-btn: linear-gradient(135deg, #0B1F42, #2F6FED);
+    --gradient-btn-hover: linear-gradient(135deg, #081832, #2454B4);
     --success: #00C896;
     --success-light: #DDFBF3;
     --warning: #FFB547;

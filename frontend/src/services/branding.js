@@ -15,8 +15,8 @@ export const DEFAULT_BRANDING = {
   social_links: {},
   logo_data_url: '',
   favicon_data_url: '',
-  primary_color: '#2563eb',
-  secondary_color: '#0d9488',
+  primary_color: '#0B1F42',
+  secondary_color: '#2F6FED',
   system_description: 'Clinical documentation platform',
 }
 
