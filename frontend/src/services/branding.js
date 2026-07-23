@@ -41,10 +41,50 @@ export function getCachedBranding() {
   }
 }
 
+/** Parse '#rgb' or '#rrggbb' into an [r,g,b] triple; falls back to black. */
+function hexToRgb(hex) {
+  const m = String(hex || '').trim().replace(/^#/, '')
+  const full = m.length === 3 ? m.split('').map((c) => c + c).join('') : m
+  const n = parseInt(full, 16)
+  if (full.length !== 6 || Number.isNaN(n)) {return [0, 0, 0]}
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+
+function rgbToHex([r, g, b]) {
+  const c = (v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')
+  return `#${c(r)}${c(g)}${c(b)}`
+}
+
+/** Mix a hex color toward white (ratio > 0) or black (ratio < 0) by |ratio| (0-1). */
+function mix(hex, ratio, toward = [255, 255, 255]) {
+  const [r, g, b] = hexToRgb(hex)
+  const t = Math.max(0, Math.min(1, Math.abs(ratio)))
+  return rgbToHex([
+    r + (toward[0] - r) * t,
+    g + (toward[1] - g) * t,
+    b + (toward[2] - b) * t,
+  ])
+}
+
+/** Derive the full brand palette from just primary/secondary so every CSS
+ * variable in global.css (which used to be hardcoded to the old default
+ * blue) actually tracks whatever color is saved in Settings. */
+function applyBrandColors(primary, secondary) {
+  const root = document.documentElement.style
+  root.setProperty('--brand-primary', primary)
+  root.setProperty('--brand-primary-light', mix(primary, 0.28))
+  root.setProperty('--brand-primary-dark', mix(primary, 0.24, [0, 0, 0]))
+  root.setProperty('--brand-primary-ultra-light', mix(primary, 0.92))
+  root.setProperty('--brand-secondary', secondary)
+  root.setProperty('--brand-secondary-light', mix(secondary, 0.28))
+  root.setProperty('--gradient-hero', `linear-gradient(135deg, ${primary} 0%, ${mix(primary, 0.3, hexToRgb(secondary))} 45%, ${secondary} 100%)`)
+  root.setProperty('--gradient-btn', `linear-gradient(135deg, ${primary}, ${secondary})`)
+  root.setProperty('--gradient-btn-hover', `linear-gradient(135deg, ${mix(primary, 0.24, [0, 0, 0])}, ${mix(secondary, 0.24, [0, 0, 0])})`)
+}
+
 export function applyBrandingToDocument(settings) {
   const s = normalizeBranding(settings)
-  document.documentElement.style.setProperty('--brand-primary', s.primary_color || DEFAULT_BRANDING.primary_color)
-  document.documentElement.style.setProperty('--brand-secondary', s.secondary_color || DEFAULT_BRANDING.secondary_color)
+  applyBrandColors(s.primary_color || DEFAULT_BRANDING.primary_color, s.secondary_color || DEFAULT_BRANDING.secondary_color)
   document.title = `${s.system_name || 'DOCVA'}`
 
   if (s.favicon_data_url) {
