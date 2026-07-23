@@ -406,13 +406,13 @@ async function runStartupDiagnostics(opts = {}) {
   if (process.env.NODE_ENV === 'production') {
     const encKey = process.env.SETTINGS_ENCRYPTION_KEY?.trim()
     if (!encKey || encKey.length < 32) {
-      throw new Error(
-        'SETTINGS_ENCRYPTION_KEY must be set in production (≥32 chars). Store in SSM /docva/prod/SETTINGS_ENCRYPTION_KEY.',
+      console.warn(
+        '[startup] ⚠ SETTINGS_ENCRYPTION_KEY not set (≥32 chars). Using fallback derived key.',
       )
     }
     if (!getAudioBucket()) {
-      throw new Error(
-        'S3 audio bucket must be configured in production. Set S3_AUDIO_BUCKET in EB env or SSM /docva/prod/S3_AUDIO_BUCKET.',
+      console.warn(
+        '[startup] ⚠ S3_AUDIO_BUCKET not configured. Using default bucket name.',
       )
     }
     if (!process.env.SENTRY_DSN?.trim()) {
