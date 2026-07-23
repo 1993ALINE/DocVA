@@ -7,7 +7,7 @@ import { hasValidSession, getStoredUserRaw } from '../utils/sessionAuth'
 export function releaseSplash() {  if (typeof document === 'undefined') {return}
   const splash = document.getElementById('anot-splash')
   if (!splash) {
-    document.body.classList.add('docva-app-ready')
+    document.body.classList.add('anot-app-ready')
     return
   }
   if (splash.dataset.anotReleased === '1') {return}
@@ -16,7 +16,7 @@ export function releaseSplash() {  if (typeof document === 'undefined') {return}
   splash.setAttribute('aria-busy', 'false')
   window.setTimeout(() => {
     splash.remove()
-    document.body.classList.add('docva-app-ready')
+    document.body.classList.add('anot-app-ready')
   }, 420)
 }
 
