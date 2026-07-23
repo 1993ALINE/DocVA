@@ -33,6 +33,14 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // Cross-origin requests (e.g. Google Fonts) are subject to the page's
+  // connect-src CSP when re-issued via fetch() from here, even though the
+  // browser's native font/stylesheet load is allowed under font-src/style-src.
+  // Let the browser handle those directly instead of proxying through the SW.
+  if (url.origin !== self.location.origin) {
+    return
+  }
+
   if (url.pathname.includes('/assets/') || /\.(js|css|png|jpg|jpeg|svg|webp|woff2?)$/i.test(url.pathname)) {
     event.respondWith(
       caches.match(request).then((cached) => cached || fetch(request).then((response) => {
