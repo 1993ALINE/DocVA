@@ -1,4 +1,4 @@
-﻿{
+{
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -8,7 +8,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob:; connect-src 'self' https://app.docva.health https://api.docva.health https://d3t0m4s0ayca85.cloudfront.net https://docva-backend-prod.eba-m2bjp2gp.ap-southeast-1.elasticbeanstalk.com; font-src 'self' https://fonts.gstatic.com; media-src 'self' blob:; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; connect-src 'self' https://*.onrender.com https://docva-backend.onrender.com https://app.docva.health https://api.docva.health; font-src 'self' https://fonts.gstatic.com; media-src 'self' blob:; base-uri 'self'; form-action 'self';"
         },
         {
           "key": "Strict-Transport-Security",
@@ -26,4 +26,3 @@
     }
   ]
 }
-
