@@ -178,6 +178,7 @@ function mapAiSettings(row) {
       ? !!row.transcribe_auto_transcribe_on_upload
       : !!row.deepgram_auto_transcribe_on_upload,
     anthropic_api_key_set: !!(anthropicEnc && String(anthropicEnc).length > 0),
+    deepgram_api_key_set: !!(row.deepgram_api_key_enc && String(row.deepgram_api_key_enc).length > 0),
     anthropic_enabled: row.anthropic_enabled !== false,
     anthropic_model: ANTHROPIC_MODELS.has(model) ? model : AI_DEFAULTS.anthropic_model,
     ffmpeg_enabled: !!row.ffmpeg_enabled,
@@ -295,6 +296,18 @@ const updateSettings = async (req, res) => {
       newAnthropicKeySaved = true
     }
 
+    let deepgram_api_key_enc = cur.deepgram_api_key_enc || null
+    let newDeepgramKeySaved = false
+    if (payload.deepgram_clear_api_key === true) {
+      deepgram_api_key_enc = null
+    } else if (payload.deepgram_api_key != null && String(payload.deepgram_api_key).trim()) {
+      deepgram_api_key_enc = encryptString(String(payload.deepgram_api_key).trim())
+      if (!deepgram_api_key_enc) {
+        return res.status(500).json({ error: getPublicErrorMessage(500, new Error('encryption failed')) })
+      }
+      newDeepgramKeySaved = true
+    }
+
     let anthropic_enabled =
       payload.anthropic_enabled !== undefined ? !!payload.anthropic_enabled : cur.anthropic_enabled !== false
     if (payload.anthropic_clear_api_key === true) {
@@ -369,6 +382,7 @@ const updateSettings = async (req, res) => {
       transcribe_show_speaker_labels,
       transcribe_auto_transcribe_on_upload,
       deepgram_model,
+      deepgram_api_key_enc,
       anthropic_enabled,
       anthropic_api_key_enc,
       anthropic_model,
@@ -407,6 +421,7 @@ const updateSettings = async (req, res) => {
       transcribe_show_speaker_labels,
       transcribe_auto_transcribe_on_upload,
       deepgram_model,
+      deepgram_api_key_enc,
       anthropic_enabled,
       anthropic_api_key_enc,
       anthropic_model,
@@ -447,6 +462,10 @@ const updateSettings = async (req, res) => {
       if (norm(prevVal) !== norm(nextVal)) {
         cloudWatchAudit.logSettingChange(req.user.id, req.user.role, name, norm(prevVal), norm(nextVal), req.clientIp)
       }
+    }
+    if (newDeepgramKeySaved || payload.deepgram_clear_api_key === true) {
+      cloudWatchAudit.logSettingChange(req.user.id, req.user.role, 'deepgram_api_key',
+        cur.deepgram_api_key_enc ? 'set' : 'unset', deepgram_api_key_enc ? 'set' : 'cleared', req.clientIp)
     }
     if (newAnthropicKeySaved || payload.anthropic_clear_api_key === true) {
       cloudWatchAudit.logSettingChange(req.user.id, req.user.role, 'anthropic_api_key',
