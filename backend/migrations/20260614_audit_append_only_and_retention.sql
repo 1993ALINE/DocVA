@@ -9,7 +9,7 @@
 -- of role — including for the owner — so we enforce append-only with triggers.
 --
 -- The retention purge is the single sanctioned deleter. It opts in for its own
--- transaction via the `anot.allow_audit_purge` GUC, which the trigger checks.
+-- transaction via the `docva.allow_audit_purge` GUC, which the trigger checks.
 
 -- ── Defense-in-depth: drop privileges for non-owner roles (no-op for owner) ──
 REVOKE UPDATE, DELETE, TRUNCATE ON audit_logs FROM PUBLIC;
@@ -22,7 +22,7 @@ BEGIN
         RAISE EXCEPTION 'audit_logs is append-only: UPDATE is not permitted';
     END IF;
     -- DELETE path: only the retention job may proceed.
-    IF current_setting('anot.allow_audit_purge', true) = 'on' THEN
+    IF current_setting('docva.allow_audit_purge', true) = 'on' THEN
         RETURN OLD;
     END IF;
     RAISE EXCEPTION 'audit_logs is append-only: DELETE is only permitted via the retention purge';
