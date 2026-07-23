@@ -21,10 +21,16 @@ function parseJwtExpiresInToMs(expiresIn) {
   return n * (unit || 3_600_000)
 }
 
+// Frontend (Vercel) and backend (Render) are on different registrable
+// domains — a genuinely cross-site deployment, not just cross-subdomain.
+// SameSite=strict/lax cookies are never sent back on cross-site requests,
+// so this must be 'none' (requires Secure, already true in production) for
+// the session cookie to round-trip at all. Restoring 'strict' requires
+// putting frontend and backend back on the same registrable domain.
 function sessionCookieOptions() {
   return {
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     maxAge: parseJwtExpiresInToMs(process.env.JWT_EXPIRES_IN),
@@ -39,7 +45,7 @@ function setSessionCookie(res, token) {
 function clearSessionCookie(res) {
   const opts = {
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
   }

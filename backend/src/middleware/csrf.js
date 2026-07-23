@@ -39,10 +39,13 @@ function isValidToken(token) {
   return typeof token === 'string' && TOKEN_REGEX.test(token)
 }
 
+// See sessionCookie.js for why this can't be 'strict': frontend (Vercel) and
+// backend (Render) are cross-site, and a SameSite=strict/lax cookie is never
+// sent back on a cross-site request, breaking the double-submit check.
 function csrfCookieOptions() {
   return {
     httpOnly: false,
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     maxAge: COOKIE_MAX_AGE_MS,
@@ -58,7 +61,7 @@ function setCsrfCookie(res, token) {
 function clearCsrfCookie(res) {
   const opts = {
     httpOnly: false,
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
   }
@@ -217,7 +220,7 @@ function csrfTokenRoute(req, res) {
   if (process.env.NODE_ENV === 'production') {
     const opts = {
       httpOnly: false,
-      sameSite: 'strict',
+      sameSite: 'none',
       secure: true,
       path: '/',
     }
