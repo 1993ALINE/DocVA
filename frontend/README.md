@@ -1,16 +1,77 @@
-# React + Vite
+# DocVA Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend application for DocVA, a role-based clinical documentation platform.
 
-Currently, two official plugins are available:
+## Technology
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* React
+* Vite
+* React Router
+* JavaScript / JSX
+* CSS
+* Vitest
+* ESLint
 
-## React Compiler
+## Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```text
+src/
+├── __tests__/
+├── assets/
+├── auth/
+├── components/
+├── pages/
+├── services/
+├── splash/
+├── utils/
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+```
 
-## Expanding the ESLint configuration
+## Application Areas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend provides role-based interfaces and shared application functionality for:
+
+* Clinicians
+* Medical scribes
+* QPS / quality review
+* Administrators
+* Super administrators
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Run linting:
+
+```bash
+npm run lint
+```
+
+## Configuration
+
+Environment-specific configuration is provided through environment files.
+
+Do not commit production credentials, API keys, passwords, private keys, or other sensitive information.
+
+## Related Backend
+
+The DocVA backend is located in the repository's `backend/` directory and provides the REST API, authentication, database integration, file handling, AI/transcription integrations, and background processing.
