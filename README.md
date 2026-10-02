@@ -1,126 +1,264 @@
-﻿# docva — full stack workspace
+# DocVA
 
-![Deploy Status](https://github.com/1993ALINE/docva/actions/workflows/deploy.yml/badge.svg)
+A full-stack clinical documentation platform built with React, Vite, Node.js, Express, PostgreSQL, and cloud-based AI services.
 
-**CI/CD:** Automated tests on every push to `main`; **production backend deploy is manual** ([runbook](docs/DEPLOYMENT_RUNBOOK.md)).
+DocVA is designed to support clinical documentation workflows from patient visit audio through transcription, note preparation, review, and administrative management.
 
-## What this project is
+## Overview
 
-**docva** is a **clinical documentation** platform: care teams capture **visit audio**, produce **structured notes** (transcription via **Deepgram**, with optional **AI** draft via **Anthropic Claude**), and move work through **scribe → QPS review** flows. **Clinicians** (physicians) manage **patients and visits**; **admins** handle **users, assignments, payroll, and audit**.
+DocVA provides a role-based workspace for healthcare documentation teams.
 
-It is built as **two packages** in one workspace—**not** two unrelated apps:
+The platform supports:
 
-| Part | Stack | Role |
-|------|--------|------|
-| **Backend** (`docva-backend-main/docva-backend-main`) | Node, Express, PostgreSQL, JWT | REST API, file/audio, AI pipeline |
-| **Frontend** (`docva-frontend-main/docva-frontend-main`) | React 19, Vite, React Router | Role-based SPA (clinician, scribe, QPS, admin, super admin) |
+* Clinician workflows for patients and visits
+* Audio capture and upload for clinical encounters
+* Speech-to-text transcription using Deepgram
+* Optional AI-assisted documentation using Anthropic Claude
+* Scribe documentation and review workflows
+* QPS quality review workflows
+* Administrative user and assignment management
+* Audit and operational workflows
+* Customer and visit data management
+* Background job processing
+* File storage and secure document access
+* Monitoring, testing, and deployment tooling
 
-**Why two folders?** The code is often split across two Git repos (API vs UI). Locally they are **merged operationally**: same product, shared API contract (`/api/...`), run together against one dev database.
+## Technology Stack
 
-**Roadmap (incremental):** Improve the **clinician (“doctor”)** experience in **small steps**—layout, typography, visit flows—without breaking scribe/QPS/admin.
+### Frontend
 
-## Documentation (deploy)
+* React
+* Vite
+* React Router
+* JavaScript / JSX
+* CSS
+* Service/API integration
+* Vitest
 
-| Guide | Path |
-|-------|------|
-| **Localhost setup** | [`deploy/LOCALHOST_SETUP.md`](deploy/LOCALHOST_SETUP.md) |
-| **Amazon AWS deployment** | [`deploy/AWS_DEPLOYMENT.md`](deploy/AWS_DEPLOYMENT.md) |
-| **cPanel deployment** | [`deploy/CPANEL_DEPLOYMENT.md`](deploy/CPANEL_DEPLOYMENT.md) |
-| **Index** | [`deploy/README.md`](deploy/README.md) |
-| **CI/CD pipeline** | [`docs/CI_CD_PIPELINE.md`](docs/CI_CD_PIPELINE.md) |
-| **Deployment runbook** | [`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md) |
+### Backend
 
-## Layout on disk
+* Node.js
+* Express 5
+* PostgreSQL
+* JWT authentication
+* bcrypt
+* REST API architecture
+* Request validation and middleware
+* File upload handling
 
-GitHub zips often unpack with a nested folder. Your workspace uses:
+### AI & Speech
+
+* Deepgram Speech-to-Text
+* Anthropic Claude
+* AI-assisted clinical documentation workflows
+
+### Cloud & Infrastructure
+
+* AWS S3
+* AWS Systems Manager
+* AWS CloudWatch Logs
+* Redis
+* Bull background jobs
+* Sentry monitoring
+* Vercel
+* Docker / deployment configuration
+
+### Testing & Quality
+
+* Jest
+* Playwright
+* Vitest
+* ESLint
+* Load-testing utilities
+* Database migration tooling
+
+## Application Architecture
 
 ```text
-docva/                                    ← repo root (this README)
-  .env                                   ← optional copy of DATABASE_URL (gitignored)
-  docva-backend-main/
-    docva-backend-main/                   ← Node API: npm install / npm run dev
-      .env                               ← DATABASE_URL, JWT_SECRET (gitignored)
-      src/server.js
-  docva-frontend-main/
-    docva-frontend-main/                  ← Vite app: npm install / npm run dev
-      .env.local                         ← VITE_API_URL (gitignored)
-      src/
+DocVA
+├── frontend/
+│   ├── src/
+│   │   ├── __tests__/
+│   │   ├── assets/
+│   │   ├── auth/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── splash/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── public/
+│   ├── scripts/
+│   ├── package.json
+│   └── vite.config.js
+│
+└── backend/
+    ├── src/
+    │   ├── __tests__/
+    │   ├── config/
+    │   ├── controllers/
+    │   ├── middleware/
+    │   ├── migrations/
+    │   ├── routes/
+    │   ├── services/
+    │   ├── startup/
+    │   ├── utils/
+    │   └── server.js
+    ├── migrations/
+    ├── scripts/
+    ├── Dockerfile
+    ├── package.json
+    └── .env.example
 ```
 
-## Local development
+## Key Engineering Areas
 
-From the **repo root** (`docva`), install everything once, then start **API + web** together:
+### Role-Based Workflows
 
-```powershell
-Set-Location "C:\Users\Jp Asher\Documents\GitHub\docva"
+The application supports separate workflows for:
+
+* Clinicians
+* Medical scribes
+* QPS / quality review
+* Administrators
+* Super administrators
+
+### Audio & Transcription Pipeline
+
+Clinical encounter audio can be processed through a backend workflow involving:
+
+```text
+Audio Upload
+     ↓
+Backend Processing
+     ↓
+Cloud Storage
+     ↓
+Speech-to-Text
+     ↓
+Optional AI Documentation
+     ↓
+Clinical Review
+     ↓
+Final Documentation
+```
+
+Deepgram is used for speech-to-text processing, while Anthropic Claude can be used for AI-assisted documentation.
+
+### Backend Architecture
+
+The Express backend is organized into controllers, routes, middleware, services, configuration, migrations, startup logic, utilities, and automated tests.
+
+This structure separates API handling, business logic, infrastructure integrations, and shared backend functionality.
+
+### Background Processing
+
+Redis and Bull are used for background job processing and asynchronous workloads.
+
+### Cloud Storage
+
+AWS S3 integrations support application file storage and controlled access to stored resources.
+
+### Monitoring
+
+Sentry and AWS CloudWatch integrations provide application and infrastructure monitoring capabilities.
+
+## Local Development
+
+### Prerequisites
+
+* Node.js
+* npm
+* PostgreSQL
+* Redis
+* Required third-party service credentials
+
+### Install
+
+Clone the repository and install dependencies for both applications.
+
+```bash
 npm install
 npm run install:all
+```
+
+### Environment Configuration
+
+Create the required environment files from the provided examples.
+
+Do not commit production credentials, API keys, database passwords, private certificates, or other secrets.
+
+### Start Development
+
+```bash
 npm run dev
 ```
 
-- **API:** `http://127.0.0.1:5000/` (health JSON)  
-- **App:** URL printed by Vite (often `http://localhost:5173`) — sign in at **`/login`**. **`/`** redirects by session/role.
+The frontend and backend can then be accessed through their configured development ports.
 
-On localhost the client uses **`http://127.0.0.1:5000/api`** by default — see `docva-frontend-main/docva-frontend-main/src/services/api.js`. Override with **`VITE_API_URL`** / **`VITE_USE_LOCAL_API`** in `.env.local` — [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md).
+## Testing
 
-**“Failed to fetch” / “Cannot reach the API”:** [deploy/LOCALHOST_SETUP.md#12-troubleshooting-localhost](deploy/LOCALHOST_SETUP.md#12-troubleshooting-localhost). Quick checks: API still running; open `http://127.0.0.1:5000/`; use the Vite URL from the terminal if port 5173 is busy.
+Backend tests:
 
-**Run services separately** (two terminals) if you prefer:
-
-```powershell
-# Terminal 1
-Set-Location ".\docva-backend-main\docva-backend-main"
-npm install
-npm run dev
-
-# Terminal 2
-Set-Location ".\docva-frontend-main\docva-frontend-main"
-npm install
-npm run dev
+```bash
+cd backend
+npm test
 ```
 
-### Dev test accounts (disposable DB only)
+Backend linting:
 
-With **`DATABASE_URL`** in **`docva-backend-main\docva-backend-main\.env`** pointing at your **dev** database:
-
-```powershell
-# From repo root
-npm run seed:dev
-
-# Or from the backend folder
-Set-Location ".\docva-backend-main\docva-backend-main"
-npm run seed:dev
+```bash
+cd backend
+npm run lint
 ```
 
-That creates or updates the accounts below (and prints the same details in the terminal). **Never run this against production.** Manual run: `ALLOW_DEV_SEED=true node scripts/seed-dev-users.js` from the backend folder.
-
-**Seeded roles** (`scripts/seed-dev-users.js` → `users.role` in the database):
-
-| Email | Password | Role (DB) | Portal after login |
-|-------|----------|-----------|-------------------|
-| `clinician@dev.docva.local` | `DevClinician!2026` | `clinician` | Doctor/clinician workspace (`/clinician`) |
-| `scribe@dev.docva.local` | `DevScribe!2026` | `scribe` | Scribe (`/scribe`) |
-| `qps@dev.docva.local` | `DevQps!2026` | `qps` | QPS (`/qps`) |
-| `admin@dev.docva.local` | `DevAdmin!2026` | `admin` | Admin (`/admin`) |
-| `superadmin@dev.docva.local` | `DevSuperAdmin!2026` | `super_admin` | Super Admin (`/admin`) |
-
-Sign-in is always at **`/login`**; the app routes by **`role`** from the server — no role choice on the login page.
-
-## Environment
-
-| Location | Purpose |
-|----------|---------|
-| `docva-backend-main/docva-backend-main/.env` | `DATABASE_URL`, `JWT_SECRET`, optional `ANTHROPIC_API_KEY`, `PORT` |
-| `docva-frontend-main/docva-frontend-main/.env.local` | Optional. On **localhost** / **127.0.0.1**, the app uses **`http://127.0.0.1:5000/api`** by default unless **`VITE_USE_LOCAL_API=false`**. See [deploy/LOCALHOST_SETUP.md](deploy/LOCALHOST_SETUP.md). |
-
-Use your **Neon dev** database only for local work; production is separate.
-
-## Upstream repos
-
-- Frontend: `https://github.com/1993ALINE/docva-frontend.git`
-- Backend: `https://github.com/1993ALINE/docva-backend.git`
+Frontend tests and checks can be run using the scripts defined in the frontend package configuration.
 
 ## Security
 
-Do not commit `.env` / `.env.local`. Rotate any database password that has been exposed outside your team.
+The application includes security-related engineering practices such as:
 
+* JWT-based authentication
+* Password hashing
+* HTTP security headers
+* CORS configuration
+* Rate limiting
+* Environment-based configuration
+* Controlled file access
+* Audit-related application functionality
+* Error and application monitoring
+
+This repository should not contain real patient information, production credentials, private keys, certificates, database dumps, or other sensitive information.
+
+## Project Structure
+
+DocVA follows a separated frontend/backend architecture that allows the user interface, API layer, business services, database access, cloud integrations, and background processing to evolve independently.
+
+The project also includes deployment configuration, database migrations, automated testing, operational scripts, and monitoring utilities.
+
+## Portfolio Highlights
+
+This project demonstrates experience with:
+
+* Full-stack JavaScript development
+* React application architecture
+* REST API development
+* PostgreSQL database applications
+* Authentication and authorization
+* Cloud storage integration
+* Speech-to-text API integration
+* AI API integration
+* Background job processing
+* Role-based application workflows
+* Automated testing
+* Application monitoring
+* Production deployment configuration
+
+## Project Status
+
+DocVA is an actively developed clinical documentation platform with a production-oriented architecture and ongoing improvements to the clinician experience.
+
+> This repository is presented as a software engineering portfolio project. Any production or healthcare deployment should be evaluated separately for applicable security, privacy, regulatory, and organizational requirements.
